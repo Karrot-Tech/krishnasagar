@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "title": "108 Namavali",
+        "singer": "Unknown",
+        "category": "Mantra",
+        "url": "https://sai.org.in/sites/default/files/108_namavali.mp3",
+        "cover": ""
+    },
+    {
+        "id": 2,
+        "title": "Akra Wachan",
+        "singer": "Unknown",
+        "category": "Reading",
+        "url": "https://sai.org.in/sites/default/files/akrawachan.mp3",
+        "cover": ""
+    },
+    {
+        "id": 3,
+        "title": "Ghoshna",
+        "singer": "Unknown",
+        "category": "Chant",
+        "url": "https://sai.org.in/sites/default/files/ghoshna.mp3",
+        "cover": ""
+    },
+    {
+        "id": 4,
+        "title": "Sainath Stavan Manjiri",
+        "singer": "Unknown",
+        "category": "Stotra",
+        "url": "https://sai.org.in/sites/default/files/sainath_%20stavan_manjiri_mp3.mp3",
+        "cover": ""
+    },
+    {
+        "id": 5,
+        "title": "Vishnu Sahasranama",
+        "singer": "Unknown",
+        "category": "Stotra",
+        "url": "https://sai.org.in/sites/default/files/vishnusahasranama.mp3",
+        "cover": ""
+    },
+    {
+        "id": 6,
+        "title": "Guru Pathache Abhang Part 1",
+        "singer": "Unknown",
+        "category": "Abhang",
+        "url": "https://sai.org.in/sites/default/files/1part.mp3",
+        "cover": ""
+    },
+    {
+        "id": 7,
+        "title": "Guru Pathache Abhang Part 2",
+        "singer": "Unknown",
+        "category": "Abhang",
+        "url": "https://sai.org.in/sites/default/files/2part.mp3",
+        "cover": ""
+    },
+    {
+        "id": 8,
+        "title": "Guru Pathache Abhang Part 3",
+        "singer": "Unknown",
+        "category": "Abhang",
+        "url": "https://sai.org.in/sites/default/files/3part.mp3",
+        "cover": ""
+    },
+    {
+        "id": 9,
+        "title": "Jap",
+        "singer": "Unknown",
+        "category": "Jap",
+        "url": "https://sai.org.in/sites/default/files/jap1.mp3",
+        "cover": ""
+    },
+    {
+        "id": 10,
+        "title": "Hari Om",
+        "singer": "Unknown",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/hariom.mp3",
+        "cover": ""
+    },
+    {
+        "id": 11,
+        "title": "Joduniya",
+        "singer": "Jap",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/joduniya.mp3",
+        "cover": ""
+    },
+    {
+        "id": 12,
+        "title": "Lopaley",
+        "singer": "Unknown",
+        "category": "Jap",
+        "url": "https://sai.org.in/sites/default/files/lopaley.mp3",
+        "cover": ""
+    },
+    {
+        "id": 13,
+        "title": "Sada Satswarupam",
+        "singer": "Unknown",
+        "category": "Jap",
+        "url": "https://sai.org.in/sites/default/files/sadasatswarupam.mp3",
+        "cover": ""
+    },
+    {
+        "id": 14,
+        "title": "Sai Digambara",
+        "singer": "Unknown",
+        "category": "Jap",
+        "url": "https://sai.org.in/sites/default/files/saidigambara.mp3",
+        "cover": ""
+    },
+    {
+        "id": 15,
+        "title": "Aali Prasadachi Wat",
+        "singer": "Unknown",
+        "category": "Jap",
+        "url": "https://sai.org.in/sites/default/files/aaliprasadachiwat.mp3",
+        "cover": ""
+    },
+    {
+        "id": 16,
+        "title": "Jai Jai Sai Ram",
+        "singer": "Jagjit Singh",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/006_Jai_Jai_sai_ram_jagjit_singh_128kbps.mp3",
+        "cover": ""
+    },
+    {
+        "id": 17,
+        "title": "Om Sai",
+        "singer": "Anupama Deshpande & Mahendra Kapur",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/005_om_sai_aunpama_deshpande_and_mahendra_kapur_128kbps.mp3",
+        "cover": ""
+    },
+    {
+        "id": 18,
+        "title": "Omkar Sadhana",
+        "singer": "Unknown",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/004_omkar_sadhana_om_shri_sai_nathay_namaha_128kbps.mp3",
+        "cover": ""
+    },
+    {
+        "id": 19,
+        "title": "Om Sai",
+        "singer": "Suresh Wadkar",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/003_omsai_suresh_wadkar_128kbps.mp3",
+        "cover": ""
+    },
+    {
+        "id": 20,
+        "title": "Lendi Pushpalu",
+        "singer": "M. Rajashekhar",
+        "category": "Meditation",
+        "url": "https://sai.org.in/sites/default/files/002_lendipushpalu_m_rajashekhar_128kbps.mp3",
+        "cover": ""
+    }
+]

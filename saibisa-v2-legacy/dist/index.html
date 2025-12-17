@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saibisa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-zQX77ZB6.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CrYBktwj.css">
+  </head>
+  <body>
+    <!-- App Shell -->
+    <header class="app-header">
+      <div class="container header-content">
+        <a href="/" data-link class="logo">Saibisa</a>
+        <nav class="desktop-nav">
+          <a href="/" data-link class="nav-link">Home</a>
+          <a href="/videos" data-link class="nav-link">Videos</a>
+          <a href="/darshan" data-link class="nav-link">Live Darshan</a>
+          <a href="/books" data-link class="nav-link">Books</a>
+          <a href="/events" data-link class="nav-link">Events</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="app" class="container"></main>
+
+    <nav class="mobile-nav">
+      <a href="/" data-link class="nav-item">
+        <span class="icon">🏠</span>
+        <span class="label">Home</span>
+      </a>
+      <a href="/videos" data-link class="nav-item">
+        <span class="icon">▶️</span>
+        <span class="label">Videos</span>
+      </a>
+      <a href="/darshan" data-link class="nav-item">
+        <span class="icon">🔴</span>
+        <span class="label">Live</span>
+      </a>
+      <a href="/books" data-link class="nav-item">
+        <span class="icon">📚</span>
+        <span class="label">Books</span>
+      </a>
+      <a href="/events" data-link class="nav-item">
+        <span class="icon">📅</span>
+        <span class="label">Events</span>
+      </a>
+    </nav>
+
+    <!-- Templates for Views (will be moved to components later) -->
+    <template id="home">
+      <div class="hero-section">
+        <h1>Welcome to Saibisa</h1>
+        <p>Your spiritual companion for Sai Baba and Di Jaan.</p>
+        <div class="grid grid-cols-2" style="margin-top: 2rem;">
+            <div class="card" onclick="window.history.pushState({}, '/videos', '/videos'); document.dispatchEvent(new Event('popstate'));">
+                <h3>Latest Videos</h3>
+                <p>Watch Di-Jaan content</p>
+            </div>
+             <div class="card">
+                <h3>Live Darshan</h3>
+                <p>Join the stream</p>
+            </div>
+        </div>
+      </div>
+    </template>
+    
+    <template id="videos">
+        <h2>Di-Jaan Videos</h2>
+        <div class="grid grid-cols-1">
+            <div class="card">Video 1</div>
+            <div class="card">Video 2</div>
+        </div>
+    </template>
+
+     <template id="darshan">
+        <h2>Live Darshan</h2>
+        <div class="video-player-placeholder">
+            Stream Player Here
+        </div>
+    </template>
+    
+     <template id="books">
+        <h2>Books Library</h2>
+        <p>Downloads for Di Jaan and Sai Books</p>
+    </template>
+    
+     <template id="events">
+        <h2>Upcoming Events</h2>
+        <div class="card">Event 1</div>
+    </template>
+
+    
+    <style>
+      /* Shell Styles embedded for now, will move to css */
+      .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--header-height);
+        background: var(--glass-bg);
+        backdrop-filter: blur(var(--backdrop-blur));
+        border-bottom: 1px solid var(--glass-border);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+      }
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+      .desktop-nav {
+        display: none;
+      } 
+      @media(min-width: 768px) {
+        .desktop-nav { display: flex; gap: 1.5rem; }
+        .mobile-nav { display: none; }
+      }
+      
+      .mobile-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: var(--nav-height);
+        background: var(--surface-color);
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        z-index: 100;
+      }
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+      .nav-item.active { color: var(--primary-color); }
+      .nav-item .icon { font-size: 1.25rem; margin-bottom: 2px; }
+    </style>
+  </body>
+</html>

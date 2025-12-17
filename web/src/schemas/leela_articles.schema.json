@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "description": "Unique identifier for the article"
+            },
+            "title_english": {
+                "type": "string",
+                "description": "Title in English"
+            },
+            "title_hindi": {
+                "type": "string",
+                "description": "Title in Hindi"
+            },
+            "chapter": {
+                "type": "string",
+                "description": "Related Chapter Number or Name (e.g., '1' or 'Chapter 1')"
+            },
+            "youtube_id": {
+                "type": "string",
+                "description": "YouTube Video ID"
+            },
+            "description": {
+                "type": "string",
+                "description": "A detailed article explanation of the core teaching or story (Markdown supported)"
+            },
+            "keywords": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "SEO keywords"
+            },
+            "social_tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Social media hashtags"
+            }
+        },
+        "required": [
+            "id",
+            "title_english",
+            "title_hindi",
+            "chapter",
+            "youtube_id",
+            "description"
+        ]
+    }
+}

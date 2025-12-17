@@ -1,0 +1,32 @@
+{
+    "live_status": true,
+    "live_video": {
+        "id": "live-1",
+        "title": "Evening Aarti from Shirdi",
+        "description": "Join us live for the divine evening Aarti.",
+        "youtube_id": "live_stream_mock_id"
+    },
+    "past_streams": [
+        {
+            "id": "past-1",
+            "title": "Guru Purnima Celebration 2024",
+            "date": "2024-07-21",
+            "youtube_id": "dQw4w9WgXcQ",
+            "thumbnail": ""
+        },
+        {
+            "id": "past-2",
+            "title": "Thursday Special Satsang",
+            "date": "2024-07-18",
+            "youtube_id": "dQw4w9WgXcQ",
+            "thumbnail": ""
+        },
+        {
+            "id": "past-3",
+            "title": "Morning Kakad Aarti",
+            "date": "2024-07-15",
+            "youtube_id": "dQw4w9WgXcQ",
+            "thumbnail": ""
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "chapter_number": {
+                "type": "integer",
+                "description": "Chapter Number"
+            },
+            "title_hindi": {
+                "type": "string",
+                "description": "Title in Hindi"
+            },
+            "title_english": {
+                "type": "string",
+                "description": "Title in English"
+            },
+            "youtube_id": {
+                "type": "string",
+                "description": "YouTube Video ID"
+            },
+            "description": {
+                "type": "string",
+                "description": "A summarized 2-3 line explanation of the core teaching or story"
+            },
+            "keywords": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "SEO keywords"
+            },
+            "social_tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Social media hashtags"
+            }
+        },
+        "required": [
+            "chapter_number",
+            "title_hindi",
+            "title_english",
+            "youtube_id",
+            "description"
+        ]
+    }
+}

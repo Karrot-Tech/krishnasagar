@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer"
+            },
+            "title_english": {
+                "type": "string"
+            },
+            "title_hindi": {
+                "type": "string"
+            },
+            "chapter": {
+                "type": "string"
+            },
+            "youtube_id": {
+                "type": "string"
+            },
+            "description": {
+                "type": "string"
+            },
+            "keywords": {
+                "type": "array",
+                "description": "SEO keywords related to the article",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "social_tags": {
+                "type": "array",
+                "description": "Social media tags/hashtags for the article",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "required": [
+            "id",
+            "title_english",
+            "title_hindi",
+            "chapter",
+            "youtube_id",
+            "description",
+            "keywords",
+            "social_tags"
+        ]
+    }
+}
+```

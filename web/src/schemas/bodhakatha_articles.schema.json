@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "id": {
+                "type": "integer",
+                "description": "Unique identifier for the article"
+            },
+            "theme": {
+                "type": "string",
+                "description": "Theme of the teaching"
+            },
+            "title_english": {
+                "type": "string",
+                "description": "Title in English"
+            },
+            "title_hindi": {
+                "type": "string",
+                "description": "Title in Hindi"
+            },
+            "description": {
+                "type": "string",
+                "description": "A detailed article explanation of the core teaching or story (Markdown supported)"
+            },
+            "youtube_id": {
+                "type": "string",
+                "description": "YouTube Video ID"
+            },
+            "keywords": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "SEO keywords"
+            },
+            "social_tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "description": "Social media hashtags"
+            }
+        },
+        "required": [
+            "id",
+            "title_english",
+            "title_hindi",
+            "description",
+            "youtube_id"
+        ]
+    }
+}

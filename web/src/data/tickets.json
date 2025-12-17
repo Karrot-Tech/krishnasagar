@@ -1,0 +1,51 @@
+[
+    {
+        "id": "TICKET-101",
+        "subject": "Guidance on Meditation",
+        "status": "Answered",
+        "date": "2024-07-20",
+        "messages": [
+            {
+                "sender": "User",
+                "text": "Sai Ram. I am finding it hard to concentrate during meditation. Any advice?",
+                "timestamp": "2024-07-20 08:30 AM"
+            },
+            {
+                "sender": "Krishnaji Team",
+                "text": "Sai Ram. Start with 'Naam Jaap' (Chanting). It helps settle the mind before silence.",
+                "timestamp": "2024-07-21 10:00 AM"
+            }
+        ]
+    },
+    {
+        "id": "TICKET-102",
+        "subject": "Meaning of Saburi",
+        "status": "Closed",
+        "date": "2024-06-15",
+        "messages": [
+            {
+                "sender": "User",
+                "text": "What is the true essence of Saburi?",
+                "timestamp": "2024-06-15 09:00 AM"
+            },
+            {
+                "sender": "Krishnaji Team",
+                "text": "Saburi is patience with faith. It is waiting cheerfully for His grace.",
+                "timestamp": "2024-06-16 11:00 AM"
+            }
+        ]
+    },
+    {
+        "id": "TICKET-103",
+        "subject": "Request for Prayers",
+        "status": "Open",
+        "date": "2024-07-24",
+        "messages": [
+            {
+                "sender": "User",
+                "text": "My father is undergoing surgery tomorrow. Please pray for him.",
+                "timestamp": "2024-07-24 06:15 PM"
+            }
+        ]
+    }
+]

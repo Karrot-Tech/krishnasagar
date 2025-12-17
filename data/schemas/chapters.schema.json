@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "chapter_number": {
+                "type": "integer"
+            },
+            "title_hindi": {
+                "type": "string"
+            },
+            "title_english": {
+                "type": "string"
+            },
+            "youtube_id": {
+                "type": "string"
+            },
+            "keywords": {
+                "type": "array",
+                "description": "SEO keywords related to the chapter",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "social_tags": {
+                "type": "array",
+                "description": "Social media tags/hashtags for the chapter",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "required": [
+            "chapter_number",
+            "title_hindi",
+            "title_english",
+            "youtube_id",
+            "keywords",
+            "social_tags"
+        ]
+    }
+}

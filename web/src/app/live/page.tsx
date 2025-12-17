@@ -1,0 +1,95 @@
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import liveData from '@/data/live_videos.json';
+import VideoPlayer from '@/components/features/VideoPlayer';
+import { Radio } from 'lucide-react';
+import { useAudio } from '@/context/AudioContext';
+import { useRouter } from 'next/navigation';
+
+export default function LivePage() {
+    const { isPlaying, closePlayer } = useAudio();
+    const router = useRouter();
+    // Use a ref to track if we've already checked on mount to avoid double-firing in strict mode
+    const hasCheckedAudio = useRef(false);
+
+    useEffect(() => {
+        if (!hasCheckedAudio.current && isPlaying) {
+            // Use setTimeout to ensure the DOM is fully ready and to avoid blocking the render immediately
+            setTimeout(() => {
+                const shouldStop = window.confirm("Music is currently playing. Would you like to stop it to watch the live stream?");
+                if (shouldStop) {
+                    closePlayer();
+                } else {
+                    router.back();
+                }
+            }, 100);
+            hasCheckedAudio.current = true;
+        }
+    }, [isPlaying, closePlayer, router]);
+
+    return (
+        <div className="max-w-6xl mx-auto space-y-12 pt-6">
+
+            {/* Header */}
+            <div className="text-center space-y-2">
+                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600 animate-pulse">
+                    <Radio className="w-8 h-8" />
+                </div>
+                <h1 className="text-3xl font-bold text-gray-800">Live Darshan</h1>
+                <p className="text-gray-500 font-serif italic">&quot;Experience the divine presence in real-time&quot;</p>
+            </div>
+
+            {/* Live Banner */}
+            {liveData.live_status && (
+                <div className="bg-black rounded-xl overflow-hidden shadow-2xl">
+                    <div className="bg-red-600 text-white px-4 py-2 flex items-center font-bold text-sm tracking-wider uppercase">
+                        <span className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse" />
+                        Live Now
+                    </div>
+                    <div className="grid lg:grid-cols-3">
+                        <div className="lg:col-span-2">
+                            <VideoPlayer videoId={liveData.live_video.youtube_id} />
+                        </div>
+                        <div className="p-6 text-white space-y-4 flex flex-col justify-center">
+                            <h2 className="text-2xl font-bold">{liveData.live_video.title}</h2>
+                            <p className="text-gray-300 leading-relaxed text-sm">
+                                {liveData.live_video.description}
+                            </p>
+                            <button className="bg-red-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-red-700 transition self-start shadow-lg">
+                                Watch on YouTube
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Past Streams Library */}
+            <div className="space-y-6">
+                <h2 className="text-xl font-bold text-gray-800 flex items-center">
+                    <span className="w-1 h-6 bg-ochre mr-3 rounded-full" />
+                    Past Streams
+                </h2>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {liveData.past_streams.map((video) => (
+                        <div key={video.id} className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition group">
+                            <div className="aspect-video bg-gray-100 relative">
+                                {/* Placeholder for actual thumbnail logic */}
+                                <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                                    <VideoPlayer videoId={video.youtube_id} />
+                                </div>
+                            </div>
+                            <div className="p-4">
+                                <div className="text-xs text-ochre font-bold mb-1">{video.date}</div>
+                                <h3 className="font-bold text-gray-800 group-hover:text-ochre transition-colors line-clamp-2">
+                                    {video.title}
+                                </h3>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+}
