@@ -9,8 +9,7 @@ export async function generateStaticParams() {
     }));
 }
 
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+
 
 export default async function LeelaDetailPage({ params }: { params: Promise<{ articleId: string }> }) {
     const { articleId } = await params;
@@ -36,16 +35,11 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
         <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-8rem)] pt-6">
             {/* Left: Text Content (Prominent) - First on mobile and desktop */}
             <div className="w-full lg:w-2/3 flex-1 overflow-y-auto pr-4 custom-scrollbar">
-                <div className="mb-4">
-                    <Link href="/leela" className="inline-flex items-center transition-colors px-4 py-2 bg-white border border-gray-200 rounded-full text-gray-700 font-medium shadow-sm hover:bg-gray-50 lg:bg-transparent lg:border-0 lg:shadow-none lg:p-0 lg:text-gray-500 lg:hover:text-ochre lg:hover:bg-transparent text-sm">
-                        <ArrowLeft className="w-4 h-4 mr-2 lg:mr-1" />
-                        Back to Leelas
-                    </Link>
-                </div>
+
                 <article className="prose prose-ochre max-w-none bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                     <div className="mb-6 border-b border-gray-100 pb-4">
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2">{article.title_english}</h1>
-                        <h2 className="text-2xl text-ochre font-serif">{article.title_hindi}</h2>
+                        <h1 className="text-xl md:text-3xl font-bold text-gray-800 mb-2">{article.title_english}</h1>
+                        <h2 className="text-lg md:text-2xl text-ochre font-serif">{article.title_hindi}</h2>
                     </div>
 
                     <h3 className="text-lg font-bold text-gray-500 mb-4">{article.chapter} Narrative</h3>

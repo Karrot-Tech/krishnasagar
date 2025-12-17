@@ -38,7 +38,7 @@ export default function GlossaryPage() {
     }, [searchQuery, sortOrder, language]);
 
     return (
-        <div className="max-w-4xl mx-auto space-y-8 pt-6">
+        <div className="max-w-4xl mx-auto space-y-8 pt-6 px-4">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                 <h1 className="text-3xl font-bold text-ochre">Glossary</h1>
 
@@ -60,16 +60,14 @@ export default function GlossaryPage() {
 
             <div className="grid gap-4">
                 {filteredData.length > 0 ? (
-                    filteredData.map((item) => (
+                    filteredData.map((item, index) => (
                         <div
-                            key={item.term}
+                            key={`${item.term}-${item.chapter}-${index}`}
                             className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:border-gold transition-colors"
                         >
                             <div className="flex justify-between items-start">
                                 <h2 className="text-xl font-bold text-ochre mb-2">{item.term}</h2>
-                                <span className="text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded">
-                                    {item.chapter}
-                                </span>
+
                             </div>
                             <p className="text-gray-700 font-serif text-lg leading-relaxed">
                                 {getDefinition(item)}

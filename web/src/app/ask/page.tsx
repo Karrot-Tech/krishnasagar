@@ -18,13 +18,13 @@ export default function AskPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        // Auto-collapse new question form on mobile if there are active tickets
+        // Auto-collapse new question form on mobile if there are active tickets (only on initial load)
         const hasActiveTickets = tickets.some(t => t.status === 'Open' || t.status === 'Answered');
-        if (window.innerWidth < 768 && hasActiveTickets && isNewQuestionExpanded) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
+        if (window.innerWidth < 768 && hasActiveTickets) {
             setIsNewQuestionExpanded(false);
         }
-    }, [tickets, isNewQuestionExpanded]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Only run on mount
 
     const toggleExpand = (id: string) => {
         setExpandedTicketId(expandedTicketId === id ? null : id);
@@ -86,7 +86,7 @@ export default function AskPage() {
     );
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 pt-6">
+        <div className="max-w-4xl mx-auto space-y-6 pt-6 px-4">
             {/* Header */}
             <div className="flex items-center space-x-4 pb-2 border-b border-gray-100">
                 <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 flex-none">

@@ -29,7 +29,7 @@ export default function LivePage() {
     }, [isPlaying, closePlayer, router]);
 
     return (
-        <div className="max-w-6xl mx-auto space-y-6 pt-6">
+        <div className="max-w-6xl mx-auto space-y-6 pt-6 px-4">
 
             {/* Header */}
             <div className="flex items-center space-x-4 pb-2 border-b border-gray-100">
