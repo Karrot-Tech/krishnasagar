@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Footprints, Lightbulb, Radio, Music, MessageCircleQuestion, BookA, HelpCircle, Heart, Mail } from 'lucide-react';
+import { Footprints, Lightbulb, Radio, Music, MessageCircleQuestion, BookA } from 'lucide-react';
 
 const NAV_ITEMS = [
     { label: 'Leela', href: '/leela', icon: Footprints },
@@ -56,18 +56,7 @@ export default function Sidebar() {
                         <BookA className="w-4 h-4" />
                         <span>Glossary</span>
                     </Link>
-                    <Link href="/faq" className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-500 hover:text-ochre hover:bg-gray-50 rounded-lg transition-colors">
-                        <HelpCircle className="w-4 h-4" />
-                        <span>FAQ</span>
-                    </Link>
-                    <Link href="/donate" className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-500 hover:text-ochre hover:bg-gray-50 rounded-lg transition-colors">
-                        <Heart className="w-4 h-4" />
-                        <span>Donate</span>
-                    </Link>
-                    <Link href="/contact" className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-500 hover:text-ochre hover:bg-gray-50 rounded-lg transition-colors">
-                        <Mail className="w-4 h-4" />
-                        <span>Contact Us</span>
-                    </Link>
+
                 </div>
             </nav>
 
