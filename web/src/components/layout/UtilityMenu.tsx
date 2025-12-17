@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { User, X, BookA, HelpCircle, Heart, LogOut, Mail } from 'lucide-react';
+import { User, X, BookA, LogOut } from 'lucide-react';
 import { useUser } from '@/context/UserContext';
 
 export default function UtilityMenu() {
@@ -78,18 +78,7 @@ export default function UtilityMenu() {
                             <BookA className="w-5 h-5 text-gray-400" />
                             <span>Glossary</span>
                         </Link>
-                        <Link href="/faq" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md text-gray-700">
-                            <HelpCircle className="w-5 h-5 text-gray-400" />
-                            <span>FAQ</span>
-                        </Link>
-                        <Link href="/donate" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md text-gray-700">
-                            <Heart className="w-5 h-5 text-gray-400" />
-                            <span>Donate</span>
-                        </Link>
-                        <Link href="/contact" onClick={() => setIsOpen(false)} className="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-md text-gray-700">
-                            <Mail className="w-5 h-5 text-gray-400" />
-                            <span>Contact Us</span>
-                        </Link>
+
                     </nav>
 
                     {/* Logout (if signed in) */}
