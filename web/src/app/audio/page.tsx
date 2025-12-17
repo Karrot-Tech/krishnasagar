@@ -59,7 +59,7 @@ export default function AudioPage() {
             </div>
 
             {/* Mobile Category Filters (Top + Other) */}
-            <div className="md:hidden overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide">
+            <div className="md:hidden overflow-x-auto pb-2 px-4 scrollbar-hide">
                 <div className="flex space-x-2 min-w-max">
                     {mobileCategories.map((category) => {
                         // Count logic for Mobile
