@@ -11,7 +11,7 @@ export default function Header() {
                         alt="Sai Leela Rahasya"
                         className="h-8 w-auto object-contain flex-none"
                     />
-                    <span className="text-base font-bold text-ochre tracking-tight whitespace-nowrap truncate max-w-[calc(100vw-120px)] xs:max-w-none hidden xs:block">Sai Leela Rahasya</span>
+                    <span className="text-base font-bold text-ochre tracking-tight whitespace-nowrap truncate">Sai Leela Rahasya</span>
                 </Link>
 
                 <UtilityMenu />
