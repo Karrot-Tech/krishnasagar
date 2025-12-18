@@ -28,6 +28,7 @@ export async function deleteLeela(id: string) {
     await prisma.leela.delete({ where: { id } });
     revalidatePath('/leela');
     revalidatePath('/admin/leela');
+    revalidatePath('/admin/leela', 'layout');
 }
 
 // Bodhakatha Actions
@@ -53,6 +54,7 @@ export async function deleteBodhakatha(id: string) {
     await prisma.bodhakatha.delete({ where: { id } });
     revalidatePath('/bodhakatha');
     revalidatePath('/admin/bodhakatha');
+    revalidatePath('/admin/bodhakatha', 'layout');
 }
 
 // Glossary Actions
@@ -78,4 +80,5 @@ export async function deleteGlossary(id: string) {
     await prisma.glossary.delete({ where: { id } });
     revalidatePath('/glossary');
     revalidatePath('/admin/glossary');
+    revalidatePath('/admin/glossary', 'layout');
 }

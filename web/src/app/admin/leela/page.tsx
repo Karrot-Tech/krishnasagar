@@ -1,7 +1,8 @@
 
 import Link from 'next/link';
 import prisma from '@/lib/db';
-import { Plus, Edit, Trash2 } from 'lucide-react';
+import { Plus, Edit } from 'lucide-react';
+import DeleteIconButton from '@/components/admin/DeleteIconButton';
 
 export default async function AdminLeelaPage() {
     const leelas = await prisma.leela.findMany({
@@ -56,9 +57,7 @@ export default async function AdminLeelaPage() {
                                         >
                                             <Edit className="w-4 h-4" />
                                         </Link>
-                                        <button className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors shadow-sm bg-white border border-gray-100">
-                                            <Trash2 className="w-4 h-4" />
-                                        </button>
+                                        <DeleteIconButton id={leela.id} type="leela" />
                                     </div>
                                 </td>
                             </tr>
@@ -82,9 +81,7 @@ export default async function AdminLeelaPage() {
                                 >
                                     <Edit className="w-3.5 h-3.5" />
                                 </Link>
-                                <button className="p-1.5 text-red-500 bg-red-50 rounded-lg transition-colors border border-red-100/50">
-                                    <Trash2 className="w-3.5 h-3.5" />
-                                </button>
+                                <DeleteIconButton id={leela.id} type="leela" />
                             </div>
                         </div>
                         <div className="min-w-0">
