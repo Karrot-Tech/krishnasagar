@@ -99,16 +99,19 @@ export default function UtilityMenu() {
 
                 <div className="p-6 space-y-8 h-[calc(100%-80px)] flex flex-col no-scrollbar overflow-y-auto pb-32">
                     <SignedIn>
-                        {/* User Profile Summary */}
-                        <div className="flex items-center gap-4 bg-gray-50 p-6 rounded-[2rem] border border-gray-100">
-                            {user?.imageUrl ? (
-                                <img src={user.imageUrl} className="w-16 h-16 rounded-2xl object-cover border-2 border-white shadow-sm" alt="Profile" />
-                            ) : (
-                                <div className="w-16 h-16 rounded-2xl bg-ochre flex items-center justify-center text-white text-2xl font-black">{user?.firstName?.charAt(0)}</div>
-                            )}
-                            <div className="min-w-0">
-                                <p className="font-black text-gray-900 text-lg leading-tight truncate">{user?.fullName}</p>
-                                <p className="text-xs font-bold text-gray-400 truncate mt-1">{user?.primaryEmailAddress?.emailAddress}</p>
+                        {/* User Profile Summary - Vertical Stack for better handling of long emails */}
+                        <div className="flex flex-col items-center text-center bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100/50 shadow-sm">
+                            <div className="relative mb-4">
+                                {user?.imageUrl ? (
+                                    <img src={user.imageUrl} className="w-20 h-20 rounded-[2rem] object-cover border-4 border-white shadow-md" alt="Profile" />
+                                ) : (
+                                    <div className="w-20 h-20 rounded-[2rem] bg-ochre flex items-center justify-center text-white text-3xl font-black shadow-md">{user?.firstName?.charAt(0)}</div>
+                                )}
+                                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 border-4 border-gray-50 rounded-full shadow-sm" />
+                            </div>
+                            <div className="w-full">
+                                <p className="font-black text-gray-900 text-xl leading-tight">{user?.fullName}</p>
+                                <p className="text-[11px] font-bold text-gray-400 mt-2 break-all max-w-[200px] mx-auto leading-relaxed">{user?.primaryEmailAddress?.emailAddress}</p>
                             </div>
                         </div>
 
@@ -198,7 +201,7 @@ export default function UtilityMenu() {
                     </SignedOut>
 
                     <div className="text-center">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.27</p>
+                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.28</p>
                     </div>
                 </div>
             </div>
