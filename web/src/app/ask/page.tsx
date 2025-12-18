@@ -145,6 +145,7 @@ export default function AskPage() {
                     <Notification
                         message={notification.message}
                         type={notification.type}
+                        duration={3000}
                         onClose={() => setNotification(null)}
                     />
                 )}

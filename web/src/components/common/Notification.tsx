@@ -34,7 +34,7 @@ export function Notification({ message, type, onClose, duration = 5000 }: Notifi
 
     return (
         <div
-            className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 transform 
+            className={`fixed bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 transform 
                 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'}`}
         >
             <div className={`${bgColor} text-white px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 min-w-[300px] max-w-[90vw] border border-white/20 backdrop-blur-md`}>
