@@ -33,6 +33,7 @@ export default function AdminTicketsPage() {
     const [expandedTicketId, setExpandedTicketId] = useState<string | null>(null);
     const [replyText, setReplyText] = useState<{ [key: string]: string }>({});
     const [isSubmitting, setIsSubmitting] = useState<{ [key: string]: boolean }>({});
+    const [filter, setFilter] = useState<'OPEN' | 'ANSWERED' | 'CLOSED' | 'ALL'>('OPEN');
 
     // UI Feedback State
     const [notification, setNotification] = useState<{ message: string; type: NotificationType } | null>(null);
@@ -90,68 +91,92 @@ export default function AdminTicketsPage() {
 
     return (
         <div className="max-w-6xl mx-auto py-4 md:py-8 px-4 space-y-6 md:space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 md:pb-6 gap-4">
+            <div className="space-y-6">
                 <div>
-                    <h1 className="text-xl md:text-3xl font-black text-gray-900 tracking-tight">Seeker Inquiries</h1>
-                    <p className="text-xs md:text-sm text-gray-500 font-medium">Manage and respond to spiritual guidance requests</p>
+                    <h1 className="text-2xl md:text-4xl font-black text-gray-900 tracking-tight">Seeker Inquiries</h1>
+                    <p className="text-sm md:text-base text-gray-500 font-medium">Manage and respond to spiritual guidance requests</p>
                 </div>
-                <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
-                    <span className="bg-orange-50 text-ochre px-3 py-1.5 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider border border-ochre/10 whitespace-nowrap">
-                        {tickets.filter(t => t.status === 'OPEN').length} New
-                    </span>
-                    <span className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider border border-blue-100 whitespace-nowrap">
-                        {tickets.filter(t => t.status === 'ANSWERED').length} Answered
-                    </span>
+
+                <div className="flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar">
+                    <button
+                        onClick={() => setFilter('OPEN')}
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'OPEN'
+                                ? 'bg-orange-50 text-ochre border-ochre/20 shadow-sm shadow-ochre/10'
+                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                            }`}
+                    >
+                        <span className="flex-none">{tickets.filter(t => t.status === 'OPEN').length} New</span>
+                    </button>
+                    <button
+                        onClick={() => setFilter('ANSWERED')}
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'ANSWERED'
+                                ? 'bg-blue-50 text-blue-600 border-blue-100 shadow-sm shadow-blue-100/10'
+                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                            }`}
+                    >
+                        <span className="flex-none">{tickets.filter(t => t.status === 'ANSWERED').length} Answered</span>
+                    </button>
+                    <button
+                        onClick={() => setFilter('CLOSED')}
+                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'CLOSED'
+                                ? 'bg-gray-100 text-gray-600 border-gray-200'
+                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                            }`}
+                    >
+                        <span className="flex-none">Closed</span>
+                    </button>
                 </div>
             </div>
 
-            <div className="grid gap-3">
-                {tickets.length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm">
+            <div className="grid gap-4">
+                {tickets.filter(t => filter === 'ALL' || t.status === filter).length === 0 ? (
+                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm animate-in fade-in duration-500">
                         <MessageCircle className="w-12 h-12 text-gray-200 mx-auto mb-4" />
-                        <h3 className="text-xl font-black text-gray-900 tracking-tight">No inquiries yet</h3>
-                        <p className="text-sm text-gray-400 font-medium">Seeker inquiries will appear here.</p>
+                        <h3 className="text-xl font-black text-gray-900 tracking-tight">Nothing here</h3>
+                        <p className="text-sm text-gray-400 font-medium">No inquiries matching this status.</p>
                     </div>
                 ) : (
-                    tickets.map((ticket) => (
-                        <div
-                            key={ticket.id}
-                            onClick={() => setExpandedTicketId(ticket.id)}
-                            className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-3 cursor-pointer hover:border-ochre/30 transition-all active:scale-[0.98]"
-                        >
-                            <div className="flex items-start gap-3 min-w-0 flex-1">
-                                <div className="w-10 h-10 bg-gray-50 rounded-xl overflow-hidden flex-none border border-gray-100">
-                                    {ticket.user.image ? (
-                                        <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <User className="w-5 h-5 text-gray-300" />
+                    tickets
+                        .filter(t => filter === 'ALL' || t.status === filter)
+                        .map((ticket) => (
+                            <div
+                                key={ticket.id}
+                                onClick={() => setExpandedTicketId(ticket.id)}
+                                className="bg-white p-5 rounded-[2rem] shadow-sm border border-gray-100 flex items-center justify-between gap-4 cursor-pointer hover:border-ochre/30 hover:shadow-md transition-all active:scale-[0.99] group animate-in slide-in-from-bottom-2 duration-300"
+                            >
+                                <div className="flex items-center gap-4 min-w-0 flex-1">
+                                    <div className="w-14 h-14 bg-gray-50 rounded-2xl overflow-hidden flex-none border border-gray-100 shadow-sm transition-transform group-hover:scale-105">
+                                        {ticket.user.image ? (
+                                            <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <User className="w-6 h-6 text-gray-300" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="font-black text-lg text-gray-900 truncate tracking-tight">{ticket.subject}</h3>
+                                            <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-[0.1em] flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
+                                                    ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
+                                                }`}>
+                                                {ticket.status}
+                                            </span>
                                         </div>
-                                    )}
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                    <div className="flex items-center gap-2 mb-0.5">
-                                        <h3 className="font-bold text-sm text-gray-900 truncate">{ticket.subject}</h3>
-                                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
-                                            ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
-                                            }`}>
-                                            {ticket.status}
-                                        </span>
+                                        <div className="flex items-center text-xs text-gray-400 font-bold uppercase tracking-tight gap-2">
+                                            <span className="truncate group-hover:text-gray-600 transition-colors">{ticket.user.name || 'Anonymous'}</span>
+                                            <span className="opacity-30">•</span>
+                                            <span>{new Date(ticket.createdAt).toLocaleDateString()}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center text-[10px] text-gray-400 font-bold uppercase tracking-tight gap-2">
-                                        <span className="truncate">{ticket.user.name || 'Anonymous'}</span>
-                                        <span className="opacity-30">•</span>
-                                        <span>{new Date(ticket.createdAt).toLocaleDateString()}</span>
+                                </div>
+                                <div className="flex flex-col items-end gap-1 flex-none">
+                                    <div className="bg-gray-100/50 group-hover:bg-ochre group-hover:text-white px-3 py-1.5 rounded-xl text-[10px] font-black text-gray-500 transition-all border border-gray-100/10 uppercase tracking-widest shadow-sm">
+                                        {ticket.messages.length} MSG
                                     </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col items-end gap-1 flex-none">
-                                <div className="bg-gray-50 px-2 py-0.5 rounded-md text-[9px] font-black text-gray-400 border border-gray-100">
-                                    {ticket.messages.length} MSG
-                                </div>
-                            </div>
-                        </div>
-                    ))
+                        ))
                 )}
             </div>
 
