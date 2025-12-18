@@ -63,74 +63,74 @@ export default function BodhakathaForm({ bodhakatha }: BodhakathaFormProps) {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-gray-100 sticky top-0 z-10">
-                <Link href="/admin/bodhakatha" className="flex items-center text-gray-500 hover:text-gray-700">
+        <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-3 md:p-4 rounded-xl shadow-sm border border-gray-100 sticky top-0 z-10 gap-3">
+                <Link href="/admin/bodhakatha" className="flex items-center text-gray-500 hover:text-gray-700 text-xs md:text-sm font-bold">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to List
                 </Link>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 md:space-x-4 w-full sm:w-auto">
                     {bodhakatha && (
                         <button
                             type="button"
                             onClick={handleDelete}
                             disabled={loading}
-                            className="bg-red-50 text-red-600 px-4 py-2 rounded-lg hover:bg-red-100 transition-colors flex items-center space-x-2"
+                            className="flex-1 sm:flex-none justify-center bg-red-50 text-red-600 px-3 md:px-4 py-2 rounded-lg hover:bg-red-100 transition-colors flex items-center space-x-2 text-xs md:text-sm font-bold border border-red-100"
                         >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-3.5 h-3.5" />
                             <span>Delete</span>
                         </button>
                     )}
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-ochre text-white px-6 py-2 rounded-lg hover:bg-gold transition-colors flex items-center space-x-2 shadow-sm"
+                        className="flex-1 sm:flex-none justify-center bg-ochre text-white px-4 md:px-6 py-2 rounded-lg hover:bg-gold transition-colors flex items-center space-x-2 shadow-lg shadow-ochre/20 text-xs md:text-sm font-black uppercase tracking-widest"
                     >
-                        <Save className="w-4 h-4" />
+                        <Save className="w-3.5 h-3.5" />
                         <span>{loading ? 'Saving...' : 'Save Bodhakatha'}</span>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                        <h2 className="text-lg font-bold text-gray-800">Basic Information</h2>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">Theme</label>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+                <div className="lg:col-span-2 space-y-4 md:space-y-6">
+                    <div className="bg-white p-4 md:p-8 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                        <h2 className="text-base md:text-xl font-black text-gray-900 tracking-tight">Basic Information</h2>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Theme</label>
                             <input
                                 required
-                                className="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-ochre"
+                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm md:text-base transition-all"
                                 value={formData.theme}
                                 onChange={(e) => setFormData({ ...formData, theme: e.target.value })}
                             />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-1">
-                                <label className="text-sm font-medium text-gray-600">Title (English)</label>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Title (English)</label>
                                 <input
                                     required
-                                    className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ochre focus:border-transparent outline-none"
+                                    className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm md:text-base transition-all"
                                     value={formData.title_english}
                                     onChange={(e) => setFormData({ ...formData, title_english: e.target.value })}
                                 />
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-sm font-medium text-gray-600">Title (Hindi)</label>
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Title (Hindi)</label>
                                 <input
                                     required
-                                    className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ochre focus:border-transparent outline-none font-serif"
+                                    className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none font-serif text-sm md:text-base transition-all"
                                     value={formData.title_hindi}
                                     onChange={(e) => setFormData({ ...formData, title_hindi: e.target.value })}
                                 />
                             </div>
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">Description / Content</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Description / Content</label>
                             <textarea
                                 required
-                                rows={10}
-                                className="w-full p-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ochre focus:border-transparent outline-none"
+                                rows={12}
+                                className="w-full px-3 py-2.5 md:p-3 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm leading-relaxed transition-all resize-none"
                                 value={formData.description}
                                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             />
@@ -138,42 +138,44 @@ export default function BodhakathaForm({ bodhakatha }: BodhakathaFormProps) {
                     </div>
                 </div>
 
-                <div className="space-y-6">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                        <h2 className="text-lg font-bold text-gray-800">Metadata</h2>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">YouTube ID</label>
+                <div className="space-y-4 md:space-y-6">
+                    <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                        <h2 className="text-base md:text-lg font-black text-gray-900 tracking-tight">Metadata</h2>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">YouTube ID</label>
                             <input
-                                className="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-ochre"
+                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm transition-all"
                                 value={formData.youtube_id}
                                 onChange={(e) => setFormData({ ...formData, youtube_id: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">Order ID (Weight)</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Order ID (Weight)</label>
                             <input
                                 type="number"
-                                className="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-ochre"
+                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm transition-all"
                                 value={formData.orderId}
                                 onChange={(e) => setFormData({ ...formData, orderId: parseInt(e.target.value) || 0 })}
                             />
                         </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
-                        <h2 className="text-lg font-bold text-gray-800">Tags & SEO</h2>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">Keywords (comma-separated)</label>
+                    <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
+                        <h2 className="text-base md:text-lg font-black text-gray-900 tracking-tight">Tags & SEO</h2>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Keywords</label>
                             <input
-                                className="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-ochre"
+                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm transition-all"
+                                placeholder="guru, dev, sai"
                                 value={formData.keywords}
                                 onChange={(e) => setFormData({ ...formData, keywords: e.target.value })}
                             />
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-sm font-medium text-gray-600">Social Tags (comma-separated)</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Social Tags</label>
                             <input
-                                className="w-full p-2 border border-gray-200 rounded-lg outline-none focus:ring-2 focus:ring-ochre"
+                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm transition-all"
+                                placeholder="spiritual, faith"
                                 value={formData.social_tags}
                                 onChange={(e) => setFormData({ ...formData, social_tags: e.target.value })}
                             />

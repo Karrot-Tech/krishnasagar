@@ -15,8 +15,8 @@ export default async function AdminBodhakathaEditPage({ params }: { params: Prom
     }
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <h1 className="text-3xl font-bold text-gray-800 mb-8">
+        <div className="max-w-6xl mx-auto p-4 md:p-8">
+            <h1 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight mb-6 md:mb-8">
                 {id === 'new' ? 'Add New Bodhakatha' : 'Edit Bodhakatha'}
             </h1>
             <BodhakathaForm bodhakatha={bodhakatha} />
