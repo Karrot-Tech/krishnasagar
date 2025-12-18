@@ -97,30 +97,30 @@ export default function AdminTicketsPage() {
                     <p className="text-sm md:text-base text-gray-500 font-medium">Manage and respond to spiritual guidance requests</p>
                 </div>
 
-                <div className="flex items-center gap-3 overflow-x-auto pb-4 no-scrollbar">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3">
                     <button
                         onClick={() => setFilter('OPEN')}
-                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'OPEN'
-                                ? 'bg-orange-50 text-ochre border-ochre/20 shadow-sm shadow-ochre/10'
-                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                        className={`flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-xl md:rounded-2xl text-[10px] md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'OPEN'
+                            ? 'bg-orange-50 text-ochre border-ochre/20 shadow-sm shadow-ochre/10'
+                            : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
                             }`}
                     >
                         <span className="flex-none">{tickets.filter(t => t.status === 'OPEN').length} New</span>
                     </button>
                     <button
                         onClick={() => setFilter('ANSWERED')}
-                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'ANSWERED'
-                                ? 'bg-blue-50 text-blue-600 border-blue-100 shadow-sm shadow-blue-100/10'
-                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                        className={`flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-xl md:rounded-2xl text-[10px] md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'ANSWERED'
+                            ? 'bg-blue-50 text-blue-600 border-blue-100 shadow-sm shadow-blue-100/10'
+                            : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
                             }`}
                     >
                         <span className="flex-none">{tickets.filter(t => t.status === 'ANSWERED').length} Answered</span>
                     </button>
                     <button
                         onClick={() => setFilter('CLOSED')}
-                        className={`flex items-center gap-2 px-6 py-2.5 rounded-2xl text-xs md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'CLOSED'
-                                ? 'bg-gray-100 text-gray-600 border-gray-200'
-                                : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
+                        className={`flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 rounded-xl md:rounded-2xl text-[10px] md:text-sm font-black uppercase tracking-widest transition-all border ${filter === 'CLOSED'
+                            ? 'bg-gray-100 text-gray-600 border-gray-200'
+                            : 'bg-white text-gray-400 border-gray-100 hover:bg-gray-50'
                             }`}
                     >
                         <span className="flex-none">Closed</span>
@@ -158,7 +158,7 @@ export default function AdminTicketsPage() {
                                         <div className="flex items-center gap-2 mb-1">
                                             <h3 className="font-black text-lg text-gray-900 truncate tracking-tight">{ticket.subject}</h3>
                                             <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-[0.1em] flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
-                                                    ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
+                                                ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
                                                 }`}>
                                                 {ticket.status}
                                             </span>
