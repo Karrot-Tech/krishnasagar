@@ -131,7 +131,7 @@ export default function AdminTicketsPage() {
                                     <div className="flex items-center gap-2 mb-0.5">
                                         <h3 className="font-bold text-sm text-gray-900 truncate">{ticket.subject}</h3>
                                         <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
-                                                ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
+                                            ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
                                             }`}>
                                             {ticket.status}
                                         </span>
@@ -158,18 +158,19 @@ export default function AdminTicketsPage() {
                 isOpen={!!expandedTicketId}
                 onClose={() => setExpandedTicketId(null)}
                 title={tickets.find(t => t.id === expandedTicketId)?.subject || 'Inquiry'}
+                flush
             >
-                <div className="flex flex-col h-[60vh] -mx-6 -mt-4">
+                <div className="flex flex-col h-[70vh]">
                     {/* Thread Content */}
                     <div className="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar bg-gray-50/50">
                         {tickets.find(t => t.id === expandedTicketId)?.messages.map((msg, idx) => (
                             <div key={idx} className={`flex ${msg.sender === 'USER' ? 'justify-start' : 'justify-end'}`}>
-                                <div className={`max-w-[90%] rounded-2xl px-3 py-2 shadow-sm ${msg.sender === 'USER'
-                                        ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
-                                        : 'bg-ochre text-white rounded-tr-none shadow-ochre/20'
+                                <div className={`max-w-[85%] rounded-2xl px-3 py-2 shadow-sm ${msg.sender === 'USER'
+                                    ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
+                                    : 'bg-ochre text-white rounded-tr-none shadow-ochre/20'
                                     }`}>
-                                    <p className="text-xs font-medium leading-relaxed">{msg.text}</p>
-                                    <div className={`text-[8px] mt-1 font-black uppercase tracking-widest ${msg.sender === 'USER' ? 'text-gray-300' : 'text-orange-100/70'
+                                    <p className="text-[13px] font-medium leading-relaxed">{msg.text}</p>
+                                    <div className={`text-[8px] mt-1 font-black uppercase tracking-widest ${msg.sender === 'USER' ? 'text-gray-400' : 'text-orange-100/70'
                                         }`}>
                                         {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                     </div>
@@ -180,18 +181,18 @@ export default function AdminTicketsPage() {
 
                     {/* Footer / Reply Area */}
                     {expandedTicketId && tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' && (
-                        <div className="p-4 bg-white border-t border-gray-100 space-y-3">
+                        <div className="p-4 bg-white border-t border-gray-100 pb-8 md:pb-4">
                             <textarea
                                 value={replyText[expandedTicketId] || ''}
                                 onChange={(e) => setReplyText(prev => ({ ...prev, [expandedTicketId!]: e.target.value }))}
                                 placeholder="Type spiritual guidance..."
                                 rows={2}
-                                className="w-full border-none bg-gray-50 rounded-xl p-3 text-xs font-medium focus:ring-2 focus:ring-ochre/20 outline-none resize-none"
+                                className="w-full border-none bg-gray-50 rounded-xl p-3 text-sm font-medium focus:ring-2 focus:ring-ochre/20 outline-none resize-none mb-3"
                             />
                             <div className="flex items-center justify-between gap-3">
                                 <button
                                     onClick={() => setConfirmCloseId(expandedTicketId)}
-                                    className="text-[9px] font-black text-gray-300 uppercase tracking-widest hover:text-red-500 transition-colors py-2"
+                                    className="text-[10px] font-black text-gray-300 uppercase tracking-widest hover:text-red-500 transition-colors py-2"
                                 >
                                     Close Inquiry
                                 </button>
@@ -217,25 +218,27 @@ export default function AdminTicketsPage() {
             <Modal
                 isOpen={!!confirmCloseId}
                 onClose={() => setConfirmCloseId(null)}
-                title="Close Inquiry?"
+                title="Close Inquiry"
                 actions={
                     <>
                         <button
                             onClick={() => setConfirmCloseId(null)}
-                            className="w-full py-3 rounded-xl border border-gray-200 font-bold text-gray-600 hover:bg-gray-50 transition"
+                            className="bg-gray-100 text-gray-600 px-4 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-gray-200 transition-all"
                         >
                             Cancel
                         </button>
                         <button
                             onClick={() => confirmCloseId && handleClose(confirmCloseId)}
-                            className="w-full py-3 rounded-xl bg-orange-600 text-white font-bold hover:bg-orange-700 transition shadow-lg"
+                            className="bg-red-500 text-white px-4 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-200"
                         >
-                            Yes, Close
+                            Confirm Close
                         </button>
                     </>
                 }
             >
-                Are you sure you want to mark this inquiry as closed? This will prevent further replies.
+                <p className="text-sm font-medium text-gray-500 leading-relaxed px-1">
+                    Are you sure you want to mark this spiritual inquiry as closed? This action will archive the conversation.
+                </p>
             </Modal>
 
             {notification && (
