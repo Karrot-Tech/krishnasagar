@@ -103,114 +103,115 @@ export default function AdminTicketsPage() {
                 </div>
             </div>
 
-            <div className="grid gap-6">
+            <div className="grid gap-3">
                 {tickets.length === 0 ? (
-                    <div className="text-center py-20 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
-                        <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-xl font-medium text-gray-900">No tickets yet</h3>
-                        <p className="text-gray-500">User inquiries will appear here.</p>
+                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm">
+                        <MessageCircle className="w-12 h-12 text-gray-200 mx-auto mb-4" />
+                        <h3 className="text-xl font-black text-gray-900 tracking-tight">No inquiries yet</h3>
+                        <p className="text-sm text-gray-400 font-medium">Seeker inquiries will appear here.</p>
                     </div>
                 ) : (
                     tickets.map((ticket) => (
-                        <div key={ticket.id} className={`bg-white rounded-xl shadow-sm border transition-all ${expandedTicketId === ticket.id ? 'ring-2 ring-ochre border-transparent' : 'border-gray-200'}`}>
-                            {/* Ticket Summary Header */}
-                            <div
-                                onClick={() => setExpandedTicketId(expandedTicketId === ticket.id ? null : ticket.id)}
-                                className="p-4 md:p-6 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
-                            >
-                                <div className="flex items-start space-x-3 md:space-x-4 min-w-0 flex-1">
-                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 rounded-xl overflow-hidden flex-none border border-gray-100 shadow-sm">
-                                        {ticket.user.image ? (
-                                            <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center">
-                                                <User className="w-5 h-5 text-gray-400" />
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                            <h3 className="font-bold text-sm md:text-lg text-gray-900 truncate max-w-[150px] md:max-w-none">{ticket.subject}</h3>
-                                            <span className={`px-2 py-0.5 rounded-md text-[8px] md:text-[10px] font-black uppercase tracking-widest ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
-                                                ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
-                                                }`}>
-                                                {ticket.status}
-                                            </span>
-                                        </div>
-                                        <div className="flex flex-wrap items-center text-[10px] md:text-sm text-gray-500 mt-1 gap-x-2 gap-y-1">
-                                            <span className="font-bold text-gray-700 truncate max-w-[100px] md:max-w-none">{ticket.user.name || ticket.user.email}</span>
-                                            <span className="hidden xs:inline text-gray-300">•</span>
-                                            <span className="flex items-center"><Clock className="w-3 h-3 mr-1 opacity-60" /> {new Date(ticket.createdAt).toLocaleDateString()}</span>
-                                            <span className="hidden xs:inline text-gray-300">•</span>
-                                            <span className="bg-gray-100 px-1.5 py-0.5 rounded font-medium">{ticket.messages.length} msg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="ml-4 flex-none">
-                                    {expandedTicketId === ticket.id ? <ChevronUp className="w-5 h-5 text-gray-300" /> : <ChevronDown className="w-5 h-5 text-gray-300" />}
-                                </div>
-                            </div>
-
-                            {/* Expanded Content */}
-                            {expandedTicketId === ticket.id && (
-                                <div className="border-t border-gray-100 bg-gray-50 rounded-b-xl">
-                                    {/* Message Thread */}
-                                    <div className="p-4 md:p-6 space-y-4 max-h-[400px] overflow-y-auto no-scrollbar">
-                                        {ticket.messages.map((msg, idx) => (
-                                            <div key={idx} className={`flex ${msg.sender === 'USER' ? 'justify-start' : 'justify-end'}`}>
-                                                <div className={`max-w-[90%] md:max-w-[85%] rounded-2xl p-3 md:p-4 shadow-sm ${msg.sender === 'USER'
-                                                    ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
-                                                    : 'bg-ochre text-white rounded-tr-none'
-                                                    }`}>
-                                                    <p className="text-xs md:text-sm leading-relaxed font-medium">{msg.text}</p>
-                                                    <div className={`text-[9px] md:text-[10px] mt-2 font-black uppercase tracking-widest ${msg.sender === 'USER' ? 'text-gray-400' : 'text-orange-100/70'}`}>
-                                                        {new Date(msg.createdAt).toLocaleString()}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-
-                                    {/* Action Area */}
-                                    {ticket.status !== 'CLOSED' && (
-                                        <div className="p-4 md:p-6 border-t border-gray-100 bg-white rounded-b-xl space-y-4">
-                                            <div className="relative">
-                                                <textarea
-                                                    value={replyText[ticket.id] || ''}
-                                                    onChange={(e) => setReplyText(prev => ({ ...prev, [ticket.id]: e.target.value }))}
-                                                    placeholder="Type your spiritual guidance here..."
-                                                    rows={3}
-                                                    className="w-full border border-gray-100 rounded-xl p-3 md:p-4 focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm resize-none bg-gray-50/50"
-                                                />
-                                            </div>
-                                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                                                <button
-                                                    onClick={() => setConfirmCloseId(ticket.id)}
-                                                    className="w-full sm:w-auto text-gray-400 hover:text-red-500 text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center justify-center transition-all px-3 py-2 rounded-lg hover:bg-red-50"
-                                                >
-                                                    <CheckCircle2 className="w-4 h-4 mr-2" /> Close Inquiry
-                                                </button>
-                                                <button
-                                                    disabled={isSubmitting[ticket.id] || !replyText[ticket.id]?.trim()}
-                                                    onClick={() => handleReply(ticket.id)}
-                                                    className="w-full sm:w-auto bg-ochre text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-orange-700 transition-all disabled:opacity-50 flex items-center justify-center shadow-lg shadow-ochre/20 active:scale-95"
-                                                >
-                                                    {isSubmitting[ticket.id] ? (
-                                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                                    ) : (
-                                                        <Send className="w-4 h-4 mr-2" />
-                                                    )}
-                                                    Send Guidance
-                                                </button>
-                                            </div>
+                        <div
+                            key={ticket.id}
+                            onClick={() => setExpandedTicketId(ticket.id)}
+                            className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between gap-3 cursor-pointer hover:border-ochre/30 transition-all active:scale-[0.98]"
+                        >
+                            <div className="flex items-start gap-3 min-w-0 flex-1">
+                                <div className="w-10 h-10 bg-gray-50 rounded-xl overflow-hidden flex-none border border-gray-100">
+                                    {ticket.user.image ? (
+                                        <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <User className="w-5 h-5 text-gray-300" />
                                         </div>
                                     )}
                                 </div>
-                            )}
+                                <div className="min-w-0 flex-1">
+                                    <div className="flex items-center gap-2 mb-0.5">
+                                        <h3 className="font-bold text-sm text-gray-900 truncate">{ticket.subject}</h3>
+                                        <span className={`px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
+                                                ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
+                                            }`}>
+                                            {ticket.status}
+                                        </span>
+                                    </div>
+                                    <div className="flex items-center text-[10px] text-gray-400 font-bold uppercase tracking-tight gap-2">
+                                        <span className="truncate">{ticket.user.name || 'Anonymous'}</span>
+                                        <span className="opacity-30">•</span>
+                                        <span>{new Date(ticket.createdAt).toLocaleDateString()}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex flex-col items-end gap-1 flex-none">
+                                <div className="bg-gray-50 px-2 py-0.5 rounded-md text-[9px] font-black text-gray-400 border border-gray-100">
+                                    {ticket.messages.length} MSG
+                                </div>
+                            </div>
                         </div>
                     ))
                 )}
             </div>
+
+            {/* Conversation Focused Modal */}
+            <Modal
+                isOpen={!!expandedTicketId}
+                onClose={() => setExpandedTicketId(null)}
+                title={tickets.find(t => t.id === expandedTicketId)?.subject || 'Inquiry'}
+            >
+                <div className="flex flex-col h-[60vh] -mx-6 -mt-4">
+                    {/* Thread Content */}
+                    <div className="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar bg-gray-50/50">
+                        {tickets.find(t => t.id === expandedTicketId)?.messages.map((msg, idx) => (
+                            <div key={idx} className={`flex ${msg.sender === 'USER' ? 'justify-start' : 'justify-end'}`}>
+                                <div className={`max-w-[90%] rounded-2xl px-3 py-2 shadow-sm ${msg.sender === 'USER'
+                                        ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
+                                        : 'bg-ochre text-white rounded-tr-none shadow-ochre/20'
+                                    }`}>
+                                    <p className="text-xs font-medium leading-relaxed">{msg.text}</p>
+                                    <div className={`text-[8px] mt-1 font-black uppercase tracking-widest ${msg.sender === 'USER' ? 'text-gray-300' : 'text-orange-100/70'
+                                        }`}>
+                                        {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Footer / Reply Area */}
+                    {expandedTicketId && tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' && (
+                        <div className="p-4 bg-white border-t border-gray-100 space-y-3">
+                            <textarea
+                                value={replyText[expandedTicketId] || ''}
+                                onChange={(e) => setReplyText(prev => ({ ...prev, [expandedTicketId!]: e.target.value }))}
+                                placeholder="Type spiritual guidance..."
+                                rows={2}
+                                className="w-full border-none bg-gray-50 rounded-xl p-3 text-xs font-medium focus:ring-2 focus:ring-ochre/20 outline-none resize-none"
+                            />
+                            <div className="flex items-center justify-between gap-3">
+                                <button
+                                    onClick={() => setConfirmCloseId(expandedTicketId)}
+                                    className="text-[9px] font-black text-gray-300 uppercase tracking-widest hover:text-red-500 transition-colors py-2"
+                                >
+                                    Close Inquiry
+                                </button>
+                                <button
+                                    disabled={isSubmitting[expandedTicketId] || !replyText[expandedTicketId]?.trim()}
+                                    onClick={() => handleReply(expandedTicketId!)}
+                                    className="bg-ochre text-white px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-700 transition-all disabled:opacity-30 shadow-lg shadow-ochre/20 flex items-center"
+                                >
+                                    {isSubmitting[expandedTicketId] ? (
+                                        <Loader2 className="w-3 h-3 mr-2 animate-spin" />
+                                    ) : (
+                                        <Send className="w-3 h-3 mr-2" />
+                                    )}
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </Modal>
 
             {/* Premium UI Components */}
             <Modal
