@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     default: "Sai Leela Rahasya",
     template: "%s | Sai Leela Rahasya",
   },
-  description: "Digital study guide for Krishnaji's teachings. Explore the secret plays of Sai Baba through Leelas, Bodhakathas, and spiritual guidance.",
+  description: "Unveil the secret meanings behind Shirdi Sai Baba's divine plays. Explore the Sai Leela Rahasya through authentic Leelas, Bodhakathas, and curated spiritual guidance from Krishnaji.",
   keywords: ["Sai Baba", "Shirdi Sai Baba", "Sai Leela Rahasya", "Krishnaji", "Spiritual Guidance", "Sai Satcharitra", "Bhajans"],
   authors: [{ name: "Krishnaji" }],
   openGraph: {
