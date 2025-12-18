@@ -14,8 +14,10 @@ export default function AdminModeIndicator() {
 
     if (!isLoaded || !isSignedIn) return null;
 
-    const email = user.emailAddresses[0]?.emailAddress;
-    const isAdmin = email && getAdminEmails().includes(email.toLowerCase());
+    const adminEmails = getAdminEmails();
+    const isAdmin = user?.emailAddresses.some(emailObj =>
+        adminEmails.includes(emailObj.emailAddress.toLowerCase())
+    );
 
     if (!isAdmin) return null;
 

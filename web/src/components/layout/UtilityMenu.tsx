@@ -16,8 +16,10 @@ export default function UtilityMenu() {
     const { isLoaded, isSignedIn, user } = useUser();
     const pathname = usePathname();
 
-    const email = user?.emailAddresses[0]?.emailAddress;
-    const isAdmin = email && getAdminEmails().includes(email.toLowerCase());
+    const adminEmails = getAdminEmails();
+    const isAdmin = user?.emailAddresses.some(emailObj =>
+        adminEmails.includes(emailObj.emailAddress.toLowerCase())
+    );
 
     useEffect(() => {
         setIsOpen(false);
