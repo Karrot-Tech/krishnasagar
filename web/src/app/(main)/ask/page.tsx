@@ -154,8 +154,8 @@ export default function AskPage() {
                         <MessageCircleQuestion className="w-10 h-10" />
                     </div>
                     <h1 className="text-3xl font-bold text-gray-800">Spiritual Inquiry</h1>
-                    <p className="text-gray-500 text-lg">
-                        Sign in to seek personalized spiritual guidance and track your questions effectively.
+                    <p className="text-gray-500 text-lg leading-relaxed">
+                        Please sign in to share your spiritual questions and receive personal guidance from Krishnaji.
                     </p>
                     <SignInButton mode="modal">
                         <button className="bg-ochre text-white px-8 py-3 rounded-full font-bold hover:bg-orange-700 transition shadow-lg w-full md:w-auto">
