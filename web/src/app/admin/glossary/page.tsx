@@ -65,10 +65,10 @@ export default async function AdminGlossaryPage() {
                         <div className="flex items-center gap-1.5 flex-none">
                             <Link
                                 href={`/admin/glossary/${item.id}`}
-                                className="p-2 text-blue-500 bg-blue-50 rounded-lg transition-colors border border-blue-100/50"
+                                className="p-2 text-blue-500 bg-white rounded-lg transition-all border border-gray-100 shadow-sm active:scale-90"
                                 aria-label="Edit"
                             >
-                                <Edit className="w-3.5 h-3.5" />
+                                <Edit className="w-4 h-4" />
                             </Link>
                             <DeleteIconButton id={item.id} type="glossary" />
                         </div>

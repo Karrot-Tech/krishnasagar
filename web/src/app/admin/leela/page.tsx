@@ -77,9 +77,9 @@ export default async function AdminLeelaPage() {
                             <div className="flex items-center gap-1.5">
                                 <Link
                                     href={`/admin/leela/${leela.id}`}
-                                    className="p-1.5 text-blue-500 bg-blue-50 rounded-lg transition-colors border border-blue-100/50"
+                                    className="p-2 text-blue-500 bg-white rounded-lg transition-all border border-gray-100 shadow-sm active:scale-90"
                                 >
-                                    <Edit className="w-3.5 h-3.5" />
+                                    <Edit className="w-4 h-4" />
                                 </Link>
                                 <DeleteIconButton id={leela.id} type="leela" />
                             </div>
