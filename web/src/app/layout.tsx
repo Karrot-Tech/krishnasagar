@@ -4,6 +4,8 @@ import Layout from "@/components/layout/Layout";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import UpdateDetector from "@/components/common/UpdateDetector";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -111,6 +113,8 @@ export default function RootLayout({
               {children}
             </Layout>
             <UpdateDetector />
+            <Analytics />
+            <SpeedInsights />
           </LanguageProvider>
         </body>
       </html>
