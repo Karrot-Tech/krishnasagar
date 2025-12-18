@@ -4,8 +4,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveLeela, deleteLeela } from '@/actions/content';
-import { Save, Trash2, ArrowLeft } from 'lucide-react';
+import { Save, Trash2, ArrowLeft, Eye, Edit3, Bold, Italic, List, Heading3, Link as LinkIcon } from 'lucide-react';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 
 interface LeelaFormProps {
     leela?: any;
@@ -25,6 +26,29 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
         social_tags: leela?.social_tags?.join(', ') || '',
         orderId: leela?.orderId || 0,
     });
+    const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('edit');
+
+    const insertMarkdown = (prefix: string, suffix: string = '') => {
+        const textarea = document.getElementById('description-textarea') as HTMLTextAreaElement;
+        if (!textarea) return;
+
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = textarea.value;
+        const selection = text.substring(start, end);
+        const before = text.substring(0, start);
+        const after = text.substring(end);
+
+        const newText = before + prefix + (selection || '') + suffix + after;
+        setFormData({ ...formData, description: newText });
+
+        // Reset focus and selection
+        setTimeout(() => {
+            textarea.focus();
+            const newCursorPos = start + prefix.length + (selection ? selection.length + suffix.length : 0);
+            textarea.setSelectionRange(newCursorPos, newCursorPos);
+        }, 10);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -116,15 +140,55 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
                                 />
                             </div>
                         </div>
-                        <div className="space-y-1.5">
-                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Description / Content</label>
-                            <textarea
-                                required
-                                rows={12}
-                                className="w-full px-3 py-2.5 md:p-3 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm leading-relaxed transition-all resize-none"
-                                value={formData.description}
-                                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            />
+                        <div className="space-y-3">
+                            <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <div className="flex bg-gray-100 p-1 rounded-xl">
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditorMode('edit')}
+                                        className={`px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all flex items-center space-x-2 ${editorMode === 'edit' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                                            }`}
+                                    >
+                                        <Edit3 className="w-3 h-3" />
+                                        <span>Write</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setEditorMode('preview')}
+                                        className={`px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest transition-all flex items-center space-x-2 ${editorMode === 'preview' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                                            }`}
+                                    >
+                                        <Eye className="w-3 h-3" />
+                                        <span>Preview</span>
+                                    </button>
+                                </div>
+
+                                {editorMode === 'edit' && (
+                                    <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-1">
+                                        <button type="button" onClick={() => insertMarkdown('### ')} className="p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors" title="Heading"><Heading3 className="w-4 h-4" /></button>
+                                        <button type="button" onClick={() => insertMarkdown('**', '**')} className="p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors" title="Bold"><Bold className="w-4 h-4" /></button>
+                                        <button type="button" onClick={() => insertMarkdown('*', '*')} className="p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors" title="Italic"><Italic className="w-4 h-4" /></button>
+                                        <button type="button" onClick={() => insertMarkdown('\n* ')} className="p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors" title="List"><List className="w-4 h-4" /></button>
+                                        <button type="button" onClick={() => insertMarkdown('[', '](url)')} className="p-2 hover:bg-gray-50 rounded-lg text-gray-400 transition-colors" title="Link"><LinkIcon className="w-4 h-4" /></button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {editorMode === 'edit' ? (
+                                <textarea
+                                    id="description-textarea"
+                                    required
+                                    rows={14}
+                                    className="w-full px-3 py-4 md:p-3 border-none bg-gray-50/30 rounded-xl focus:ring-0 outline-none text-sm leading-relaxed transition-all resize-none font-mono"
+                                    placeholder="Type the leela content here... Use Markdown for styling."
+                                    value={formData.description}
+                                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                                />
+                            ) : (
+                                <div className="prose prose-sm prose-ochre max-w-none px-3 py-4 md:p-3 bg-gray-50/30 rounded-2xl min-h-[400px]">
+                                    <ReactMarkdown>{formData.description}</ReactMarkdown>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
