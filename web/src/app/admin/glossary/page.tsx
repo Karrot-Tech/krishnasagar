@@ -58,20 +58,24 @@ export default async function AdminGlossaryPage() {
                 </table>
             </div>
 
-            {/* Mobile View: Cards */}
-            <div className="md:hidden grid grid-cols-1 gap-3">
+            {/* Mobile View: Streamlined List */}
+            <div className="md:hidden space-y-2">
                 {glossaryItems.map((item: any) => (
-                    <div key={item.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between gap-3">
-                        <h3 className="font-black text-base text-ochre tracking-tight truncate flex-1">{item.term}</h3>
-                        <div className="flex items-center gap-2 flex-none">
+                    <div key={item.id} className="bg-white py-2.5 px-4 rounded-xl shadow-sm border border-gray-100 flex items-center justify-between gap-3 transition-all active:bg-gray-50">
+                        <h3 className="font-bold text-sm text-ochre tracking-tight truncate flex-1">{item.term}</h3>
+                        <div className="flex items-center gap-1.5 flex-none">
                             <Link
                                 href={`/admin/glossary/${item.id}`}
                                 className="p-2 text-blue-500 bg-blue-50 rounded-lg transition-colors border border-blue-100/50"
+                                aria-label="Edit"
                             >
-                                <Edit className="w-4 h-4" />
+                                <Edit className="w-3.5 h-3.5" />
                             </Link>
-                            <button className="p-2 text-red-500 bg-red-50 rounded-lg transition-colors border border-red-100/50">
-                                <Trash2 className="w-4 h-4" />
+                            <button
+                                className="p-2 text-red-500 bg-red-50 rounded-lg transition-colors border border-red-100/50"
+                                aria-label="Delete"
+                            >
+                                <Trash2 className="w-3.5 h-3.5" />
                             </button>
                         </div>
                     </div>

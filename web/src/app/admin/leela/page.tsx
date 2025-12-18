@@ -68,28 +68,28 @@ export default async function AdminLeelaPage() {
             </div>
 
             {/* Mobile View: Cards */}
-            <div className="md:hidden space-y-3">
+            <div className="md:hidden space-y-2.5">
                 {leelas.map((leela: any) => (
-                    <div key={leela.id} className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col gap-3">
+                    <div key={leela.id} className="bg-white py-3 px-4 rounded-xl shadow-sm border border-gray-100 flex flex-col gap-2.5">
                         <div className="flex justify-between items-start">
                             <span className="bg-ochre/5 text-ochre text-[10px] font-black uppercase px-2 py-1 rounded-lg border border-ochre/10">
                                 Chapter {leela.chapter || 'N/A'}
                             </span>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-1.5">
                                 <Link
                                     href={`/admin/leela/${leela.id}`}
-                                    className="p-2 text-blue-500 bg-blue-50 rounded-lg transition-colors border border-blue-100/50"
+                                    className="p-1.5 text-blue-500 bg-blue-50 rounded-lg transition-colors border border-blue-100/50"
                                 >
-                                    <Edit className="w-4 h-4" />
+                                    <Edit className="w-3.5 h-3.5" />
                                 </Link>
-                                <button className="p-2 text-red-500 bg-red-50 rounded-lg transition-colors border border-red-100/50">
-                                    <Trash2 className="w-4 h-4" />
+                                <button className="p-1.5 text-red-500 bg-red-50 rounded-lg transition-colors border border-red-100/50">
+                                    <Trash2 className="w-3.5 h-3.5" />
                                 </button>
                             </div>
                         </div>
                         <div className="min-w-0">
-                            <h3 className="font-bold text-gray-900 leading-tight text-base">{leela.title_english}</h3>
-                            <p className="text-xs text-gray-400 font-serif italic mt-0.5">{leela.title_hindi}</p>
+                            <h3 className="font-bold text-gray-900 leading-tight text-sm">{leela.title_english}</h3>
+                            <p className="text-[11px] text-gray-400 font-serif italic mt-0.5">{leela.title_hindi}</p>
                         </div>
                     </div>
                 ))}
