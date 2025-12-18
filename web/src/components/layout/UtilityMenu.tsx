@@ -22,6 +22,14 @@ export default function UtilityMenu() {
     );
 
     useEffect(() => {
+        if (isLoaded && isSignedIn) {
+            console.log('[ClientAdminCheck] User:', user?.emailAddresses.map(e => e.emailAddress).join(', '));
+            console.log('[ClientAdminCheck] Admin List:', adminEmails);
+            console.log('[ClientAdminCheck] IsAdmin:', isAdmin);
+        }
+    }, [isLoaded, isSignedIn, user, adminEmails, isAdmin]);
+
+    useEffect(() => {
         setIsOpen(false);
     }, [pathname]);
 
