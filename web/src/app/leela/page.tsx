@@ -24,9 +24,6 @@ export default function LeelaPage() {
                     >
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div className="space-y-2">
-                                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-1 rounded inline-block">
-                                    {article.chapter}
-                                </span>
                                 <h2 className="text-lg md:text-xl font-bold text-gray-800 group-hover:text-ochre transition-colors">
                                     {article.title_english}
                                 </h2>

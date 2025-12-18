@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: '/admin/',
         },
-        sitemap: 'https://saibisa-103.firebaseapp.com/sitemap.xml',
+        sitemap: 'https://saileelarahasya-web.vercel.app/sitemap.xml',
     };
 }
