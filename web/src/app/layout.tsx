@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "Sai Leela Rahasya",
     images: [
       {
-        url: "/icon.png",
+        url: "/icon-512.png",
         width: 512,
         height: 512,
       },
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sai Leela Rahasya",
     description: "Digital study guide for Krishnaji's teachings.",
-    images: ["/icon.png"],
+    images: ["/icon-512.png"],
   },
   icons: {
     icon: "/icon-192.png",
