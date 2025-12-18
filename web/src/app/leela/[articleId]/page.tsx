@@ -20,9 +20,7 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
     }
 
     // Reuse the mock text logic
-    const dummyText = Array(15).fill(
-        "In this beautiful Leela, we see how Sai Baba's method of teaching was unique. He did not give long discourses but taught through example. 'Shraddha' and 'Saburi' were his two coins of Dakshina."
-    ).join("\n\n");
+    const dummyText = article.description;
 
     const videos = [{
         id: article.id,

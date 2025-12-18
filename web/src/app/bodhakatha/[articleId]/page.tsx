@@ -20,9 +20,7 @@ export default async function BodhakathaDetailPage({ params }: { params: Promise
     }
 
     // Instructional mock text
-    const dummyText = Array(15).fill(
-        "In this instructional Bodhakatha, we learn the importance of internal purity over external rituals. Sai Baba often emphasized that a clean heart is the dwelling place of God. Through 'Satsang' and understanding the 'Rahasya' of his teachings, one can attain peace."
-    ).join("\n\n");
+    const dummyText = article.description;
 
     const videos = [{
         id: article.id,
