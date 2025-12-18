@@ -90,7 +90,7 @@ export default function AdminTicketsPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto py-4 md:py-8 px-4 space-y-6 md:space-y-8">
+        <div>
             <div className="space-y-6">
                 <div>
                     <h1 className="text-2xl md:text-4xl font-black text-gray-900 tracking-tight">Seeker Inquiries</h1>
@@ -128,7 +128,7 @@ export default function AdminTicketsPage() {
                 </div>
             </div>
 
-            <div className="grid gap-4 w-full px-1">
+            <div className="grid gap-4 w-full">
                 {tickets.filter(t => filter === 'ALL' || t.status === filter).length === 0 ? (
                     <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm animate-in fade-in duration-500 mx-1">
                         <MessageCircle className="w-12 h-12 text-gray-200 mx-auto mb-4" />

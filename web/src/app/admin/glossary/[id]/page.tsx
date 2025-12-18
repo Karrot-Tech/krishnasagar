@@ -15,7 +15,7 @@ export default async function AdminGlossaryEditPage({ params }: { params: Promis
     }
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
+        <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-8">
                 {id === 'new' ? 'Add New Term' : 'Edit Term'}
             </h1>

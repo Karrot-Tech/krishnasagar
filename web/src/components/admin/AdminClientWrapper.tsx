@@ -47,8 +47,8 @@ export default function AdminClientWrapper({
                     </Link>
                 </header>
 
-                <main className="flex-1 p-4 md:p-8 lg:p-12 min-w-0 overflow-x-hidden">
-                    <div className="max-w-7xl mx-auto px-1 md:px-0">
+                <main className="flex-1 p-4 md:py-8 lg:py-12 px-5 md:px-10 min-w-0 overflow-x-hidden">
+                    <div className="max-w-5xl mx-auto w-full">
                         {children}
                     </div>
                 </main>
