@@ -9,18 +9,18 @@ export default async function AdminGlossaryPage() {
     });
 
     return (
-        <div className="max-w-6xl mx-auto p-4 md:p-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <div className="max-w-6xl mx-auto py-4 md:py-8 px-4 space-y-6 md:space-y-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 md:pb-6 gap-4">
                 <div>
-                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Glossary Management</h1>
-                    <p className="text-sm text-gray-500">Manage terms and definitions</p>
+                    <h1 className="text-xl md:text-3xl font-black text-gray-900 tracking-tight">Glossary Archive</h1>
+                    <p className="text-xs md:text-sm text-gray-500 font-medium">Manage terms and spiritual definitions</p>
                 </div>
                 <Link
                     href="/admin/glossary/new"
-                    className="flex items-center space-x-2 bg-ochre text-white px-5 py-2.5 rounded-xl hover:bg-gold transition-all shadow-sm hover:shadow-md whitespace-nowrap"
+                    className="flex items-center justify-center space-x-2 bg-ochre text-white px-5 py-3 rounded-xl hover:bg-gold transition-all shadow-lg shadow-ochre/20 whitespace-nowrap active:scale-95"
                 >
                     <Plus className="w-5 h-5" />
-                    <span className="font-bold text-sm">Add New Term</span>
+                    <span className="font-black text-xs uppercase tracking-widest">Add New Term</span>
                 </Link>
             </div>
 

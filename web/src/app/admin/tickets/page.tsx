@@ -87,17 +87,17 @@ export default function AdminTicketsPage() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto py-8 px-4 space-y-8">
-            <div className="flex items-center justify-between border-b pb-6">
+        <div className="max-w-6xl mx-auto py-4 md:py-8 px-4 space-y-6 md:space-y-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-100 pb-4 md:pb-6 gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900">Seeker Inquiries Management</h1>
-                    <p className="text-gray-500 mt-1">Manage and respond to spiritual inquiries</p>
+                    <h1 className="text-xl md:text-3xl font-black text-gray-900 tracking-tight">Seeker Inquiries</h1>
+                    <p className="text-xs md:text-sm text-gray-500 font-medium">Manage and respond to spiritual guidance requests</p>
                 </div>
-                <div className="flex space-x-2">
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+                    <span className="bg-orange-50 text-ochre px-3 py-1.5 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider border border-ochre/10 whitespace-nowrap">
                         {tickets.filter(t => t.status === 'OPEN').length} New
                     </span>
-                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg text-[10px] md:text-xs font-bold uppercase tracking-wider border border-blue-100 whitespace-nowrap">
                         {tickets.filter(t => t.status === 'ANSWERED').length} Answered
                     </span>
                 </div>
@@ -116,36 +116,38 @@ export default function AdminTicketsPage() {
                             {/* Ticket Summary Header */}
                             <div
                                 onClick={() => setExpandedTicketId(expandedTicketId === ticket.id ? null : ticket.id)}
-                                className="p-6 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
+                                className="p-4 md:p-6 cursor-pointer hover:bg-gray-50 flex items-center justify-between"
                             >
-                                <div className="flex items-start space-x-4">
-                                    <div className="w-12 h-12 bg-gray-100 rounded-full overflow-hidden flex-none border border-gray-200">
+                                <div className="flex items-start space-x-3 md:space-x-4 min-w-0 flex-1">
+                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-gray-100 rounded-xl overflow-hidden flex-none border border-gray-100 shadow-sm">
                                         {ticket.user.image ? (
                                             <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
                                         ) : (
-                                            <User className="w-full h-6 m-3 text-gray-400" />
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <User className="w-5 h-5 text-gray-400" />
+                                            </div>
                                         )}
                                     </div>
-                                    <div>
-                                        <div className="flex items-center space-x-3">
-                                            <h3 className="font-bold text-lg text-gray-900">{ticket.subject}</h3>
-                                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${ticket.status === 'OPEN' ? 'bg-green-100 text-green-700' :
+                                    <div className="min-w-0 flex-1">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                            <h3 className="font-bold text-sm md:text-lg text-gray-900 truncate max-w-[150px] md:max-w-none">{ticket.subject}</h3>
+                                            <span className={`px-2 py-0.5 rounded-md text-[8px] md:text-[10px] font-black uppercase tracking-widest ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
                                                 ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'
                                                 }`}>
                                                 {ticket.status}
                                             </span>
                                         </div>
-                                        <div className="flex items-center text-sm text-gray-500 mt-1 space-x-3">
-                                            <span className="font-medium text-gray-700">{ticket.user.name || ticket.user.email}</span>
-                                            <span>•</span>
-                                            <span className="flex items-center"><Clock className="w-3 h-3 mr-1" /> {new Date(ticket.createdAt).toLocaleDateString()}</span>
-                                            <span>•</span>
-                                            <span>{ticket.messages.length} messages</span>
+                                        <div className="flex flex-wrap items-center text-[10px] md:text-sm text-gray-500 mt-1 gap-x-2 gap-y-1">
+                                            <span className="font-bold text-gray-700 truncate max-w-[100px] md:max-w-none">{ticket.user.name || ticket.user.email}</span>
+                                            <span className="hidden xs:inline text-gray-300">•</span>
+                                            <span className="flex items-center"><Clock className="w-3 h-3 mr-1 opacity-60" /> {new Date(ticket.createdAt).toLocaleDateString()}</span>
+                                            <span className="hidden xs:inline text-gray-300">•</span>
+                                            <span className="bg-gray-100 px-1.5 py-0.5 rounded font-medium">{ticket.messages.length} msg</span>
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    {expandedTicketId === ticket.id ? <ChevronUp className="text-gray-400" /> : <ChevronDown className="text-gray-400" />}
+                                <div className="ml-4 flex-none">
+                                    {expandedTicketId === ticket.id ? <ChevronUp className="w-5 h-5 text-gray-300" /> : <ChevronDown className="w-5 h-5 text-gray-300" />}
                                 </div>
                             </div>
 
@@ -153,15 +155,15 @@ export default function AdminTicketsPage() {
                             {expandedTicketId === ticket.id && (
                                 <div className="border-t border-gray-100 bg-gray-50 rounded-b-xl">
                                     {/* Message Thread */}
-                                    <div className="p-6 space-y-4 max-h-[400px] overflow-y-auto">
+                                    <div className="p-4 md:p-6 space-y-4 max-h-[400px] overflow-y-auto no-scrollbar">
                                         {ticket.messages.map((msg, idx) => (
                                             <div key={idx} className={`flex ${msg.sender === 'USER' ? 'justify-start' : 'justify-end'}`}>
-                                                <div className={`max-w-[85%] rounded-2xl p-4 shadow-sm ${msg.sender === 'USER'
-                                                    ? 'bg-white border border-gray-200 text-gray-800 rounded-tl-none'
+                                                <div className={`max-w-[90%] md:max-w-[85%] rounded-2xl p-3 md:p-4 shadow-sm ${msg.sender === 'USER'
+                                                    ? 'bg-white border border-gray-100 text-gray-800 rounded-tl-none'
                                                     : 'bg-ochre text-white rounded-tr-none'
                                                     }`}>
-                                                    <p className="text-sm leading-relaxed">{msg.text}</p>
-                                                    <div className={`text-[10px] mt-2 font-medium ${msg.sender === 'USER' ? 'text-gray-400' : 'text-orange-100'}`}>
+                                                    <p className="text-xs md:text-sm leading-relaxed font-medium">{msg.text}</p>
+                                                    <div className={`text-[9px] md:text-[10px] mt-2 font-black uppercase tracking-widest ${msg.sender === 'USER' ? 'text-gray-400' : 'text-orange-100/70'}`}>
                                                         {new Date(msg.createdAt).toLocaleString()}
                                                     </div>
                                                 </div>
@@ -171,27 +173,27 @@ export default function AdminTicketsPage() {
 
                                     {/* Action Area */}
                                     {ticket.status !== 'CLOSED' && (
-                                        <div className="p-6 border-t border-gray-200 bg-white rounded-b-xl space-y-4">
+                                        <div className="p-4 md:p-6 border-t border-gray-100 bg-white rounded-b-xl space-y-4">
                                             <div className="relative">
                                                 <textarea
                                                     value={replyText[ticket.id] || ''}
                                                     onChange={(e) => setReplyText(prev => ({ ...prev, [ticket.id]: e.target.value }))}
                                                     placeholder="Type your spiritual guidance here..."
                                                     rows={3}
-                                                    className="w-full border border-gray-200 rounded-xl p-4 focus:ring-2 focus:ring-ochre focus:border-transparent outline-none text-sm resize-none"
+                                                    className="w-full border border-gray-100 rounded-xl p-3 md:p-4 focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-sm resize-none bg-gray-50/50"
                                                 />
                                             </div>
-                                            <div className="flex items-center justify-between">
+                                            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                                                 <button
                                                     onClick={() => setConfirmCloseId(ticket.id)}
-                                                    className="text-gray-500 hover:text-red-600 text-sm font-medium flex items-center transition-colors px-2 py-1 rounded-md hover:bg-red-50"
+                                                    className="w-full sm:w-auto text-gray-400 hover:text-red-500 text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center justify-center transition-all px-3 py-2 rounded-lg hover:bg-red-50"
                                                 >
-                                                    <CheckCircle2 className="w-4 h-4 mr-1.5" /> Close Inquiry
+                                                    <CheckCircle2 className="w-4 h-4 mr-2" /> Close Inquiry
                                                 </button>
                                                 <button
                                                     disabled={isSubmitting[ticket.id] || !replyText[ticket.id]?.trim()}
                                                     onClick={() => handleReply(ticket.id)}
-                                                    className="bg-ochre text-white px-6 py-2 rounded-lg font-bold hover:bg-orange-700 transition disabled:opacity-50 flex items-center shadow-md active:scale-95"
+                                                    className="w-full sm:w-auto bg-ochre text-white px-8 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-orange-700 transition-all disabled:opacity-50 flex items-center justify-center shadow-lg shadow-ochre/20 active:scale-95"
                                                 >
                                                     {isSubmitting[ticket.id] ? (
                                                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />

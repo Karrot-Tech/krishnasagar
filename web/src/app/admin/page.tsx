@@ -65,10 +65,10 @@ export default async function AdminDashboard() {
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 md:space-y-12">
             {/* Header Content */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 md:pb-2">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:pb-2">
                 <div className="space-y-1">
-                    <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight">Admin Console</h1>
-                    <p className="text-sm md:text-lg text-gray-500 font-serif italic">"Service to humanity is service to God"</p>
+                    <h1 className="text-2xl md:text-5xl font-black text-gray-900 tracking-tight leading-none">Admin Console</h1>
+                    <p className="text-xs md:text-lg text-gray-500 font-serif italic opacity-70">"Service to humanity is service to God"</p>
                 </div>
 
                 {/* Ultra-Responsive Stats Grid */}
