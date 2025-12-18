@@ -147,9 +147,9 @@ export default function AskPage() {
     );
 
     return (
-        <div className="max-w-4xl mx-auto space-y-6 pt-6 px-4">
+        <div className="max-w-4xl mx-auto space-y-4 pt-4 px-4 pb-20 md:pb-10">
             <SignedOut>
-                <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 max-w-lg mx-auto w-full px-4">
+                <div className="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-4 max-w-lg mx-auto w-full px-4">
                     <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-400 mb-4">
                         <MessageCircleQuestion className="w-10 h-10" />
                     </div>
@@ -177,15 +177,15 @@ export default function AskPage() {
                         onClose={() => setNotification(null)}
                     />
                 )}
-                {/* Header */}
-                <div className="flex flex-col space-y-2 pb-4">
+                {/* Compact Header */}
+                <div className="flex flex-col space-y-2">
                     <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-ochre/10 rounded-xl flex items-center justify-center text-ochre flex-none">
-                            <MessageCircleQuestion className="w-5 h-5" />
+                        <div className="w-8 h-8 bg-ochre/10 rounded-xl flex items-center justify-center text-ochre flex-none border border-ochre/5">
+                            <MessageCircleQuestion className="w-4 h-4" />
                         </div>
                         <div>
-                            <h1 className="text-xl md:text-2xl font-black text-gray-900 tracking-tight">Guidance & Inquiry</h1>
-                            <p className="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mt-0.5">Spiritual Support Channel</p>
+                            <h1 className="text-lg md:text-xl font-black text-gray-900 tracking-tight leading-tight">Guidance & Inquiry</h1>
+                            <p className="text-[9px] md:text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">Spiritual Support Channel</p>
                         </div>
                     </div>
                 </div>
@@ -194,15 +194,15 @@ export default function AskPage() {
                 <div className="flex flex-col space-y-8">
                     {tickets.length === 0 ? (
                         <>
-                            {/* NEW USER VIEW: Prioritize the Form */}
-                            <div className="bg-white rounded-3xl shadow-xl shadow-ochre/5 border border-gray-100 overflow-hidden">
-                                <div className="p-8 md:p-12 text-center space-y-6">
-                                    <div className="w-20 h-20 bg-ochre/5 rounded-full flex items-center justify-center mx-auto text-ochre">
-                                        <Send className="w-8 h-8" />
+                            {/* NEW USER VIEW: Compact Optimized Form */}
+                            <div className="bg-white rounded-[2.5rem] shadow-xl shadow-ochre/5 border border-gray-100 overflow-hidden">
+                                <div className="p-6 md:p-10 text-center space-y-4">
+                                    <div className="w-12 h-12 bg-ochre/5 rounded-2xl flex items-center justify-center mx-auto text-ochre shadow-inner">
+                                        <Send className="w-5 h-5" />
                                     </div>
-                                    <div className="space-y-2">
-                                        <h2 className="text-2xl font-black text-gray-900">Seek Divine Guidance</h2>
-                                        <p className="text-gray-500 text-sm md:text-base max-w-sm mx-auto leading-relaxed">
+                                    <div className="space-y-1">
+                                        <h2 className="text-xl font-black text-gray-900">Seek Divine Guidance</h2>
+                                        <p className="text-gray-400 text-xs md:text-sm max-w-sm mx-auto leading-relaxed">
                                             Share your spiritual query or request personal guidance from Krishnaji.
                                         </p>
                                     </div>
@@ -217,33 +217,33 @@ export default function AskPage() {
                                                 <p className="text-gray-500 mt-2 max-w-[250px] mx-auto text-sm">Your inquiry has been shared with Krishnaji.</p>
                                             </div>
                                         ) : (
-                                            <form onSubmit={handleSubmit} className="space-y-5 max-w-md mx-auto">
+                                            <form onSubmit={handleSubmit} className="space-y-4 max-w-md mx-auto">
                                                 <div className="space-y-1.5">
-                                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Inquiry Topic</label>
+                                                    <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Inquiry Topic</label>
                                                     <input
                                                         type="text"
                                                         required
                                                         value={newTicketSubject}
                                                         onChange={(e) => setNewTicketSubject(e.target.value)}
                                                         placeholder="e.g., Guidance on Meditation Practice"
-                                                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-3 focus:ring-4 focus:ring-ochre/10 focus:border-ochre outline-none transition-all text-sm font-medium"
+                                                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-2.5 focus:ring-4 focus:ring-ochre/10 focus:border-ochre outline-none transition-all text-sm font-medium"
                                                     />
                                                 </div>
                                                 <div className="space-y-1.5">
-                                                    <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Your Question</label>
+                                                    <label className="text-[9px] font-black text-gray-400 uppercase tracking-widest ml-1">Your Question</label>
                                                     <textarea
                                                         required
-                                                        rows={5}
+                                                        rows={4}
                                                         value={newTicketMessage}
                                                         onChange={(e) => setNewTicketMessage(e.target.value)}
                                                         placeholder="Please share your spiritual question or request for guidance in detail..."
-                                                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-4 focus:ring-4 focus:ring-ochre/10 focus:border-ochre outline-none transition-all text-sm leading-relaxed resize-none font-medium"
+                                                        className="w-full bg-gray-50 border border-gray-100 rounded-2xl p-3.5 focus:ring-4 focus:ring-ochre/10 focus:border-ochre outline-none transition-all text-sm leading-relaxed resize-none font-medium"
                                                     />
                                                 </div>
                                                 <button
                                                     type="submit"
                                                     disabled={isSubmitting}
-                                                    className="w-full bg-ochre text-white py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-gold transition-all disabled:opacity-50 flex items-center justify-center shadow-xl shadow-ochre/20 active:scale-[0.98]"
+                                                    className="w-full bg-ochre text-white py-3.5 rounded-2xl font-black uppercase tracking-widest hover:bg-gold transition-all disabled:opacity-50 flex items-center justify-center shadow-xl shadow-ochre/20 active:scale-[0.98]"
                                                 >
                                                     {isSubmitting ? (
                                                         <>
