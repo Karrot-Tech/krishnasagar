@@ -21,21 +21,13 @@ export default function AudioPage() {
     // Desktop: Show all
     const desktopCategories = ['All', ...sortedCategories];
 
-    // Mobile: Top 2 + Other
-    const TOP_CATEGORIES_LIMIT = 2;
-    const topCategories = sortedCategories.slice(0, TOP_CATEGORIES_LIMIT);
-    const otherCategories = sortedCategories.slice(TOP_CATEGORIES_LIMIT);
-    const mobileCategories = ['All', ...topCategories];
-    if (otherCategories.length > 0) {
-        mobileCategories.push('Other');
-    }
+    // Mobile: Use all categories but wrap them
+    const mobileCategories = ['All', ...sortedCategories];
 
     // Filter tracks
     const filteredTracks = selectedCategory === 'All'
         ? audioTracks
-        : selectedCategory === 'Other'
-            ? audioTracks.filter(track => otherCategories.includes(track.category))
-            : audioTracks.filter(track => track.category === selectedCategory);
+        : audioTracks.filter(track => track.category === selectedCategory);
 
     const handleTrackClick = (track: typeof audioTracks[0]) => {
         if (currentTrack?.id === track.id) {
@@ -58,19 +50,12 @@ export default function AudioPage() {
                 </div>
             </div>
 
-            {/* Mobile Category Filters (Top + Other) */}
-            <div className="md:hidden overflow-x-auto pb-2 px-4 scrollbar-hide">
-                <div className="flex space-x-2 min-w-max">
+            {/* Mobile Category Filters (Wrapped Layout) */}
+            <div className="md:hidden px-6">
+                <div className="flex flex-wrap gap-2">
                     {mobileCategories.map((category) => {
-                        // Count logic for Mobile
-                        let count = 0;
-                        if (category === 'All') count = audioTracks.length;
-                        else if (category === 'Other') count = otherCategories.reduce((acc, c) => acc + categoryCounts[c], 0);
-                        else count = categoryCounts[category];
-
-                        // Active state logic for Mobile
-                        const isActive = selectedCategory === category ||
-                            (category === 'Other' && otherCategories.includes(selectedCategory));
+                        const count = category === 'All' ? audioTracks.length : categoryCounts[category];
+                        const isActive = selectedCategory === category;
 
                         return (
                             <button
