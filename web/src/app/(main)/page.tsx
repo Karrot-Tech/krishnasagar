@@ -3,10 +3,10 @@ import { ArrowRight, Youtube, Facebook, Instagram } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[85vh] md:min-h-[80vh] space-y-8 md:space-y-12 text-center pt-2 md:pt-6">
+    <div className="flex flex-col items-center justify-center min-h-[80vh] md:min-h-[75vh] space-y-6 md:space-y-10 text-center pt-2 md:pt-6">
 
       {/* Hero Section */}
-      <div className="space-y-6 max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700 w-full px-4">
+      <div className="space-y-4 max-w-4xl animate-in fade-in slide-in-from-bottom-4 duration-700 w-full px-4">
         <div className="rounded-3xl overflow-hidden shadow-2xl border-4 border-white mx-auto max-w-sm md:max-w-none">
           <img
             src="/hero-main.jpg"
@@ -47,7 +47,7 @@ export default function Home() {
       </div>
 
       {/* Social Links */}
-      <div className="pt-12">
+      <div className="pt-6 md:pt-10">
         <p className="text-sm text-gray-400 mb-4 uppercase tracking-widest">Connect with us</p>
         <div className="flex space-x-6 justify-center">
           <a href="https://www.youtube.com/@saileelarahasya" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-600 transition transform hover:scale-110">

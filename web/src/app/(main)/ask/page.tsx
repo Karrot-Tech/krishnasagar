@@ -474,25 +474,29 @@ export default function AskPage() {
             <Modal
                 isOpen={!!ticketToClose}
                 onClose={() => setTicketToClose(null)}
-                title="Close Inquiry?"
+                title="Archive Inquiry?"
                 actions={
                     <>
                         <button
                             onClick={() => setTicketToClose(null)}
-                            className="w-full py-3 rounded-xl border border-gray-200 font-bold text-gray-600 hover:bg-gray-50 transition"
+                            className="w-full py-3 rounded-2xl bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-widest hover:bg-gray-100 transition active:scale-95"
                         >
-                            Back
+                            Stay Open
                         </button>
                         <button
                             onClick={handleCloseTicket}
-                            className="w-full py-3 rounded-xl bg-red-800 text-white font-bold hover:bg-red-900 transition shadow-md"
+                            className="w-full py-3 rounded-2xl bg-ochre text-white font-black text-[10px] uppercase tracking-widest hover:bg-gold transition shadow-lg shadow-ochre/20 active:scale-95"
                         >
-                            Yes, Close
+                            Yes, Archive
                         </button>
                     </>
                 }
             >
-                Are you sure you want to close this inquiry? This will move it to your history.
+                <div className="space-y-4">
+                    <p className="text-sm font-medium text-gray-500 leading-relaxed px-1">
+                        Are you sure you want to mark this spiritual inquiry as closed? It will be moved to your <span className="text-ochre font-bold lowercase">Past Records</span> archive for future reference.
+                    </p>
+                </div>
             </Modal>
         </div >
     );

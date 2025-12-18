@@ -282,27 +282,29 @@ export default function AdminTicketsPage() {
             <Modal
                 isOpen={!!confirmCloseId}
                 onClose={() => setConfirmCloseId(null)}
-                title="Close Inquiry"
+                title="Archive Inquiry?"
                 actions={
                     <>
                         <button
                             onClick={() => setConfirmCloseId(null)}
-                            className="bg-gray-100 text-gray-600 px-4 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-gray-200 transition-all"
+                            className="w-full py-3 rounded-2xl bg-gray-50 text-gray-400 font-black text-[10px] uppercase tracking-widest hover:bg-gray-100 transition active:scale-95"
                         >
-                            Cancel
+                            Keep Open
                         </button>
                         <button
                             onClick={() => confirmCloseId && handleClose(confirmCloseId)}
-                            className="bg-red-500 text-white px-4 py-3 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-red-600 transition-all shadow-lg shadow-red-200"
+                            className="w-full py-3 rounded-2xl bg-ochre text-white font-black text-[10px] uppercase tracking-widest hover:bg-gold transition shadow-lg shadow-ochre/20 active:scale-95"
                         >
-                            Confirm Close
+                            Confirm Archive
                         </button>
                     </>
                 }
             >
-                <p className="text-sm font-medium text-gray-500 leading-relaxed px-1">
-                    Are you sure you want to mark this spiritual inquiry as closed? This action will archive the conversation.
-                </p>
+                <div className="space-y-4">
+                    <p className="text-sm font-medium text-gray-500 leading-relaxed px-1">
+                        Are you sure you want to mark this spiritual inquiry as closed? This action will move the conversation to the <span className="text-ochre font-bold lowercase">Past Records</span> archive.
+                    </p>
+                </div>
             </Modal>
 
             {notification && (
