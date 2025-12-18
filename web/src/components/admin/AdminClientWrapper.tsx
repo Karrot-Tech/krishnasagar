@@ -48,7 +48,7 @@ export default function AdminClientWrapper({
                 </header>
 
                 <main className="flex-1 p-4 md:p-8 lg:p-12 min-w-0 overflow-x-hidden">
-                    <div className="max-w-7xl mx-auto w-full">
+                    <div className="max-w-7xl mx-auto px-1 md:px-0">
                         {children}
                     </div>
                 </main>

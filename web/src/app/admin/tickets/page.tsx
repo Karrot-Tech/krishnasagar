@@ -128,9 +128,9 @@ export default function AdminTicketsPage() {
                 </div>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-4 w-full px-1">
                 {tickets.filter(t => filter === 'ALL' || t.status === filter).length === 0 ? (
-                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm animate-in fade-in duration-500">
+                    <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-gray-200 shadow-sm animate-in fade-in duration-500 mx-1">
                         <MessageCircle className="w-12 h-12 text-gray-200 mx-auto mb-4" />
                         <h3 className="text-xl font-black text-gray-900 tracking-tight">Nothing here</h3>
                         <p className="text-sm text-gray-400 font-medium">No inquiries matching this status.</p>
@@ -142,37 +142,37 @@ export default function AdminTicketsPage() {
                             <div
                                 key={ticket.id}
                                 onClick={() => setExpandedTicketId(ticket.id)}
-                                className="bg-white p-5 rounded-[2rem] shadow-sm border border-gray-100 flex items-center justify-between gap-4 cursor-pointer hover:border-ochre/30 hover:shadow-md transition-all active:scale-[0.99] group animate-in slide-in-from-bottom-2 duration-300"
+                                className="bg-white p-4 md:p-5 rounded-[1.5rem] md:rounded-[2rem] shadow-sm border border-gray-100 flex items-center justify-between gap-3 md:gap-4 cursor-pointer hover:border-ochre/30 hover:shadow-md transition-all active:scale-[0.99] group animate-in slide-in-from-bottom-2 duration-300 w-full overflow-hidden"
                             >
-                                <div className="flex items-center gap-4 min-w-0 flex-1">
-                                    <div className="w-14 h-14 bg-gray-50 rounded-2xl overflow-hidden flex-none border border-gray-100 shadow-sm transition-transform group-hover:scale-105">
+                                <div className="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
+                                    <div className="w-10 h-10 md:w-14 md:h-14 bg-gray-50 rounded-xl md:rounded-2xl overflow-hidden flex-none border border-gray-100 shadow-sm transition-transform group-hover:scale-105">
                                         {ticket.user.image ? (
                                             <img src={ticket.user.image} alt={ticket.user.name || ''} className="w-full h-full object-cover" />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center">
-                                                <User className="w-6 h-6 text-gray-300" />
+                                                <User className="w-5 h-5 md:w-6 md:h-6 text-gray-300" />
                                             </div>
                                         )}
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <h3 className="font-black text-lg text-gray-900 truncate tracking-tight">{ticket.subject}</h3>
-                                            <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-[0.1em] flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
+                                        <div className="flex flex-wrap items-center gap-2 mb-0.5 md:mb-1">
+                                            <h3 className="font-black text-sm md:text-lg text-gray-900 truncate tracking-tight">{ticket.subject}</h3>
+                                            <span className={`px-1.5 py-0.5 rounded text-[8px] md:text-[9px] font-black uppercase tracking-[0.1em] flex-none ${ticket.status === 'OPEN' ? 'bg-orange-100 text-ochre' :
                                                 ticket.status === 'ANSWERED' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-500'
                                                 }`}>
                                                 {ticket.status}
                                             </span>
                                         </div>
-                                        <div className="flex items-center text-xs text-gray-400 font-bold uppercase tracking-tight gap-2">
-                                            <span className="truncate group-hover:text-gray-600 transition-colors">{ticket.user.name || 'Anonymous'}</span>
+                                        <div className="flex items-center text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-tight gap-1.5 md:gap-2">
+                                            <span className="truncate group-hover:text-gray-600 transition-colors uppercase">{ticket.user.name?.split(' ')[0] || 'Anonymous'}</span>
                                             <span className="opacity-30">•</span>
                                             <span>{new Date(ticket.createdAt).toLocaleDateString()}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col items-end gap-1 flex-none">
-                                    <div className="bg-gray-100/50 group-hover:bg-ochre group-hover:text-white px-3 py-1.5 rounded-xl text-[10px] font-black text-gray-500 transition-all border border-gray-100/10 uppercase tracking-widest shadow-sm">
-                                        {ticket.messages.length} MSG
+                                    <div className="bg-gray-100/50 group-hover:bg-ochre group-hover:text-white px-2 md:px-3 py-1 md:py-1.5 rounded-lg md:rounded-xl text-[8px] md:text-[10px] font-black text-gray-500 transition-all border border-gray-100/10 uppercase tracking-widest shadow-sm">
+                                        {ticket.messages.length} <span className="hidden xs:inline">MSG</span>
                                     </div>
                                 </div>
                             </div>

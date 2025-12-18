@@ -67,7 +67,7 @@ export default function GlossaryForm({ glossary }: GlossaryFormProps) {
                             type="button"
                             onClick={handleDelete}
                             disabled={loading}
-                            className="flex-1 sm:flex-none justify-center bg-red-50 text-red-600 px-4 py-2.5 rounded-xl hover:bg-red-100 transition-all flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest border border-red-100 active:scale-95 whitespace-nowrap"
+                            className="flex-1 sm:flex-none justify-center bg-red-50 text-red-600 px-4 py-2.5 rounded-xl hover:bg-red-100 transition-all flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest border border-red-100 active:scale-95 whitespace-nowrap min-h-[42px]"
                         >
                             <Trash2 className="w-3.5 h-3.5" />
                             <span>Delete</span>
@@ -76,7 +76,7 @@ export default function GlossaryForm({ glossary }: GlossaryFormProps) {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex-1 sm:flex-none justify-center bg-ochre text-white px-6 py-2.5 rounded-xl hover:bg-gold transition-all flex items-center space-x-2 shadow-lg shadow-ochre/20 text-[10px] font-black uppercase tracking-widest active:scale-95 whitespace-nowrap"
+                        className="flex-1 sm:flex-none justify-center bg-ochre text-white px-6 py-2.5 rounded-xl hover:bg-gold transition-all flex items-center space-x-2 shadow-lg shadow-ochre/20 text-[10px] font-black uppercase tracking-widest active:scale-95 whitespace-nowrap min-h-[42px] border border-transparent"
                     >
                         <Save className="w-3.5 h-3.5" />
                         <span>{loading ? 'Saving...' : 'Save Term'}</span>
