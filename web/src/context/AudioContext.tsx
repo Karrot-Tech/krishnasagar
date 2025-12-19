@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useRef, useEffect } from 'react';
 
 export interface Track {
     id: number;
@@ -31,45 +31,6 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
     const [isLoading, setIsLoading] = useState(false);
     const [progress, setProgress] = useState(0);
     const audioRef = useRef<HTMLAudioElement | null>(null);
-
-    const playTrack = useCallback((track: Track) => {
-        if (audioRef.current) {
-            setIsLoading(true); // Set loading immediately
-            audioRef.current.src = track.url;
-            audioRef.current.play().catch(e => {
-                console.error("Playback failed:", e);
-                setIsLoading(false);
-            });
-            setCurrentTrack(track);
-            setIsPlaying(true);
-        }
-    }, []);
-
-    const togglePlay = useCallback(() => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-                setIsPlaying(false);
-            } else {
-                audioRef.current.play().catch(console.error);
-                setIsPlaying(true);
-            }
-        }
-    }, [isPlaying]);
-
-    const playNext = useCallback(() => {
-        if (!currentTrack) return;
-        const currentIndex = allTracks.findIndex(t => t.id === currentTrack.id);
-        const nextIndex = (currentIndex + 1) % allTracks.length;
-        playTrack(allTracks[nextIndex]);
-    }, [allTracks, currentTrack, playTrack]);
-
-    const playPrev = useCallback(() => {
-        if (!currentTrack) return;
-        const currentIndex = allTracks.findIndex(t => t.id === currentTrack.id);
-        const prevIndex = (currentIndex - 1 + allTracks.length) % allTracks.length;
-        playTrack(allTracks[prevIndex]);
-    }, [allTracks, currentTrack, playTrack]);
 
     // Initialize Audio
     useEffect(() => {
@@ -103,44 +64,51 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
             audioRef.current?.removeEventListener('playing', handlePlaying);
             audioRef.current?.removeEventListener('loadstart', handleLoadStart);
         };
-    }, [playNext]);
+    }, []);
 
-    // Media Session Support (Lock Screen Controls)
-    useEffect(() => {
-        if (typeof window !== 'undefined' && 'mediaSession' in navigator && currentTrack) {
-            navigator.mediaSession.metadata = new MediaMetadata({
-                title: currentTrack.title,
-                artist: currentTrack.singer && currentTrack.singer !== 'Unknown' ? currentTrack.singer : 'Sai Rahasya',
-                album: currentTrack.category,
-                artwork: [
-                    { src: '/app-icon.png', sizes: '512x512', type: 'image/png' },
-                ]
+    const playTrack = (track: Track) => {
+        if (audioRef.current) {
+            setIsLoading(true); // Set loading immediately
+            audioRef.current.src = track.url;
+            audioRef.current.play().catch(e => {
+                console.error("Playback failed:", e);
+                setIsLoading(false);
             });
-
-            navigator.mediaSession.setActionHandler('play', togglePlay);
-            navigator.mediaSession.setActionHandler('pause', togglePlay);
-            navigator.mediaSession.setActionHandler('previoustrack', playPrev);
-            navigator.mediaSession.setActionHandler('nexttrack', playNext);
-
-            return () => {
-                navigator.mediaSession.setActionHandler('play', null);
-                navigator.mediaSession.setActionHandler('pause', null);
-                navigator.mediaSession.setActionHandler('previoustrack', null);
-                navigator.mediaSession.setActionHandler('nexttrack', null);
-            };
+            setCurrentTrack(track);
+            setIsPlaying(true);
         }
-    }, [currentTrack, playNext, playPrev, togglePlay]);
+    };
 
-    // Sync playback state with Media Session
-    useEffect(() => {
-        if (typeof window !== 'undefined' && 'mediaSession' in navigator) {
-            navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+    const togglePlay = () => {
+        if (audioRef.current) {
+            if (isPlaying) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            } else {
+                audioRef.current.play().catch(console.error);
+                setIsPlaying(true);
+            }
         }
-    }, [isPlaying]);
+    };
+
+    const playNext = () => {
+        if (!currentTrack) return;
+        const currentIndex = allTracks.findIndex(t => t.id === currentTrack.id);
+        const nextIndex = (currentIndex + 1) % allTracks.length;
+        playTrack(allTracks[nextIndex]);
+    };
+
+    const playPrev = () => {
+        if (!currentTrack) return;
+        const currentIndex = allTracks.findIndex(t => t.id === currentTrack.id);
+        const prevIndex = (currentIndex - 1 + allTracks.length) % allTracks.length;
+        playTrack(allTracks[prevIndex]);
+    };
 
     const closePlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
+            audioRef.current.src = '';
             audioRef.current.currentTime = 0;
         }
         setIsPlaying(false);
