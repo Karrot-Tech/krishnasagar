@@ -7,7 +7,7 @@ export default function Header() {
             <div className="max-w-7xl w-full flex items-center justify-between md:justify-end pointer-events-auto">
                 <Link href="/" className="flex items-center gap-2 md:hidden min-w-0 flex-shrink">
                     <img
-                        src="/logo.jpg"
+                        src="/app-icon.png"
                         alt="Sai Leela Rahasya"
                         className="h-8 w-auto object-contain flex-none"
                     />

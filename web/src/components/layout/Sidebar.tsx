@@ -34,7 +34,7 @@ export default function Sidebar() {
             <div className="h-16 flex items-center px-3 border-b border-gray-100">
                 <Link href="/" className="flex items-center gap-3">
                     <img
-                        src="/logo.jpg"
+                        src="/app-icon.png"
                         alt="Sai Leela Rahasya"
                         className="h-10 w-auto object-contain"
                     />
