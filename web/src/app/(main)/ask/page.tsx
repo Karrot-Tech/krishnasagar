@@ -393,9 +393,12 @@ export default function AskPage() {
                                                             onClick={() => setExpandedTicketId(ticket.id)}
                                                             className={`p-4 md:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
                                                         >
-                                                            <div className="flex items-center space-x-4 min-w-0 flex-1">
+                                                            <div className="flex items-center space-x-4 min-w-0 flex-1 relative">
+                                                                {ticket.status === 'ANSWERED' && (
+                                                                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
+                                                                )}
                                                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-none border transition-all ${ticket.status === 'ANSWERED'
-                                                                    ? 'bg-blue-50 text-blue-600 border-blue-100 shadow-sm shadow-blue-500/20'
+                                                                    ? 'bg-gray-50 text-gray-400 border-gray-100'
                                                                     : ticket.status === 'OPEN'
                                                                         ? 'bg-green-50 text-green-600 border-green-100'
                                                                         : 'bg-gray-50 text-gray-400 border-gray-100'
@@ -403,7 +406,7 @@ export default function AskPage() {
                                                                     <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h3 className={`font-black text-sm md:text-base leading-tight truncate ${ticket.status === 'ANSWERED' ? 'text-blue-900' : 'text-gray-900'}`}>{ticket.subject}</h3>
+                                                                    <h3 className={`text-sm md:text-base leading-tight truncate ${ticket.status === 'ANSWERED' ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
                                                                     <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 flex items-center space-x-2">
                                                                         <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
                                                                         <span className="opacity-30">•</span>
@@ -413,7 +416,7 @@ export default function AskPage() {
                                                             </div>
                                                             <div className="flex items-center space-x-3 ml-2 flex-none">
                                                                 {ticket.status === 'ANSWERED' && (
-                                                                    <span className="hidden md:block bg-blue-600 text-white px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-widest shadow-lg shadow-blue-500/30">
+                                                                    <span className="hidden md:block bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-blue-100">
                                                                         Answered
                                                                     </span>
                                                                 )}
