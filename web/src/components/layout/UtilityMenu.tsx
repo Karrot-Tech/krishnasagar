@@ -83,36 +83,47 @@ export default function UtilityMenu() {
             {/* Menu Drawer */}
             <div className={`fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-white z-[110] shadow-2xl transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}>
-                {/* Header */}
-                <div className="flex justify-between items-center p-6 border-b border-gray-50 bg-gray-50/50">
+                {/* Header - Aligned with App Header for seamless toggle */}
+                <div className="flex justify-between items-center h-16 px-4 md:px-6 border-b border-gray-100 bg-white">
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 md:w-10 md:h-10 bg-ochre/10 rounded-xl flex items-center justify-center text-ochre">
-                            <User className="w-5 h-5" />
+                        <SignedIn>
+                            {user?.imageUrl ? (
+                                <img
+                                    src={user.imageUrl}
+                                    className="w-9 h-9 md:w-10 md:h-10 rounded-xl object-cover border border-gray-100 shadow-sm"
+                                    alt="Profile"
+                                />
+                            ) : (
+                                <div className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-ochre/10 flex items-center justify-center text-ochre border border-ochre/5">
+                                    <User className="w-5 h-5 md:w-6 md:h-6" />
+                                </div>
+                            )}
+                        </SignedIn>
+                        <SignedOut>
+                            <div className="w-9 h-9 md:w-10 md:h-10 bg-ochre/10 rounded-xl flex items-center justify-center text-ochre border border-ochre/5">
+                                <User className="w-5 h-5 md:w-6 md:h-6" />
+                            </div>
+                        </SignedOut>
+                        <div className="flex flex-col">
+                            <h2 className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-900 leading-none">Om Sai Ram 🙏</h2>
+                            <SignedIn>
+                                <p className="text-[9px] font-bold text-ochre uppercase tracking-tight mt-1 leading-none">
+                                    {user?.firstName || 'Devotee'}
+                                </p>
+                            </SignedIn>
                         </div>
-                        <h2 className="text-sm font-black uppercase tracking-widest text-gray-900">Om Sai Ram 🙏</h2>
                     </div>
-                    <button onClick={() => setIsOpen(false)} className="p-2 text-gray-400 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-all">
+                    <button
+                        onClick={() => setIsOpen(false)}
+                        className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-all active:scale-90"
+                    >
                         <X className="w-6 h-6" />
                     </button>
                 </div>
 
-                <div className="p-5 space-y-4 h-[calc(100%-80px)] flex flex-col no-scrollbar overflow-y-auto pb-24">
+                <div className="p-5 space-y-4 h-[calc(100%-64px)] flex flex-col no-scrollbar overflow-y-auto pb-24">
                     <SignedIn>
-                        {/* User Profile Summary - Compact Vertical Stack */}
-                        <div className="flex flex-col items-center text-center bg-gray-50/50 p-5 rounded-[2rem] border border-gray-100">
-                            <div className="relative mb-3">
-                                {user?.imageUrl ? (
-                                    <img src={user.imageUrl} className="w-16 h-16 rounded-2xl object-cover border-4 border-white shadow-md" alt="Profile" />
-                                ) : (
-                                    <div className="w-16 h-16 rounded-2xl bg-ochre flex items-center justify-center text-white text-2xl font-black shadow-md">{user?.firstName?.charAt(0)}</div>
-                                )}
-                                <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-green-500 border-[3px] border-gray-50 rounded-full shadow-sm" />
-                            </div>
-                            <div className="w-full">
-                                <p className="font-black text-gray-900 text-lg leading-tight">{user?.fullName}</p>
-                                <p className="text-[10px] font-bold text-gray-400 mt-1 break-all max-w-[180px] mx-auto leading-tight italic">{user?.primaryEmailAddress?.emailAddress}</p>
-                            </div>
-                        </div>
+                        {/* Profile display moved to header to save space */}
 
                         {/* Navigation Actions - Standardized Premium Style */}
                         <nav className="space-y-2 flex-1">
@@ -221,7 +232,7 @@ export default function UtilityMenu() {
                     </SignedOut>
 
                     <div className="text-center">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.42</p>
+                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.43</p>
                     </div>
                 </div>
             </div>
