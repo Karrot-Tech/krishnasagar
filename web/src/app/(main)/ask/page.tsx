@@ -195,11 +195,16 @@ export default function AskPage() {
     }
 
     const filteredTickets = tickets.filter(t => {
+        const isRead = t.messages.length === 0 || readMessages[t.id] === t.messages[t.messages.length - 1].id;
         const isAck = acknowledgedTickets.includes(t.id);
+
+        // A CLOSED ticket belongs in Archive if it has been read OR explicitly archived
+        const belongsInArchive = t.status === 'CLOSED' && (isRead || isAck);
+
         if (activeTab === 'open') {
-            return t.status === 'OPEN' || t.status === 'ANSWERED' || (t.status === 'CLOSED' && !isAck);
+            return !belongsInArchive;
         } else {
-            return t.status === 'CLOSED' && isAck;
+            return belongsInArchive;
         }
     });
 
@@ -464,7 +469,6 @@ export default function AskPage() {
                                                                             <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
                                                                             <span className="opacity-30">•</span>
                                                                             <span>{new Date(ticket.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-                                                                            {ticket.status === 'CLOSED' && <span className="text-red-500 ml-2">● FINISHED</span>}
                                                                         </div>
                                                                     </div>
                                                                 </div>
