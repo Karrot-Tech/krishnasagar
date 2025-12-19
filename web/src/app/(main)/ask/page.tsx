@@ -435,7 +435,7 @@ export default function AskPage() {
                                             <div className="space-y-4">
                                                 {filteredTickets.map((ticket: Ticket) => {
                                                     const isUnreadAnswered = ticket.status === 'ANSWERED' && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id;
-                                                    const isUnreadClosed = ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id);
+                                                    const isUnreadClosed = ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id) && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id;
 
                                                     return (
                                                         <div key={ticket.id} className={`border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 ${isUnreadAnswered ? 'bg-blue-50/40 border-blue-200 ring-4 ring-blue-50/50' : isUnreadClosed ? 'bg-red-50/20 border-red-100' : 'bg-white border-gray-100'}`}>
