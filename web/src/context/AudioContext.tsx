@@ -34,12 +34,17 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
 
     const playTrack = useCallback((track: Track) => {
         if (audioRef.current) {
-            setIsLoading(true); // Set loading immediately
+            setIsLoading(true);
             audioRef.current.src = track.url;
-            audioRef.current.play().catch(e => {
-                console.error("Playback failed:", e);
-                setIsLoading(false);
-            });
+            audioRef.current.load(); // Explicitly load the audio
+            audioRef.current.play()
+                .then(() => {
+                    setIsLoading(false); // Clear loading when play succeeds
+                })
+                .catch(e => {
+                    console.error("Playback failed:", e);
+                    setIsLoading(false);
+                });
             setCurrentTrack(track);
             setIsPlaying(true);
         }
