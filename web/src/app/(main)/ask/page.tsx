@@ -455,7 +455,7 @@ export default function AskPage() {
                         </div>
 
                         {tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' && (
-                            <div className="p-4 md:p-6 bg-white border-t border-gray-100 pb-10 md:pb-6">
+                            <div className="p-4 md:p-6 bg-white border-t border-gray-100">
                                 {followUpSuccess[expandedTicketId] ? (
                                     <div className="flex items-center space-x-3 py-4 px-5 bg-green-50/50 rounded-2xl border border-green-100 animate-in zoom-in duration-300">
                                         <CheckCircle2 className="w-5 h-5 text-green-600" />
