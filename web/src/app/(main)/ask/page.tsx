@@ -433,55 +433,62 @@ export default function AskPage() {
                                             </div>
                                         ) : (
                                             <div className="space-y-4">
-                                                {filteredTickets.map((ticket: Ticket) => (
-                                                    <div key={ticket.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-                                                        <div
-                                                            onClick={() => handleOpenTicket(ticket)}
-                                                            className={`p-4 md:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
-                                                        >
-                                                            <div className="flex items-center space-x-4 min-w-0 flex-1 relative">
-                                                                {ticket.status === 'ANSWERED' && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id && (
-                                                                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
-                                                                )}
-                                                                {ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id) && (
-                                                                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
-                                                                )}
-                                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-none border transition-all ${ticket.status === 'ANSWERED'
-                                                                    ? 'bg-gray-50 text-gray-400 border-gray-100'
-                                                                    : ticket.status === 'OPEN'
-                                                                        ? 'bg-green-50 text-green-600 border-green-100'
-                                                                        : 'bg-red-50 text-red-600 border-red-100'
-                                                                    }`}>
-                                                                    {ticket.status === 'CLOSED' ? <Archive className="w-5 h-5" /> : <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />}
+                                                {filteredTickets.map((ticket: Ticket) => {
+                                                    const isUnreadAnswered = ticket.status === 'ANSWERED' && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id;
+                                                    const isUnreadClosed = ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id);
+
+                                                    return (
+                                                        <div key={ticket.id} className={`border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 ${isUnreadAnswered ? 'bg-blue-50/40 border-blue-200 ring-4 ring-blue-50/50' : isUnreadClosed ? 'bg-red-50/20 border-red-100' : 'bg-white border-gray-100'}`}>
+                                                            <div
+                                                                onClick={() => handleOpenTicket(ticket)}
+                                                                className={`p-4 md:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
+                                                            >
+                                                                <div className="flex items-center space-x-4 min-w-0 flex-1 relative">
+                                                                    {isUnreadAnswered && (
+                                                                        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
+                                                                    )}
+                                                                    {isUnreadClosed && (
+                                                                        <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
+                                                                    )}
+                                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-none border transition-all ${isUnreadAnswered
+                                                                        ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/30'
+                                                                        : ticket.status === 'ANSWERED'
+                                                                            ? 'bg-gray-50 text-gray-400 border-gray-100'
+                                                                            : ticket.status === 'OPEN'
+                                                                                ? 'bg-green-50 text-green-600 border-green-100'
+                                                                                : 'bg-red-50 text-red-600 border-red-100'
+                                                                        }`}>
+                                                                        {ticket.status === 'CLOSED' ? <Archive className="w-5 h-5" /> : <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />}
+                                                                    </div>
+                                                                    <div className="min-w-0">
+                                                                        <h3 className={`text-sm md:text-base leading-tight truncate ${isUnreadAnswered || isUnreadClosed ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
+                                                                        <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 flex items-center space-x-2">
+                                                                            <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
+                                                                            <span className="opacity-30">•</span>
+                                                                            <span>{new Date(ticket.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                                                                            {ticket.status === 'CLOSED' && <span className="text-red-500 ml-2">● FINISHED</span>}
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div className="min-w-0">
-                                                                    <h3 className={`text-sm md:text-base leading-tight truncate ${ticket.status === 'ANSWERED' || (ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id)) ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
-                                                                    <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 flex items-center space-x-2">
-                                                                        <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
-                                                                        <span className="opacity-30">•</span>
-                                                                        <span>{new Date(ticket.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
-                                                                        {ticket.status === 'CLOSED' && <span className="text-red-500 ml-2">● FINISHED</span>}
+                                                                <div className="flex items-center space-x-3 ml-2 flex-none">
+                                                                    {ticket.status === 'ANSWERED' && (
+                                                                        <span className={`hidden md:block px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border transition-all ${isUnreadAnswered ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                                                            {isUnreadAnswered ? 'New Guidance' : 'Read Guidance'}
+                                                                        </span>
+                                                                    )}
+                                                                    {ticket.status === 'CLOSED' && (
+                                                                        <span className="hidden md:block bg-red-50 text-red-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-red-100">
+                                                                            Closed
+                                                                        </span>
+                                                                    )}
+                                                                    <div className={`px-2 py-1 rounded-lg text-[8px] font-black transition-all border uppercase tracking-widest ${isUnreadAnswered ? 'bg-blue-100 text-blue-700 border-blue-200' : 'bg-gray-50 text-gray-400 border-gray-100 group-hover:bg-ochre group-hover:text-white'}`}>
+                                                                        {ticket.messages.length} <span className="hidden xs:inline">MSG</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="flex items-center space-x-3 ml-2 flex-none">
-                                                                {ticket.status === 'ANSWERED' && (
-                                                                    <span className="hidden md:block bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-blue-100">
-                                                                        Answered
-                                                                    </span>
-                                                                )}
-                                                                {ticket.status === 'CLOSED' && (
-                                                                    <span className="hidden md:block bg-red-50 text-red-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-red-100">
-                                                                        Closed
-                                                                    </span>
-                                                                )}
-                                                                <div className="bg-gray-50 group-hover:bg-ochre group-hover:text-white px-2 py-1 rounded-lg text-[8px] font-black text-gray-400 transition-all border border-gray-100 uppercase tracking-widest">
-                                                                    {ticket.messages.length} <span className="hidden xs:inline">MSG</span>
-                                                                </div>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ))}
+                                                    );
+                                                })}
                                             </div>
                                         )}
                                     </div>
@@ -537,7 +544,7 @@ export default function AskPage() {
                             ))}
                         </div>
 
-                        {tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' && (
+                        {tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' ? (
                             <div className="p-4 md:p-6 bg-white border-t border-gray-100">
                                 <textarea
                                     value={followUpText[expandedTicketId] || ''}
@@ -567,6 +574,16 @@ export default function AskPage() {
                                         Send
                                     </button>
                                 </div>
+                            </div>
+                        ) : (
+                            <div className="p-4 md:p-6 bg-white border-t border-gray-100 flex justify-center">
+                                <button
+                                    onClick={() => setTicketToClose(expandedTicketId)}
+                                    className="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 hover:bg-red-50 px-6 py-3 rounded-xl transition-all active:scale-95 flex items-center group border border-dashed border-gray-200 hover:border-red-200 w-full justify-center"
+                                >
+                                    <Archive className="w-4 h-4 mr-2 opacity-40 group-hover:opacity-100 transition-opacity" />
+                                    Move to Archives
+                                </button>
                             </div>
                         )}
                     </div>
