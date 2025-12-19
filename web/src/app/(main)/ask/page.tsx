@@ -43,15 +43,25 @@ export default function AskPage() {
     const [archiveSuccess, setArchiveSuccess] = useState(false);
     const [lastSentMessageId, setLastSentMessageId] = useState<string | null>(null);
     const [readMessages, setReadMessages] = useState<{ [key: string]: string }>({});
+    const [acknowledgedTickets, setAcknowledgedTickets] = useState<string[]>([]);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const saved = localStorage.getItem('krishnasagar_read_messages');
-        if (saved) {
+        const savedRead = localStorage.getItem('krishnasagar_read_messages');
+        if (savedRead) {
             try {
-                setReadMessages(JSON.parse(saved));
+                setReadMessages(JSON.parse(savedRead));
             } catch (e) {
                 console.error('Failed to parse read messages', e);
+            }
+        }
+
+        const savedAck = localStorage.getItem('krishnasagar_acknowledged_tickets');
+        if (savedAck) {
+            try {
+                setAcknowledgedTickets(JSON.parse(savedAck));
+            } catch (e) {
+                console.error('Failed to parse acknowledged tickets', e);
             }
         }
     }, []);
@@ -106,6 +116,11 @@ export default function AskPage() {
         const result = await closeTicket(ticketToClose);
         if (result.success) {
             setArchiveSuccess(true);
+            // Move to acknowledged immediately so it shifts to Archived tab
+            const next = [...acknowledgedTickets, ticketToClose];
+            setAcknowledgedTickets(next);
+            localStorage.setItem('krishnasagar_acknowledged_tickets', JSON.stringify(next));
+
             fetchTickets();
             setTimeout(() => setArchiveSuccess(false), 4000);
             setExpandedTicketId(null); // Close the chat modal if it was open
@@ -179,9 +194,14 @@ export default function AskPage() {
         );
     }
 
-    const filteredTickets = tickets.filter(t =>
-        activeTab === 'open' ? (t.status === 'OPEN' || t.status === 'ANSWERED') : (t.status === 'CLOSED')
-    );
+    const filteredTickets = tickets.filter(t => {
+        const isAck = acknowledgedTickets.includes(t.id);
+        if (activeTab === 'open') {
+            return t.status === 'OPEN' || t.status === 'ANSWERED' || (t.status === 'CLOSED' && !isAck);
+        } else {
+            return t.status === 'CLOSED' && isAck;
+        }
+    });
 
     return (
         <div className="max-w-4xl mx-auto space-y-4 pt-4 px-4 pb-20 md:pb-10">
@@ -423,20 +443,24 @@ export default function AskPage() {
                                                                 {ticket.status === 'ANSWERED' && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id && (
                                                                     <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
                                                                 )}
+                                                                {ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id) && (
+                                                                    <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
+                                                                )}
                                                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-none border transition-all ${ticket.status === 'ANSWERED'
                                                                     ? 'bg-gray-50 text-gray-400 border-gray-100'
                                                                     : ticket.status === 'OPEN'
                                                                         ? 'bg-green-50 text-green-600 border-green-100'
-                                                                        : 'bg-gray-50 text-gray-400 border-gray-100'
+                                                                        : 'bg-red-50 text-red-600 border-red-100'
                                                                     }`}>
-                                                                    <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />
+                                                                    {ticket.status === 'CLOSED' ? <Archive className="w-5 h-5" /> : <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />}
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h3 className={`text-sm md:text-base leading-tight truncate ${ticket.status === 'ANSWERED' ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
+                                                                    <h3 className={`text-sm md:text-base leading-tight truncate ${ticket.status === 'ANSWERED' || (ticket.status === 'CLOSED' && !acknowledgedTickets.includes(ticket.id)) ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
                                                                     <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 flex items-center space-x-2">
                                                                         <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
                                                                         <span className="opacity-30">•</span>
                                                                         <span>{new Date(ticket.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}</span>
+                                                                        {ticket.status === 'CLOSED' && <span className="text-red-500 ml-2">● FINISHED</span>}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -444,6 +468,11 @@ export default function AskPage() {
                                                                 {ticket.status === 'ANSWERED' && (
                                                                     <span className="hidden md:block bg-blue-50 text-blue-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-blue-100">
                                                                         Answered
+                                                                    </span>
+                                                                )}
+                                                                {ticket.status === 'CLOSED' && (
+                                                                    <span className="hidden md:block bg-red-50 text-red-600 px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border border-red-100">
+                                                                        Closed
                                                                     </span>
                                                                 )}
                                                                 <div className="bg-gray-50 group-hover:bg-ochre group-hover:text-white px-2 py-1 rounded-lg text-[8px] font-black text-gray-400 transition-all border border-gray-100 uppercase tracking-widest">
