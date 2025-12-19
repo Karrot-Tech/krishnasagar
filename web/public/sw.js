@@ -6,6 +6,7 @@ const PRECACHE_ASSETS = [
     '/manifest.webmanifest',
     '/icon-192.png',
     '/icon-512.png',
+    '/offline.html'
 ];
 
 self.addEventListener('install', (event) => {
@@ -36,7 +37,17 @@ self.addEventListener('fetch', (event) => {
     // Skip cross-origin requests (like Clerk or Neon)
     if (!event.request.url.startsWith(self.location.origin)) return;
 
-    // Stale-while-revalidate strategy
+    // Special handling for navigation requests (full page loads)
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                return caches.match('/offline.html');
+            })
+        );
+        return;
+    }
+
+    // Stale-while-revalidate strategy for assets
     event.respondWith(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.match(event.request).then((response) => {
@@ -46,6 +57,9 @@ self.addEventListener('fetch', (event) => {
                         cache.put(event.request, networkResponse.clone());
                     }
                     return networkResponse;
+                }).catch(() => {
+                    // If network fails and no cache, returns the cached response if available
+                    return response;
                 });
                 return response || fetchPromise;
             });

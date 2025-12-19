@@ -56,8 +56,62 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
         description: article.description
     }];
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": article.title_english,
+        "alternativeHeadline": article.title_hindi,
+        "image": `https://img.youtube.com/vi/${article.youtube_id}/maxresdefault.jpg`,
+        "author": {
+            "@type": "Person",
+            "name": "Krishnaji"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Sai Leela Rahasya",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://saileelarahasya-web.vercel.app/icon-512.png"
+            }
+        },
+        "description": article.description.substring(0, 160)
+    };
+
+    const breadcrumbLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://saileelarahasya-web.vercel.app"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Leela",
+                "item": "https://saileelarahasya-web.vercel.app/leela"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": article.title_english,
+                "item": `https://saileelarahasya-web.vercel.app/leela/${articleId}`
+            }
+        ]
+    };
+
     return (
         <div className="flex flex-col lg:flex-row gap-8 lg:h-[calc(100vh-8rem)] pt-2 md:pt-6">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+            />
             {/* Left: Text Content (Prominent) - First on mobile and desktop */}
             <div className="w-full lg:w-2/3 flex-1 lg:overflow-y-auto lg:pr-4 custom-scrollbar">
 

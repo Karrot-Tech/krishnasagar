@@ -64,9 +64,26 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         if (isLoaded && isSignedIn) {
             fetchTickets();
-            // Optional: poll every minute
-            const interval = setInterval(fetchTickets, 60000);
-            return () => clearInterval(interval);
+
+            // Visibility-aware polling
+            const interval = setInterval(() => {
+                if (document.visibilityState === 'visible') {
+                    fetchTickets();
+                }
+            }, 60000);
+
+            // Fetch on visibility change (re-focus)
+            const handleVisibilityChange = () => {
+                if (document.visibilityState === 'visible') {
+                    fetchTickets();
+                }
+            };
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            return () => {
+                clearInterval(interval);
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            };
         } else if (isLoaded) {
             setIsLoading(false);
         }
