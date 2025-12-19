@@ -34,18 +34,12 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
 
     const playTrack = useCallback((track: Track) => {
         if (audioRef.current) {
-            setIsLoading(true);
+            setIsLoading(true); // Set loading immediately
             audioRef.current.src = track.url;
-            audioRef.current.load();
-            audioRef.current.play()
-                .then(() => {
-                    // Clear loading when play promise resolves
-                    setIsLoading(false);
-                })
-                .catch(e => {
-                    console.error("Playback failed:", e);
-                    setIsLoading(false);
-                });
+            audioRef.current.play().catch(e => {
+                console.error("Playback failed:", e);
+                setIsLoading(false);
+            });
             setCurrentTrack(track);
             setIsPlaying(true);
         }
@@ -147,7 +141,6 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
     const closePlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
-            audioRef.current.src = ''; // Clear the source to fully stop
             audioRef.current.currentTime = 0;
         }
         setIsPlaying(false);
