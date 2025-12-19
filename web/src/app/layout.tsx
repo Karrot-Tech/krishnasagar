@@ -4,6 +4,7 @@ import Layout from "@/components/layout/Layout";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import UpdateDetector from "@/components/common/UpdateDetector";
+import ServiceWorkerRegistration from "@/components/common/ServiceWorkerRegistration";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -43,27 +44,26 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
-    title: "Sai Leela Rahasya",
+    statusBarStyle: "black-translucent",
+    title: "Sai Rahasya",
   },
   formatDetection: {
     telephone: false,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sai Leela Rahasya",
+    title: "Sai Rahasya",
     description: "Digital study guide for Krishnaji's teachings.",
-    images: ["/icon-512.png"],
+    images: ["/app-icon.png"],
   },
   icons: {
     icon: [
-      { url: "/favicon.png", sizes: "any" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/app-icon.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/icon-512.png", sizes: "180x180", type: "image/png" },
+      { url: "/app-icon.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/favicon.png",
+    shortcut: "/app-icon.png",
   }
 };
 
@@ -122,6 +122,7 @@ export default function RootLayout({
           <LanguageProvider>
             {children}
             <UpdateDetector />
+            <ServiceWorkerRegistration />
             <Analytics />
             <SpeedInsights />
           </LanguageProvider>

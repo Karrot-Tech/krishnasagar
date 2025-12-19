@@ -16,12 +16,12 @@ export function Modal({ isOpen, onClose, title, children, actions, flush = false
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-[110] flex items-end md:items-center justify-center md:p-4">
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
             <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-[2px] transition-opacity"
                 onClick={onClose}
             />
-            <div className={`bg-white w-full max-w-md rounded-t-3xl md:rounded-2xl shadow-2xl relative z-10 overflow-hidden transform transition-all animate-in slide-in-from-bottom duration-300 ${flush ? 'mb-0' : 'mb-0'}`}>
+            <div className={`bg-white w-full max-w-md rounded-2xl shadow-2xl relative z-10 overflow-hidden transform transition-all animate-in zoom-in duration-300 ${flush ? 'mb-0' : 'mb-0'}`}>
                 <div className={flush ? '' : 'p-6'}>
                     <div className={`flex justify-between items-center ${flush ? 'p-6 pb-2' : 'mb-4'}`}>
                         <h3 className="text-xl font-black text-gray-900 tracking-tight">{title}</h3>

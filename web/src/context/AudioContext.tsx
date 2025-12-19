@@ -108,6 +108,7 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
     const closePlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
+            audioRef.current.src = '';
             audioRef.current.currentTime = 0;
         }
         setIsPlaying(false);
