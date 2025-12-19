@@ -40,6 +40,8 @@ export default function AskPage() {
     const [isFollowUpSubmitting, setIsFollowUpSubmitting] = useState<{ [key: string]: boolean }>({});
     const [followUpSuccess, setFollowUpSuccess] = useState<{ [key: string]: boolean }>({});
 
+    const [archiveSuccess, setArchiveSuccess] = useState(false);
+
     useEffect(() => {
         if (isLoaded && isSignedIn) {
             fetchTickets();
@@ -73,8 +75,9 @@ export default function AskPage() {
 
         const result = await closeTicket(ticketToClose);
         if (result.success) {
-            setNotification({ message: "Inquiry closed successfully", type: 'success' });
+            setArchiveSuccess(true);
             fetchTickets();
+            setTimeout(() => setArchiveSuccess(false), 4000);
         } else {
             setNotification({ message: "Error closing inquiry: " + (result as any).error, type: 'error' });
         }
@@ -330,6 +333,18 @@ export default function AskPage() {
 
                                 {/* Guidance History Sections */}
                                 <div className="space-y-4">
+                                    {archiveSuccess && (
+                                        <div className="flex items-center space-x-4 py-4 px-5 bg-white rounded-2xl shadow-sm border border-green-50 animate-in slide-in-from-top-2 duration-500 mb-2">
+                                            <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600 flex-none border border-green-100/50 shadow-inner">
+                                                <CheckCircle2 className="w-5 h-5" />
+                                            </div>
+                                            <div>
+                                                <h3 className="font-bold text-gray-900 text-sm leading-tight uppercase tracking-tight">Inquiry Archived</h3>
+                                                <p className="text-[10px] text-gray-500 mt-0.5 font-bold uppercase tracking-widest opacity-60">Successfully moved to Past Records</p>
+                                            </div>
+                                        </div>
+                                    )}
+
                                     <div className="flex items-center justify-between">
                                         <div className="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto">
                                             <button
