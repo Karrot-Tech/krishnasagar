@@ -117,19 +117,6 @@ export default function UtilityMenu() {
 
                         {/* Navigation Actions - Standardized Premium Style */}
                         <nav className="space-y-2 flex-1">
-                            <Link href="/ask" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10">
-                                <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
-                                    <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre transition-all flex-none">
-                                        <History className="w-5 h-5" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Guidance History</p>
-                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70">Personal Inquiry Log</p>
-                                    </div>
-                                </div>
-                                <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-ochre transition-transform group-hover:translate-x-1" />
-                            </Link>
-
                             {isAdmin && (
                                 <Link href="/admin" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-gray-900 rounded-[1.25rem] transition-all group bg-gray-50/50 border border-gray-100/50 hover:border-gray-900">
                                     <div className="flex items-center gap-4 text-gray-700 group-hover:text-white">
@@ -144,6 +131,19 @@ export default function UtilityMenu() {
                                     <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-white transition-transform group-hover:translate-x-1" />
                                 </Link>
                             )}
+
+                            <Link href="/ask" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10">
+                                <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
+                                    <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre transition-all flex-none">
+                                        <History className="w-5 h-5" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Guidance History</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70">Personal Inquiry Log</p>
+                                    </div>
+                                </div>
+                                <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-ochre transition-transform group-hover:translate-x-1" />
+                            </Link>
 
                             <Link href="/glossary" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10">
                                 <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
@@ -222,7 +222,7 @@ export default function UtilityMenu() {
                     </SignedOut>
 
                     <div className="text-center">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.37</p>
+                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.38</p>
                     </div>
                 </div>
             </div>
