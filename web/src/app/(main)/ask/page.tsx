@@ -39,7 +39,6 @@ export default function AskPage() {
     const [hasInitialLoaded, setHasInitialLoaded] = useState(false);
     const [followUpText, setFollowUpText] = useState<{ [key: string]: string }>({});
     const [isFollowUpSubmitting, setIsFollowUpSubmitting] = useState<{ [key: string]: boolean }>({});
-    const [followUpSuccess, setFollowUpSuccess] = useState<{ [key: string]: boolean }>({});
 
     const [archiveSuccess, setArchiveSuccess] = useState(false);
     const [lastSentMessageId, setLastSentMessageId] = useState<string | null>(null);
@@ -51,20 +50,12 @@ export default function AskPage() {
         }
     }, [tickets, expandedTicketId]);
 
-    useEffect(() => {
-        if (isLoaded && isSignedIn) {
-            fetchTickets();
-        } else if (isLoaded) {
-            setIsLoading(false);
-        }
-    }, [isLoaded, isSignedIn]);
-
     const fetchTickets = async () => {
         setIsLoading(true);
         try {
             const data = await getTickets();
-            const currentData = data as any[];
-            setTickets(currentData as unknown as Ticket[]);
+            const currentData = data as unknown as Ticket[];
+            setTickets(currentData);
 
             const hasAnyTickets = currentData.length > 0;
             if (!hasAnyTickets) {
@@ -78,6 +69,14 @@ export default function AskPage() {
         setIsLoading(false);
         setHasInitialLoaded(true);
     };
+
+    useEffect(() => {
+        if (isLoaded && isSignedIn) {
+            fetchTickets();
+        } else if (isLoaded) {
+            setIsLoading(false);
+        }
+    }, [isLoaded, isSignedIn]);
 
     const handleCloseTicket = async () => {
         if (!ticketToClose) return;
@@ -352,7 +351,7 @@ export default function AskPage() {
                                                 </div>
                                                 <div>
                                                     <h3 className="font-bold text-gray-900 text-sm leading-tight uppercase tracking-tight">Inquiry Archived</h3>
-                                                    <p className="text-[10px] text-gray-500 mt-0.5 font-bold uppercase tracking-widest opacity-60">Successfully moved to Past Records</p>
+                                                    <p className="text-[10px] text-gray-500 mt-0.5 font-bold uppercase tracking-widest opacity-60">Successfully moved to Archives</p>
                                                 </div>
                                             </div>
                                         )}
@@ -363,13 +362,13 @@ export default function AskPage() {
                                                     onClick={() => setActiveTab('open')}
                                                     className={`flex-1 md:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'open' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                                                 >
-                                                    Active Guidance
+                                                    Ongoing
                                                 </button>
                                                 <button
                                                     onClick={() => setActiveTab('closed')}
                                                     className={`flex-1 md:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'closed' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                                                 >
-                                                    Past Records
+                                                    Archived
                                                 </button>
                                             </div>
                                         </div>
@@ -531,7 +530,7 @@ export default function AskPage() {
             >
                 <div className="space-y-4">
                     <p className="text-sm font-medium text-gray-500 leading-relaxed px-1">
-                        Are you sure you want to mark this spiritual inquiry as closed? It will be moved to your <span className="text-ochre font-bold lowercase">Past Records</span> archive for future reference.
+                        Are you sure you want to mark this spiritual inquiry as closed? It will be moved to your <span className="text-ochre font-bold lowercase">Archives</span> for future reference.
                     </p>
                 </div>
             </Modal>
