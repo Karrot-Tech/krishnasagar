@@ -42,7 +42,19 @@ export default function AskPage() {
 
     const [archiveSuccess, setArchiveSuccess] = useState(false);
     const [lastSentMessageId, setLastSentMessageId] = useState<string | null>(null);
+    const [readMessages, setReadMessages] = useState<{ [key: string]: string }>({});
     const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const saved = localStorage.getItem('krishnasagar_read_messages');
+        if (saved) {
+            try {
+                setReadMessages(JSON.parse(saved));
+            } catch (e) {
+                console.error('Failed to parse read messages', e);
+            }
+        }
+    }, []);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -77,6 +89,16 @@ export default function AskPage() {
             setIsLoading(false);
         }
     }, [isLoaded, isSignedIn]);
+
+    const handleOpenTicket = (ticket: Ticket) => {
+        setExpandedTicketId(ticket.id);
+        if (ticket.messages.length > 0) {
+            const lastMsgId = ticket.messages[ticket.messages.length - 1].id;
+            const next = { ...readMessages, [ticket.id]: lastMsgId };
+            setReadMessages(next);
+            localStorage.setItem('krishnasagar_read_messages', JSON.stringify(next));
+        }
+    };
 
     const handleCloseTicket = async () => {
         if (!ticketToClose) return;
@@ -129,6 +151,10 @@ export default function AskPage() {
                 setFollowUpText(prev => ({ ...prev, [ticketId]: '' }));
                 if (result.message?.id) {
                     setLastSentMessageId(result.message.id);
+                    // Also mark our own reply as read
+                    const next = { ...readMessages, [ticketId]: result.message.id };
+                    setReadMessages(next);
+                    localStorage.setItem('krishnasagar_read_messages', JSON.stringify(next));
                     setTimeout(() => setLastSentMessageId(null), 3000);
                 }
                 fetchTickets();
@@ -390,11 +416,11 @@ export default function AskPage() {
                                                 {filteredTickets.map((ticket: Ticket) => (
                                                     <div key={ticket.id} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                                                         <div
-                                                            onClick={() => setExpandedTicketId(ticket.id)}
+                                                            onClick={() => handleOpenTicket(ticket)}
                                                             className={`p-4 md:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
                                                         >
                                                             <div className="flex items-center space-x-4 min-w-0 flex-1 relative">
-                                                                {ticket.status === 'ANSWERED' && (
+                                                                {ticket.status === 'ANSWERED' && ticket.messages.length > 0 && readMessages[ticket.id] !== ticket.messages[ticket.messages.length - 1].id && (
                                                                     <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.5)] border-2 border-white z-10 animate-in fade-in zoom-in duration-500" />
                                                                 )}
                                                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-none border transition-all ${ticket.status === 'ANSWERED'
