@@ -115,44 +115,64 @@ export default function UtilityMenu() {
                             </div>
                         </div>
 
-                        {/* Navigation Actions - Compact */}
-                        <nav className="space-y-1.5 flex-1">
-                            <Link href="/ask" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3 hover:bg-ochre/5 rounded-xl transition-all group border border-transparent hover:border-ochre/10">
-                                <div className="flex items-center gap-3 text-gray-700 group-hover:text-ochre">
-                                    <History className="w-4 h-4" />
-                                    <span className="font-bold text-xs tracking-tight text-gray-500">My Guidance History</span>
+                        {/* Navigation Actions - Standardized Premium Style */}
+                        <nav className="space-y-2 flex-1">
+                            <Link href="/ask" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10">
+                                <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
+                                    <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre transition-all flex-none">
+                                        <History className="w-5 h-5" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Guidance History</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70">Personal Inquiry Log</p>
+                                    </div>
                                 </div>
                                 <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-ochre transition-transform group-hover:translate-x-1" />
                             </Link>
+
                             {isAdmin && (
-                                <Link href="/admin" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3 hover:bg-gray-900 rounded-xl transition-all group bg-gray-50 border border-gray-100/50">
-                                    <div className="flex items-center gap-3 text-gray-700 group-hover:text-white">
-                                        <LayoutDashboard className="w-4 h-4 text-ochre" />
-                                        <span className="font-bold text-xs tracking-tight">Admin Console</span>
+                                <Link href="/admin" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-gray-900 rounded-[1.25rem] transition-all group bg-gray-50/50 border border-gray-100/50 hover:border-gray-900">
+                                    <div className="flex items-center gap-4 text-gray-700 group-hover:text-white">
+                                        <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center text-ochre shadow-sm group-hover:bg-ochre group-hover:text-white transition-all flex-none">
+                                            <LayoutDashboard className="w-5 h-5" />
+                                        </div>
+                                        <div className="text-left">
+                                            <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-white transition-colors">Admin Console</p>
+                                            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-white/50">System Management</p>
+                                        </div>
                                     </div>
                                     <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-white transition-transform group-hover:translate-x-1" />
                                 </Link>
                             )}
-                            <Link href="/glossary" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-all group">
-                                <div className="flex items-center gap-3 text-gray-500 group-hover:text-ochre">
-                                    <BookA className="w-4 h-4 flex-none" />
+
+                            <Link href="/glossary" onClick={() => setIsOpen(false)} className="flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10">
+                                <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
+                                    <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre transition-all flex-none">
+                                        <BookA className="w-5 h-5 flex-none" />
+                                    </div>
                                     <div className="text-left">
-                                        <p className="font-bold text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Exhaustive Glossary</p>
-                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1 group-hover:text-ochre/70">Spiritual Archives</p>
+                                        <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Exhaustive Glossary</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70">Spiritual Archives</p>
                                     </div>
                                 </div>
                                 <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-ochre transition-transform group-hover:translate-x-1" />
                             </Link>
+
                             <button
                                 onClick={() => {
                                     setIsOpen(false);
                                     openUserProfile();
                                 }}
-                                className="w-full flex items-center justify-between p-3 hover:bg-gray-50 rounded-xl transition-all group"
+                                className="w-full flex items-center justify-between p-3.5 hover:bg-ochre/5 rounded-[1.25rem] transition-all group border border-transparent hover:border-ochre/10"
                             >
-                                <div className="flex items-center gap-3 text-gray-500">
-                                    <Settings className="w-4 h-4" />
-                                    <span className="font-bold text-xs tracking-tight">Edit Profile</span>
+                                <div className="flex items-center gap-4 text-gray-700 group-hover:text-ochre">
+                                    <div className="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre transition-all flex-none">
+                                        <Settings className="w-5 h-5" />
+                                    </div>
+                                    <div className="text-left">
+                                        <p className="font-black text-xs text-gray-900 tracking-tight leading-none group-hover:text-ochre transition-colors">Profile Settings</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70">Account Preferences</p>
+                                    </div>
                                 </div>
                                 <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-ochre transition-transform group-hover:translate-x-1" />
                             </button>
@@ -202,7 +222,7 @@ export default function UtilityMenu() {
                     </SignedOut>
 
                     <div className="text-center">
-                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.34</p>
+                        <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.3em]">Sai Leela Rahasya v1.1.35</p>
                     </div>
                 </div>
             </div>
