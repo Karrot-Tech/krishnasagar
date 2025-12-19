@@ -38,6 +38,10 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
             audioRef.current.src = track.url;
             audioRef.current.load();
             audioRef.current.play()
+                .then(() => {
+                    // Clear loading when play promise resolves
+                    setIsLoading(false);
+                })
                 .catch(e => {
                     console.error("Playback failed:", e);
                     setIsLoading(false);
@@ -143,6 +147,7 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
     const closePlayer = () => {
         if (audioRef.current) {
             audioRef.current.pause();
+            audioRef.current.src = ''; // Clear the source to fully stop
             audioRef.current.currentTime = 0;
         }
         setIsPlaying(false);
