@@ -62,18 +62,33 @@ export default function Sidebar() {
                     })}
                 </div>
 
-                <div className="mt-auto pt-6 border-t border-gray-100 space-y-1">
-                    <p className="px-4 text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">More</p>
-                    <Link href="/glossary" className="flex items-center space-x-3 px-4 py-2 text-sm text-gray-500 hover:text-ochre hover:bg-gray-50 rounded-lg transition-colors">
-                        <BookA className="w-4 h-4" />
-                        <span>Glossary</span>
+                <div className="mt-auto pt-6 border-t border-gray-100 flex flex-col">
+                    <p className="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Resources</p>
+                    <Link
+                        href="/glossary"
+                        className={`flex items-center gap-3 px-3 py-3 rounded-2xl transition-all group mx-1 ${pathname === '/glossary'
+                            ? 'bg-ochre/5 border border-ochre/10'
+                            : 'hover:bg-gray-50 border border-transparent'
+                            }`}
+                    >
+                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all flex-none ${pathname === '/glossary'
+                            ? 'bg-ochre text-white shadow-lg shadow-ochre/20'
+                            : 'bg-gray-50 text-gray-400 group-hover:bg-ochre/10 group-hover:text-ochre shadow-inner'
+                            }`}>
+                            <BookA className="w-4.5 h-4.5" />
+                        </div>
+                        <div className="min-w-0">
+                            <p className={`font-black text-xs tracking-tight leading-none truncate ${pathname === '/glossary' ? 'text-ochre' : 'text-gray-900'
+                                }`}>Exhaustive Glossary</p>
+                            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none mt-1.5 group-hover:text-ochre/70 truncate">Spiritual Archives</p>
+                        </div>
                     </Link>
-
                 </div>
             </nav>
 
-            <div className="p-4 text-xs text-center text-gray-400 border-t border-gray-100">
-                &copy; {new Date().getFullYear()} Sai Leela Rahasya
+            <div className="p-5 text-center border-t border-gray-50 bg-gray-50/30">
+                <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.2em] mb-1">Sai Leela Rahasya v1.1.36</p>
+                <p className="text-[10px] text-gray-400 font-medium font-serif italic">&copy; {new Date().getFullYear()} Krishnaji</p>
             </div>
         </aside>
     );
