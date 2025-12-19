@@ -4,6 +4,7 @@ import Layout from "@/components/layout/Layout";
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import UpdateDetector from "@/components/common/UpdateDetector";
+import ServiceWorkerRegistration from "@/components/common/ServiceWorkerRegistration";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -122,6 +123,7 @@ export default function RootLayout({
           <LanguageProvider>
             {children}
             <UpdateDetector />
+            <ServiceWorkerRegistration />
             <Analytics />
             <SpeedInsights />
           </LanguageProvider>
