@@ -45,16 +45,16 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Sai Leela Rahasya",
+    title: "Sai Rahasya",
   },
   formatDetection: {
     telephone: false,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sai Leela Rahasya",
+    title: "Sai Rahasya",
     description: "Digital study guide for Krishnaji's teachings.",
-    images: ["/icon-512.png"],
+    images: ["/app-icon.png"],
   },
   icons: {
     icon: [

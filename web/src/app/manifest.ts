@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 export default function manifest(): MetadataRoute.Manifest {
     return {
         name: 'Sai Leela Rahasya',
-        short_name: 'SLR',
+        short_name: 'Sai Rahasya',
         description: "Discover the secret plays and profound teachings of Shirdi Sai Baba through recorded Leelas, Bodhakathas, and spiritual guidance.",
         start_url: '/',
         display: 'standalone',
