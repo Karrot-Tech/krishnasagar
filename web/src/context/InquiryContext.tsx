@@ -41,10 +41,10 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
 
     // Load local state
     useEffect(() => {
-        const savedRead = localStorage.getItem('krishnasagar_read_messages');
+        const savedRead = localStorage.getItem('saileela_read_messages');
         if (savedRead) setReadMessages(JSON.parse(savedRead));
 
-        const savedAck = localStorage.getItem('krishnasagar_acknowledged_tickets');
+        const savedAck = localStorage.getItem('saileela_acknowledged_tickets');
         if (savedAck) setAcknowledgedTickets(JSON.parse(savedAck));
     }, []);
 
@@ -112,7 +112,7 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
         // Optimistic update
         const next = { ...readMessages, [ticketId]: messageId };
         setReadMessages(next);
-        localStorage.setItem('krishnasagar_read_messages', JSON.stringify(next));
+        localStorage.setItem('saileela_read_messages', JSON.stringify(next));
 
         // Server update
         // Dynamically import to avoid circular dependency issues if any
@@ -125,7 +125,7 @@ export function InquiryProvider({ children }: { children: React.ReactNode }) {
             // Optimistic update
             const next = [...acknowledgedTickets, ticketId];
             setAcknowledgedTickets(next);
-            localStorage.setItem('krishnasagar_acknowledged_tickets', JSON.stringify(next));
+            localStorage.setItem('saileela_acknowledged_tickets', JSON.stringify(next));
 
             // Server update
             const { archiveTicket } = await import('@/actions/tickets');

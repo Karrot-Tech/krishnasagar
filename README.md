@@ -53,8 +53,8 @@ The application is built around five core pillars of spiritual engagement:
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/Karrot-Tech/krishnasagar.git
-    cd krishnasagar/web
+    git clone https://github.com/Karrot-Tech/saileela-rahasya.git
+    cd saileela-rahasya/web
     ```
 
 2.  **Install dependencies:**
