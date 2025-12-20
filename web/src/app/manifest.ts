@@ -8,6 +8,7 @@ export default function manifest(): MetadataRoute.Manifest {
         description: "Discover the secret plays and profound teachings of Shirdi Sai Baba through recorded Leelas, Bodhakathas, and spiritual guidance.",
         start_url: '/',
         display: 'standalone',
+        display_override: ['window-controls-overlay', 'standalone', 'minimal-ui'],
         orientation: 'portrait',
         background_color: '#4a2511',
         theme_color: '#cc7722',
