@@ -73,7 +73,7 @@ export default function Sidebar() {
                 </div>
 
                 <div className="mt-auto pt-6 border-t border-gray-100 flex flex-col">
-                    <p className="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Resources</p>
+                    <p className="px-4 text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-3">Resources</p>
                     <Link
                         href="/glossary"
                         className={`flex items-center gap-3 px-3 py-3 rounded-2xl transition-all group mx-1 ${pathname === '/glossary'
@@ -97,8 +97,8 @@ export default function Sidebar() {
             </nav>
 
             <div className="p-5 text-center border-t border-gray-50 bg-gray-50/30">
-                <p className="text-[9px] font-black text-gray-300 uppercase tracking-[0.2em] mb-1">Saileela Rahasya v1.2.0</p>
-                <p className="text-[10px] text-gray-400 font-medium font-serif italic">&copy; {new Date().getFullYear()} Saileela Rahasya</p>
+                <p className="text-[9px] font-black text-gray-500 uppercase tracking-[0.2em] mb-1">Saileela Rahasya v1.2.1</p>
+                <p className="text-[10px] text-gray-600 font-medium font-serif italic">&copy; {new Date().getFullYear()} Saileela Rahasya</p>
             </div>
         </aside>
     );
