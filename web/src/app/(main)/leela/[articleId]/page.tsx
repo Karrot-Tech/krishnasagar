@@ -64,7 +64,7 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
         "image": `https://img.youtube.com/vi/${article.youtube_id}/maxresdefault.jpg`,
         "author": {
             "@type": "Person",
-            "name": "Krishnaji"
+            "name": "Saileela Rahasya Team"
         },
         "publisher": {
             "@type": "Organization",

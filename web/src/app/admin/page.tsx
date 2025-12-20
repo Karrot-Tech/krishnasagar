@@ -14,9 +14,9 @@ export default async function AdminDashboard() {
     ]);
 
     const stats = [
-        { label: 'Content', value: leelaCount + bodhakathaCount + glossaryCount, icon: Activity, color: 'text-blue-600' },
-        { label: 'Inquiries', value: ticketCount, icon: MessageSquare, color: 'text-purple-600' },
-        { label: 'Pending', value: openTickets, icon: Ticket, color: 'text-orange-600' },
+        { label: 'Content', value: leelaCount + bodhakathaCount + glossaryCount, icon: Activity, color: 'text-blue-600', href: '/admin/leela' },
+        { label: 'Inquiries', value: ticketCount, icon: MessageSquare, color: 'text-purple-600', href: '/admin/tickets' },
+        { label: 'Pending', value: openTickets, icon: Ticket, color: 'text-orange-600', href: '/admin/tickets' },
     ];
 
     const panels = [
@@ -74,13 +74,17 @@ export default async function AdminDashboard() {
                 {/* Ultra-Responsive Stats Grid */}
                 <div className="grid grid-cols-3 gap-2 w-full md:w-auto">
                     {stats.map((stat: any, i: number) => (
-                        <div key={i} className="bg-white p-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-2 md:space-x-3">
+                        <Link
+                            key={i}
+                            href={stat.href}
+                            className="bg-white p-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-2 md:space-x-3 hover:shadow-md hover:border-gray-200 transition-all active:scale-95"
+                        >
                             <stat.icon className={`w-3.5 h-3.5 md:w-5 md:h-5 ${stat.color} flex-none`} />
                             <div className="min-w-0">
                                 <p className="text-[7px] md:text-[10px] uppercase tracking-tighter text-gray-400 font-black leading-none mb-0.5 truncate">{stat.label}</p>
                                 <p className="text-sm md:text-lg font-black text-gray-800 leading-none">{stat.value}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
