@@ -2,6 +2,9 @@ import Link from 'next/link';
 import prisma from '@/lib/db';
 import { Lightbulb } from 'lucide-react';
 
+export const revalidate = 3600; // Revalidate every hour
+
+
 export default async function BodhakathaPage() {
     const bodhakathaArticles = await prisma.bodhakatha.findMany({
         orderBy: { orderId: 'asc' }
