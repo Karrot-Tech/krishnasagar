@@ -28,10 +28,10 @@ export default function AdminLoading() {
                     <span className="w-1.5 h-1.5 bg-ochre rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
                 <h3 className="text-sm font-black text-gray-900 tracking-[0.3em] uppercase">
-                    Admin Console
+                    Admin Interface
                 </h3>
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                    Initializing System Data...
+                    Securing Connection...
                 </p>
             </div>
         </div>

@@ -1,17 +1,40 @@
 
-import Link from 'next/link';
-import prisma from '@/lib/db';
-import { Footprints, Lightbulb, Book, Ticket, Activity, MessageSquare } from 'lucide-react';
+'use client';
 
-export default async function AdminDashboard() {
-    // Fetch stats for the dashboard
-    const [leelaCount, bodhakathaCount, glossaryCount, ticketCount, openTickets] = await Promise.all([
-        prisma.leela.count(),
-        prisma.bodhakatha.count(),
-        prisma.glossary.count(),
-        prisma.ticket.count(),
-        prisma.ticket.count({ where: { status: 'OPEN' } })
-    ]);
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Footprints, Lightbulb, Book, Ticket, Activity, MessageSquare, Loader2 } from 'lucide-react';
+import { getAdminDashboardStats } from '@/actions/content';
+
+export default function AdminDashboard() {
+    const [statsData, setStatsData] = useState<any>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        fetchStats();
+    }, []);
+
+    const fetchStats = async () => {
+        try {
+            const data = await getAdminDashboardStats();
+            setStatsData(data);
+        } catch (error) {
+            console.error('Error fetching dashboard stats:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    if (isLoading || !statsData) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] text-gray-400 animate-in fade-in duration-700">
+                <Loader2 className="w-10 h-10 animate-spin mb-4 text-ochre" />
+                <p className="text-lg uppercase font-black tracking-widest">Loading Dashboard...</p>
+            </div>
+        );
+    }
+
+    const { leelaCount, bodhakathaCount, glossaryCount, ticketCount, openTickets } = statsData;
 
     const stats = [
         { label: 'Content', value: leelaCount + bodhakathaCount + glossaryCount, icon: Activity, color: 'text-blue-600', href: '/admin/leela' },
@@ -63,7 +86,7 @@ export default async function AdminDashboard() {
     ];
 
     return (
-        <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 md:space-y-12">
+        <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 md:space-y-12 animate-in fade-in duration-1000">
             {/* Header Content */}
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:pb-2">
                 <div className="space-y-1">

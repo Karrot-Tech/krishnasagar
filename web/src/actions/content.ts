@@ -166,3 +166,23 @@ export async function getPublicBodhakathas(page: number = 1, pageSize: number = 
         hasMore: total > skip + items.length
     };
 }
+
+export async function getAdminDashboardStats() {
+    if (!await isAdmin()) throw new Error('Unauthorized');
+
+    const [leelaCount, bodhakathaCount, glossaryCount, ticketCount, openTickets] = await Promise.all([
+        prisma.leela.count(),
+        prisma.bodhakatha.count(),
+        prisma.glossary.count(),
+        prisma.ticket.count(),
+        prisma.ticket.count({ where: { status: 'OPEN' } })
+    ]);
+
+    return {
+        leelaCount,
+        bodhakathaCount,
+        glossaryCount,
+        ticketCount,
+        openTickets
+    };
+}
