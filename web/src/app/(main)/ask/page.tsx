@@ -186,12 +186,12 @@ export default function AskPage() {
                     <div className="space-y-2">
                         <h1 className="text-3xl font-black text-gray-900 tracking-tight">Spiritual Inquiry</h1>
                         <p className="text-gray-500 text-base leading-relaxed font-medium">
-                            Please sign in to share your spiritual questions and receive personal guidance from the Saileela Rahasya team.
+                            Please identify yourself to share your spiritual questions and receive personal guidance from the Saileela Rahasya team.
                         </p>
                     </div>
                     <SignInButton mode="modal">
                         <button className="bg-ochre text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-gold transition-all shadow-xl shadow-ochre/20 w-full md:w-auto active:scale-95">
-                            Sign In to Begin
+                            Identify to Begin
                         </button>
                     </SignInButton>
                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
@@ -531,14 +531,11 @@ export default function AskPage() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="p-4 md:p-6 bg-white border-t border-gray-100 flex justify-center">
-                                <button
-                                    onClick={() => setTicketToClose(expandedTicketId)}
-                                    className="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 hover:bg-red-50 px-6 py-3 rounded-xl transition-all active:scale-95 flex items-center group border border-dashed border-gray-200 hover:border-red-200 w-full justify-center"
-                                >
-                                    <Archive className="w-4 h-4 mr-2 opacity-40 group-hover:opacity-100 transition-opacity" />
-                                    Move to Archives
-                                </button>
+                            <div className="p-4 md:p-6 bg-white border-t border-gray-50 flex justify-center items-center">
+                                <div className="flex items-center space-x-2 text-gray-300">
+                                    <CheckCircle2 className="w-4 h-4" />
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Inquiry Completed</span>
+                                </div>
                             </div>
                         )}
                     </div>
