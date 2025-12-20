@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Layout from "@/components/layout/Layout";
+
 import { LanguageProvider } from "@/context/LanguageContext";
 import "./globals.css";
 import UpdateDetector from "@/components/common/UpdateDetector";
@@ -19,18 +19,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://saileelarahasya-web.vercel.app'),
+  metadataBase: new URL('https://saileelarahasya.com'),
   title: {
     default: "Saileela Rahasya",
     template: "%s | Saileela Rahasya",
   },
-  description: "Unveil the secret meanings behind Shirdi Sai Baba's divine plays. Explore the Saileela Rahasya through authentic Leelas, Bodhakathas, and curated spiritual guidance from Krishnaji.",
+  description: "Unveil the secret meanings behind Shirdi Sai Baba's divine plays. Explore the Saileela Rahasya through authentic Leelas, Bodhakathas, and curated spiritual guidance from the Saileela Rahasya team.",
   keywords: ["Sai Baba", "Shirdi Sai Baba", "Saileela Rahasya", "Spiritual Guidance", "Sai Satcharitra", "Bhajans"],
   authors: [{ name: "Saileela Rahasya" }],
   openGraph: {
     title: "Saileela Rahasya",
     description: "Unlocking the secret spiritual meanings of Shirdi Sai Baba's divine plays.",
-    url: "https://saileelarahasya-web.vercel.app",
+    url: "https://saileelarahasya.com",
     siteName: "Saileela Rahasya",
     images: [
       {

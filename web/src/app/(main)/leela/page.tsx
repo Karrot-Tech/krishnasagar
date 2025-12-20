@@ -2,6 +2,9 @@ import Link from 'next/link';
 import prisma from '@/lib/db';
 import { Footprints } from 'lucide-react';
 
+export const revalidate = 3600; // Revalidate every hour
+
+
 export default async function LeelaPage() {
     const leelaArticles = await prisma.leela.findMany({
         orderBy: { orderId: 'asc' }

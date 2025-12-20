@@ -1,84 +1,72 @@
-# Krishnasagar - WIP
+# Saileela Rahasya
 
-Krishnasagar is a serverless video localization pipeline that automates transcription, translation, and dubbing of content using Google Cloud AI services.
+**Saileela Rahasya** is a progressive web application dedicated to uncovering the hidden spiritual instructions ("Bodhakatha") within the miraculous stories ("Leela") of Sai Baba.
 
-> **Status:** The **Web Project** is currently in **Beta Release**. All other projects (Cloud Functions, etc.) are in **Dev Locked Mode**.
+This project, originally architected in `ARCHITECTURE.md`, has evolved into a full-featured PWA that provides devotees with a structured, immersive platform to explore Sai Baba's teachings.
 
-## Setup & Deployment
+---
 
-gcloud services enable storage.googleapis.com \
-  cloudfunctions.googleapis.com \
-  run.googleapis.com \
-  speech.googleapis.com \
-  translate.googleapis.com \
-  texttospeech.googleapis.com \
-  videointelligence.googleapis.com \
-  youtube.googleapis.com \
-  logging.googleapis.com \
-  monitoring.googleapis.com
+> **Current Status:**
+> - **Web App:** v1.2.2 (Production Release)
+> - **Backend:** Next.js Server Actions + Prisma + Neon (Postgres)
+> - **Authentication:** Clerk
+> - **Infrastructure:** Vercel
 
+---
 
-gsutil mb -l asia-south1 gs://krishnasagar-videos-raw
-gsutil mb -l asia-south1 gs://krishnasagar-videos-processed
-gsutil mb -l asia-south1 gs://krishnasagar-videos-final
+## 🌟 Core Features
 
-### extract_audio
-gcloud functions deploy krishnasagar-extract-audio \
-  --runtime python39 \
-  --trigger-resource krishnasagar-videos-raw \
-  --trigger-event google.storage.object.finalize \
-  --entry-point extract_audio \
-  --memory 512MB \
-  --region asia-south1 \
-  --source cloud_functions/extract_audio
+The application is built around five core pillars of spiritual engagement:
 
-### transcribe_audio
-  gcloud functions deploy krishnasagar-transcribe-audio \
-  --runtime python39 \
-  --trigger-resource krishnasagar-videos-processed \
-  --trigger-event google.storage.object.finalize \
-  --entry-point transcribe_audio \
-  --memory 512MB \
-  --region asia-south1 \
-  --source cloud_functions/transcribe_audio
+1.  **Leela (The Narrative)**: A chronological library of Sai Baba's divine plays, linking narrative articles directly to source video content.
+2.  **Bodhakatha (The Instruction)**: Semantic organization of content by virtue (e.g., Faith, Patience), focusing on the "Why" behind the miracles.
+3.  **Live Stream (Darshan)**: Real-time video integration for live events and a curated archive of past discourses and Aartis.
+4.  **Audio (Bhajan)**: A specialized audio player for daily Aartis, Mantras, and Bhajans, optimized for background listening.
+5.  **Ask (Personal Guidance)**: A private, ticket-based inquiry system allowing users to seek personalized spiritual guidance from the Saileela Rahasya team.
 
-### translate_text
-  gcloud functions deploy krishnasagar-translate-text \
-  --runtime python39 \
-  --trigger-resource krishnasagar-videos-processed \
-  --trigger-event google.storage.object.finalize \
-  --entry-point translate_text \
-  --memory 512MB \
-  --region asia-south1 \
-  --source cloud_functions/translate_text
+## 🛠 Tech Stack
 
-### generate_audio
-  gcloud functions deploy krishnasagar-generate-voice \
-  --runtime python39 \
-  --trigger-resource krishnasagar-videos-processed \
-  --trigger-event google.storage.object.finalize \
-  --entry-point generate_audio \
-  --memory 512MB \
-  --region asia-south1 \
-  --source cloud_functions/generate_audio
+*   **Framework:** Next.js 14+ (App Router)
+*   **Styling:** Tailwind CSS + Custom Design System (Ochre Theme)
+*   **Database:** PostgreSQL (Neon) via Prisma ORM
+*   **Auth:** Clerk (Custom Appearance)
+*   **Icons:** Lucide React + Custom SVG Assets
+*   **Deployment:** Vercel
 
-### generate_subtitles
-  gcloud functions deploy krishnasagar-generate-subtitles \
-  --runtime python39 \
-  --trigger-resource krishnasagar-videos-processed \
-  --trigger-event google.storage.object.finalize \
-  --entry-point generate_subtitles \
-  --memory 512MB \
-  --region asia-south1 \
-  --source cloud_functions/generate_subtitles
+## 📂 Project Structure
 
-### Build the Docker Image
-  gcloud builds submit --tag gcr.io/potent-airfoil-454402-e4/krishnasagar-video-merger cloud_run/merge_audio_video
+- **`web/`**: Main Next.js application.
+  - `src/app`: App Router pages and layouts.
+  - `src/components`: Reusable UI components (Atomic design).
+  - `src/lib`: Utilities for DB, Auth, and helpers.
+  - `src/actions`: Server Actions for data mutation.
+  - `src/context`: React Context for global state (Audio, Inquiry).
+- **`data/`**: Schemas and migration scripts for content generation.
 
-### Deploy the Service
+## 🚀 Getting Started
 
-gcloud run deploy krishnasagar-video-merger \
-  --image gcr.io/potent-airfoil-454402-e4/krishnasagar-video-merger \
-  --region asia-south1 \
-  --platform managed \
-  --allow-unauthenticated
+### Prerequisites
+- Node.js 18+
+- npm/pnpm
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Karrot-Tech/saileela-rahasya.git
+    cd saileela-rahasya/web
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Setup:**
+    Create a `.env` file in `web/` based on `.env.example`, populating keys for Clerk, Database URL, and Admin settings.
+
+4.  **Run Development Server:**
+    ```bash
+    npm run dev
+    ```
+    Open `http://localhost:3000` to view the app.
