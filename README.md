@@ -2,7 +2,7 @@
 
 **Saileela Rahasya** is a progressive web application dedicated to uncovering the hidden spiritual instructions ("Bodhakatha") within the miraculous stories ("Leela") of Sai Baba.
 
-This project, originally architected in `Full E2E Plan.md`, has evolved into a full-featured PWA that provides devotees with a structured, immersive platform to explore Sai Baba's teachings.
+This project, originally architected in `ARCHITECTURE.md`, has evolved into a full-featured PWA that provides devotees with a structured, immersive platform to explore Sai Baba's teachings.
 
 ---
 
@@ -70,7 +70,3 @@ The application is built around five core pillars of spiritual engagement:
     npm run dev
     ```
     Open `http://localhost:3000` to view the app.
-
-## 📜 Historic Context
-
-This repository (`krishnasagar`) originally began as a serverless video localization pipeline. While those cloud functions remain in the history, the primary focus has shifted entirely to the **Saileela Rahasya Web PWA**. The original architectural vision can be found in `Full E2E Plan.md`.
