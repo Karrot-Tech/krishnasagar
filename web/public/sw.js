@@ -6,6 +6,8 @@ const PRECACHE_ASSETS = [
     '/manifest.webmanifest',
     '/icon-192.png',
     '/icon-512.png',
+    '/splash.png',
+    '/saileela-logo.png',
     '/offline.html'
 ];
 
