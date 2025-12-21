@@ -6,11 +6,8 @@ import { usePathname } from 'next/navigation';
 import { useUser, SignInButton, SignOutButton, SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
 import { User, X, BookA, ShieldCheck, ArrowRight, LogOut, Settings, LayoutDashboard, History } from 'lucide-react';
 import { useInquiry } from '@/context/InquiryContext';
-
-const getAdminEmails = () => {
-    const emails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').replace(/['"]/g, '');
-    return emails.split(',').map(e => e.trim().toLowerCase()).filter(e => e !== '');
-};
+import { useAdmin } from '@/hooks/useAdmin';
+import { useRole } from '@/hooks/useRole';
 
 export default function UtilityMenu() {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,11 +15,8 @@ export default function UtilityMenu() {
     const { openUserProfile } = useClerk();
     const pathname = usePathname();
     const { unreadCount } = useInquiry();
-
-    const adminEmails = getAdminEmails();
-    const isAdmin = user?.emailAddresses.some(emailObj =>
-        adminEmails.includes(emailObj.emailAddress.toLowerCase())
-    );
+    const isAdmin = useAdmin();
+    const role = useRole();
 
     useEffect(() => {
         setIsOpen(false);
@@ -114,7 +108,7 @@ export default function UtilityMenu() {
                             <h2 className="text-xs font-black uppercase tracking-widest text-gray-900 leading-none">Om Sai Ram 🙏</h2>
                             <SignedIn>
                                 <p className="text-[10px] font-bold text-ochre uppercase tracking-tight mt-1.5 leading-none">
-                                    {user?.firstName || 'Devotee'}
+                                    {role === 'guest' ? 'Guest Visitor' : (user?.firstName || 'Devotee')}
                                 </p>
                             </SignedIn>
                         </div>

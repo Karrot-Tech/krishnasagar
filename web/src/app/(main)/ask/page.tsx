@@ -7,6 +7,7 @@ import { getTickets, createTicket, closeTicket, userReplyToTicket } from '@/acti
 import { useInquiry } from '@/context/InquiryContext';
 import { Notification, NotificationType } from '@/components/common/Notification';
 import { Modal } from '@/components/common/Modal';
+import { useRole } from '@/hooks/useRole';
 
 type TicketMessage = {
     id: string;
@@ -25,6 +26,7 @@ type Ticket = {
 
 export default function AskPage() {
     const { user, isLoaded, isSignedIn } = useUser();
+    const role = useRole();
     const {
         tickets,
         refreshTickets,
@@ -100,6 +102,7 @@ export default function AskPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         setIsSubmitting(true);
         try {
             const result = await createTicket(newTicketSubject, newTicketMessage);
@@ -178,7 +181,7 @@ export default function AskPage() {
     return (
         <div className="max-w-4xl mx-auto space-y-4 pt-4 px-4 pb-20 md:pb-10">
             {!isSignedIn ? (
-                /* GUEST VIEW */
+                /* VISITOR VIEW - NOT SIGNED IN */
                 <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 max-w-lg mx-auto w-full px-4 animate-in fade-in duration-700">
                     <div className="w-20 h-20 bg-ochre/5 rounded-full flex items-center justify-center text-ochre/30 mb-2 border border-ochre/5 shadow-inner">
                         <MessageCircleQuestion className="w-10 h-10" />
@@ -195,11 +198,11 @@ export default function AskPage() {
                         </button>
                     </SignInButton>
                     <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">
-                        * This is a secure & private channel.
+                        * This is a secure &amp; private channel.
                     </p>
                 </div>
             ) : (
-                /* SIGNED IN VIEW */
+                /* VERIFIED USER VIEW */
                 <>
                     {notification && (
                         <Notification
