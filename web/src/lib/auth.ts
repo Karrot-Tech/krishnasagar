@@ -4,6 +4,13 @@ export async function isAdmin() {
     const clerkUser = await currentUser();
     if (!clerkUser) return false;
 
+    // 1. Check Clerk Metadata (Preferred Dynamic Method)
+    if (clerkUser.publicMetadata?.role === 'admin') {
+        console.log(`[AdminCheck] User: ${clerkUser.id} | Status: GRANTED (Metadata)`);
+        return true;
+    }
+
+    // 2. Check Environment Variable (Legacy/Fallback Method)
     // Read from environment variable (comma-separated list)
     // Strip accidental quotes if they exist
     const adminEmailsStr = (process.env.ADMIN_EMAILS || '').replace(/['"]/g, '');

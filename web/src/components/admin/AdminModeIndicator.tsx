@@ -3,21 +3,13 @@
 import { useUser } from '@clerk/nextjs';
 import Link from 'next/link';
 import { ShieldCheck, ArrowRight } from 'lucide-react';
-
-const getAdminEmails = () => {
-    const emails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS || '').replace(/['"]/g, '');
-    return emails.split(',').map(e => e.trim().toLowerCase()).filter(e => e !== '');
-};
+import { useAdmin } from '@/hooks/useAdmin';
 
 export default function AdminModeIndicator() {
-    const { isLoaded, isSignedIn, user } = useUser();
+    const { isLoaded, isSignedIn } = useUser();
+    const isAdmin = useAdmin();
 
     if (!isLoaded || !isSignedIn) return null;
-
-    const adminEmails = getAdminEmails();
-    const isAdmin = user?.emailAddresses.some(emailObj =>
-        adminEmails.includes(emailObj.emailAddress.toLowerCase())
-    );
 
     if (!isAdmin) return null;
 
