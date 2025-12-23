@@ -66,6 +66,38 @@ export function AudioProvider({ children, allTracks }: { children: React.ReactNo
         };
     }, []);
 
+    // Media Session API Support
+    useEffect(() => {
+        if (!('mediaSession' in navigator) || !currentTrack) return;
+
+        navigator.mediaSession.metadata = new MediaMetadata({
+            title: currentTrack.title,
+            artist: currentTrack.singer === 'Unknown' ? 'Saileela Rahasya' : currentTrack.singer,
+            album: 'Saileela Rahasya Bhajans',
+            artwork: [
+                { src: '/saileela-logo.png', sizes: '96x96', type: 'image/png' },
+                { src: '/saileela-logo.png', sizes: '128x128', type: 'image/png' },
+                { src: '/saileela-logo.png', sizes: '192x192', type: 'image/png' },
+                { src: '/saileela-logo.png', sizes: '256x256', type: 'image/png' },
+                { src: '/saileela-logo.png', sizes: '384x384', type: 'image/png' },
+                { src: '/saileela-logo.png', sizes: '512x512', type: 'image/png' },
+            ]
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => togglePlay());
+        navigator.mediaSession.setActionHandler('pause', () => togglePlay());
+        navigator.mediaSession.setActionHandler('previoustrack', () => playPrev());
+        navigator.mediaSession.setActionHandler('nexttrack', () => playNext());
+
+        return () => {
+            navigator.mediaSession.setActionHandler('play', null);
+            navigator.mediaSession.setActionHandler('pause', null);
+            navigator.mediaSession.setActionHandler('previoustrack', null);
+            navigator.mediaSession.setActionHandler('nexttrack', null);
+        };
+    }, [currentTrack, isPlaying]); // Keep in sync with track and state
+
+
     const playTrack = (track: Track) => {
         if (audioRef.current) {
             setIsLoading(true); // Set loading immediately

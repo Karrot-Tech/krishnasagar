@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from 'react';
 import liveData from '@/data/live_videos.json';
 import VideoPlayer from '@/components/features/VideoPlayer';
-import { Radio } from 'lucide-react';
+import { Radio, Music } from 'lucide-react';
 import { useAudio } from '@/context/AudioContext';
 import { useRouter } from 'next/navigation';
 import { Modal } from '@/components/common/Modal';
@@ -55,18 +55,35 @@ export default function LivePage() {
                         Live Now
                     </div>
                     <div className="grid lg:grid-cols-3">
-                        <div className="lg:col-span-2">
-                            <VideoPlayer
-                                videoId={liveData.live_video.youtube_id}
-                                streamUrl={liveData.live_video.stream_url}
-                            />
+                        <div className="lg:col-span-2 aspect-video bg-gray-900 relative">
+                            {isPlaying && !hasCheckedAudio.current ? (
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-4">
+                                    <div className="p-3 bg-white/10 rounded-full">
+                                        <Music className="w-8 h-8 text-white/40" />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <p className="text-white font-bold text-sm text-balance">Audio is currently playing</p>
+                                        <p className="text-gray-400 text-xs text-balance">Stop music to experience the Live Darshan</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setShowAudioConfirm(true)}
+                                        className="bg-white text-black text-[10px] font-black uppercase tracking-widest px-6 py-2.5 rounded-xl hover:bg-gray-200 transition-all active:scale-95"
+                                    >
+                                        Allow Live Stream
+                                    </button>
+                                </div>
+                            ) : (
+                                <VideoPlayer
+                                    videoId={liveData.live_video.youtube_id}
+                                    streamUrl={liveData.live_video.stream_url}
+                                />
+                            )}
                         </div>
                         <div className="p-6 text-white space-y-4 flex flex-col justify-center">
                             <h2 className="text-2xl font-bold">{liveData.live_video.title}</h2>
                             <p className="text-gray-300 leading-relaxed text-sm">
                                 {liveData.live_video.description}
                             </p>
-
                         </div>
                     </div>
                 </div>
