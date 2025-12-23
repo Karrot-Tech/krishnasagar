@@ -7,11 +7,13 @@ import { Radio } from 'lucide-react';
 import { useAudio } from '@/context/AudioContext';
 import { useRouter } from 'next/navigation';
 import { Modal } from '@/components/common/Modal';
+import { VideoModal } from '@/components/common/VideoModal';
 
 export default function LivePage() {
     const { isPlaying, closePlayer } = useAudio();
     const router = useRouter();
     const [showAudioConfirm, setShowAudioConfirm] = React.useState(false);
+    const [selectedVideo, setSelectedVideo] = React.useState<{ id: string; title: string } | null>(null);
     // Use a ref to track if we've already checked on mount
     const hasCheckedAudio = useRef(false);
 
@@ -90,11 +92,26 @@ export default function LivePage() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {liveData.past_streams.map((video) => (
-                        <div key={video.id} className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition group">
-                            <div className="aspect-video bg-gray-100 relative">
-                                {/* Placeholder for actual thumbnail logic */}
-                                <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                                    <VideoPlayer videoId={video.youtube_id} />
+                        <div
+                            key={video.id}
+                            onClick={() => setSelectedVideo({ id: video.youtube_id, title: video.title })}
+                            className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition group cursor-pointer"
+                        >
+                            <div className="aspect-video bg-gray-100 relative overflow-hidden">
+                                {/* YouTube Thumbnail */}
+                                <img
+                                    src={`https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
+                                    alt={video.title}
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                />
+                                {/* Play Button Overlay */}
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition">
+                                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                        <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z" />
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                             <div className="p-4">
@@ -131,6 +148,16 @@ export default function LivePage() {
             >
                 Music is currently playing. Would you like to stop it to watch the live stream?
             </Modal>
+
+            {/* Video Modal for Past Streams */}
+            {selectedVideo && (
+                <VideoModal
+                    isOpen={!!selectedVideo}
+                    onClose={() => setSelectedVideo(null)}
+                    videoId={selectedVideo.id}
+                    title={selectedVideo.title}
+                />
+            )}
         </div>
     );
 }

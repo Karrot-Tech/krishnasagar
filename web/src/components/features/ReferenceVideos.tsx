@@ -35,9 +35,10 @@ export default function ReferenceVideos({ videos }: ReferenceVideosProps) {
                     >
                         <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden relative shadow-sm border border-gray-200">
                             <img
-                                src={`https://img.youtube.com/vi/${video.youtube_id}/mqdefault.jpg`}
+                                src={`https://img.youtube.com/vi/${video.youtube_id}/hqdefault.jpg`}
                                 alt="Video thumbnail"
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition">
                                 <PlayCircle className="w-8 h-8 text-white/90" />
