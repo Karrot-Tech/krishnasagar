@@ -4,9 +4,9 @@ import UtilityMenu from '@/components/layout/UtilityMenu';
 
 export default function Header() {
     return (
-        <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-[120] flex items-center justify-center px-4 shadow-sm md:fixed md:top-4 md:right-4 md:left-auto md:w-auto md:h-auto md:bg-transparent md:border-none md:shadow-none md:justify-end md:px-0 pointer-events-none">
-            <div className="max-w-7xl w-full flex items-center justify-between md:justify-end pointer-events-auto">
-                <Link href="/" className="flex items-center gap-3 md:hidden min-w-0 flex-shrink">
+        <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 z-[120] flex items-center justify-center px-4 shadow-sm lg:fixed lg:top-4 lg:right-4 lg:left-auto lg:w-auto lg:h-auto lg:bg-transparent lg:border-none lg:shadow-none lg:justify-end lg:px-0 pointer-events-none">
+            <div className="max-w-7xl w-full flex items-center justify-between lg:justify-end pointer-events-auto">
+                <Link href="/" className="flex items-center gap-3 lg:hidden min-w-0 flex-shrink">
                     <Image
                         src="/saileela-logo.png"
                         alt="Saileela Rahasya"

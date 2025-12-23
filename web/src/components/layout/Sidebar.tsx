@@ -19,7 +19,7 @@ export default function Sidebar() {
     const { unreadCount } = useInquiry();
 
     return (
-        <aside className="hidden md:flex flex-col w-64 fixed left-0 top-0 bottom-0 bg-white border-r border-gray-100 z-40">
+        <aside className="hidden lg:flex flex-col w-64 fixed left-0 top-0 bottom-0 bg-white border-r border-gray-100 z-40">
             <div className="h-16 flex items-center px-3 border-b border-gray-100">
                 <Link href="/" className="flex items-center gap-3">
                     <Image

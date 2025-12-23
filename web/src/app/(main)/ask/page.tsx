@@ -176,7 +176,7 @@ export default function AskPage() {
     });
 
     return (
-        <div className="max-w-4xl mx-auto space-y-4 pt-4 px-4 pb-20 md:pb-10">
+        <div className="max-w-4xl mx-auto space-y-4 pt-4 px-4 pb-20 lg:pb-10">
             {!isSignedIn ? (
                 /* GUEST VIEW */
                 <div className="flex flex-col items-center justify-center min-h-[60vh] text-center space-y-6 max-w-lg mx-auto w-full px-4 animate-in fade-in duration-700">
@@ -190,7 +190,7 @@ export default function AskPage() {
                         </p>
                     </div>
                     <SignInButton mode="modal">
-                        <button className="bg-ochre text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-gold transition-all shadow-xl shadow-ochre/20 w-full md:w-auto active:scale-95">
+                        <button className="bg-ochre text-white px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-gold transition-all shadow-xl shadow-ochre/20 w-full lg:w-auto active:scale-95">
                             Identify to Begin
                         </button>
                     </SignInButton>
@@ -231,7 +231,7 @@ export default function AskPage() {
                         <div className="flex flex-col space-y-8 animate-in fade-in duration-500">
                             {tickets.length === 0 ? (
                                 <div className="bg-white rounded-[2.5rem] shadow-xl shadow-ochre/5 border border-gray-100 overflow-hidden">
-                                    <div className="p-6 md:p-10 text-center space-y-4">
+                                    <div className="p-6 lg:p-10 text-center space-y-4">
                                         <div className="w-12 h-12 bg-ochre/5 rounded-2xl flex items-center justify-center mx-auto text-ochre shadow-inner">
                                             <Send className="w-5 h-5" />
                                         </div>
@@ -361,16 +361,16 @@ export default function AskPage() {
                                         )}
 
                                         <div className="flex items-center justify-between">
-                                            <div className="flex bg-gray-100 p-1.5 rounded-2xl w-full md:w-auto">
+                                            <div className="flex bg-gray-100 p-1.5 rounded-2xl w-full lg:w-auto">
                                                 <button
                                                     onClick={() => setActiveTab('open')}
-                                                    className={`flex-1 md:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'open' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
+                                                    className={`flex-1 lg:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'open' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                                                 >
                                                     Ongoing
                                                 </button>
                                                 <button
                                                     onClick={() => setActiveTab('closed')}
-                                                    className={`flex-1 md:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'closed' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
+                                                    className={`flex-1 lg:flex-none py-2 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'closed' ? 'bg-white text-ochre shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
                                                 >
                                                     Archived
                                                 </button>
@@ -399,7 +399,7 @@ export default function AskPage() {
                                                         <div key={ticket.id} className={`border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 ${isUnreadAnswered || isUnreadClosed ? 'bg-blue-50/40 border-blue-200 ring-4 ring-blue-50/50' : 'bg-white border-gray-100'}`}>
                                                             <div
                                                                 onClick={() => handleOpenTicket(ticket)}
-                                                                className={`p-4 md:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
+                                                                className={`p-4 lg:p-5 flex items-center justify-between cursor-pointer transition-colors hover:bg-gray-50/80 active:scale-[0.99] group`}
                                                             >
                                                                 <div className="flex items-center space-x-4 min-w-0 flex-1 relative">
                                                                     {isUnreadAnswered && (
@@ -417,7 +417,7 @@ export default function AskPage() {
                                                                         {ticket.status === 'CLOSED' ? <Archive className="w-5 h-5" /> : <MessageCircleQuestion className={`w-5 h-5 ${ticket.status === 'OPEN' && 'animate-pulse'}`} />}
                                                                     </div>
                                                                     <div className="min-w-0">
-                                                                        <h3 className={`text-sm md:text-base leading-tight truncate ${isUnreadAnswered || isUnreadClosed ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
+                                                                        <h3 className={`text-sm lg:text-base leading-tight truncate ${isUnreadAnswered || isUnreadClosed ? 'font-black text-gray-900' : 'font-bold text-gray-600'}`}>{ticket.subject}</h3>
                                                                         <div className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5 flex items-center space-x-2">
                                                                             <span className="bg-gray-100 px-1.5 py-0.5 rounded text-[8px]">#{ticket.id.slice(-6)}</span>
                                                                             <span className="opacity-30">•</span>
@@ -427,12 +427,12 @@ export default function AskPage() {
                                                                 </div>
                                                                 <div className="flex items-center space-x-3 ml-2 flex-none">
                                                                     {ticket.status === 'ANSWERED' && (
-                                                                        <span className={`hidden md:block px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border transition-all ${isUnreadAnswered ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                                                        <span className={`hidden lg:block px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border transition-all ${isUnreadAnswered ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
                                                                             {isUnreadAnswered ? 'New Guidance' : 'Read Guidance'}
                                                                         </span>
                                                                     )}
                                                                     {ticket.status === 'CLOSED' && (
-                                                                        <span className={`hidden md:block px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border transition-all ${isUnreadClosed ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                                                        <span className={`hidden lg:block px-2.5 py-1 rounded-lg text-[8px] font-black uppercase tracking-widest border transition-all ${isUnreadClosed ? 'bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-500/20' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
                                                                             {isUnreadClosed ? 'New Update' : 'Finished'}
                                                                         </span>
                                                                     )}
@@ -466,7 +466,7 @@ export default function AskPage() {
                         {/* Thread Content */}
                         <div
                             ref={scrollRef}
-                            className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 no-scrollbar bg-gray-50/50 scroll-smooth"
+                            className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4 no-scrollbar bg-gray-50/50 scroll-smooth"
                         >
                             {tickets.find(t => t.id === expandedTicketId)?.messages.map((msg: TicketMessage, idx: number) => (
                                 <div key={msg.id || idx} className={`flex flex-col ${msg.sender === 'USER' ? 'items-end' : 'items-start'}`}>
@@ -500,7 +500,7 @@ export default function AskPage() {
                         </div>
 
                         {tickets.find(t => t.id === expandedTicketId)?.status !== 'CLOSED' ? (
-                            <div className="p-4 md:p-6 bg-white border-t border-gray-100">
+                            <div className="p-4 lg:p-6 bg-white border-t border-gray-100">
                                 <textarea
                                     value={followUpText[expandedTicketId] || ''}
                                     onChange={(e) => setFollowUpText(prev => ({ ...prev, [expandedTicketId!]: e.target.value }))}
@@ -511,7 +511,7 @@ export default function AskPage() {
                                 <div className="flex items-center justify-between gap-3">
                                     <button
                                         onClick={() => setTicketToClose(expandedTicketId)}
-                                        className="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 hover:bg-red-50 px-3 md:px-4 py-2.5 rounded-xl transition-all active:scale-95 flex items-center group border border-transparent hover:border-red-100"
+                                        className="text-[9px] lg:text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-red-600 hover:bg-red-50 px-3 lg:px-4 py-2.5 rounded-xl transition-all active:scale-95 flex items-center group border border-transparent hover:border-red-100"
                                     >
                                         <Archive className="w-3 h-3 mr-1.5 md:mr-2 opacity-40 group-hover:opacity-100 transition-opacity" />
                                         Archive Inquiry
@@ -531,7 +531,7 @@ export default function AskPage() {
                                 </div>
                             </div>
                         ) : (
-                            <div className="p-4 md:p-6 bg-white border-t border-gray-50 flex justify-center items-center">
+                            <div className="p-4 lg:p-6 bg-white border-t border-gray-100 flex justify-center items-center">
                                 <div className="flex items-center space-x-2 text-gray-300">
                                     <CheckCircle2 className="w-4 h-4" />
                                     <span className="text-[10px] font-black uppercase tracking-[0.2em]">Inquiry Completed</span>

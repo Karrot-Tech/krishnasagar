@@ -18,7 +18,7 @@ export default function BottomNav() {
     const { unreadCount } = useInquiry();
 
     return (
-        <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 z-[120] md:hidden shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.05)]">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 z-[120] lg:hidden shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.05)]">
             <div className="flex justify-around items-center h-16 box-content pb-safe">
                 {NAV_ITEMS.map((item) => {
                     const Icon = item.icon;

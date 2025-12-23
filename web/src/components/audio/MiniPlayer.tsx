@@ -13,7 +13,7 @@ export default function MiniPlayer() {
     if (!currentTrack) return null;
 
     return (
-        <div className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom))] md:bottom-0 left-0 right-0 md:left-64 z-40 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div className="fixed bottom-[calc(4rem+env(safe-area-inset-bottom))] lg:bottom-0 left-0 right-0 lg:left-64 z-40 bg-white border-t border-gray-200 shadow-[0_-4px_12px_-2px_rgba(0,0,0,0.08)]">
             {/* Progress Bar */}
             <div className="h-1 w-full bg-gray-100 cursor-pointer">
                 <div
