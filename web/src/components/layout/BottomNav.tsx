@@ -18,8 +18,8 @@ export default function BottomNav() {
     const { unreadCount } = useInquiry();
 
     return (
-        <nav className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl border-t border-gray-100 z-[120] md:hidden">
-            <div className="flex justify-around items-center h-16 pb-safe">
+        <nav className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-gray-100 z-[120] md:hidden shadow-[0_-4px_12px_-4px_rgba(0,0,0,0.05)]">
+            <div className="flex justify-around items-center h-16 box-content pb-safe">
                 {NAV_ITEMS.map((item) => {
                     const Icon = item.icon;
                     const isActive = pathname === item.href || pathname.startsWith(item.href);
@@ -30,12 +30,12 @@ export default function BottomNav() {
                             key={item.href}
                             href={item.href}
                             prefetch={false}
-                            className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all select-none active:bg-gray-100/50 ${isActive ? 'text-ochre' : 'text-gray-400'
+                            className={`flex flex-col items-center justify-center w-full h-full space-y-1 relative transition-all select-none active:scale-95 ${isActive ? 'text-ochre' : 'text-gray-400'
                                 }`}
                             style={{ touchAction: 'manipulation' }}
                         >
                             {isActive && (
-                                <div className="absolute inset-x-2 inset-y-1 bg-ochre/5 rounded-xl animate-in fade-in zoom-in duration-300" />
+                                <div className="absolute left-1/2 -translate-x-1/2 w-[90%] max-w-[72px] inset-y-1.5 bg-ochre/10 rounded-2xl animate-in fade-in zoom-in duration-300" />
                             )}
                             <div className="relative pointer-events-none z-10">
                                 <Icon className={`w-5 h-5 transition-transform ${isActive ? 'scale-110 drop-shadow-sm' : 'scale-100'}`} />
@@ -45,7 +45,7 @@ export default function BottomNav() {
                                     </span>
                                 )}
                             </div>
-                            <span className="text-[10px] font-black uppercase tracking-tighter pointer-events-none z-10">{item.label}</span>
+                            <span className="text-[10px] font-black uppercase tracking-tight pointer-events-none z-10">{item.label}</span>
                         </Link>
                     );
                 })}
