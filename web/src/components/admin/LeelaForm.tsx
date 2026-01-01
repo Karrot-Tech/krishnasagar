@@ -20,13 +20,19 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
     const [formData, setFormData] = useState({
         id: leela?.id || 'new',
         title_english: leela?.title_english || '',
-        title_hindi: leela?.title_hindi || '',
-        chapter: leela?.chapter || '',
+        // title_hindi removed per new schema
+        // chapter removed per new schema
         youtube_id: leela?.youtube_id || '',
         description: leela?.description || '',
         keywords: leela?.keywords?.join(', ') || '',
         social_tags: leela?.social_tags?.join(', ') || '',
         orderId: leela?.orderId || 0,
+        // new fields
+        story: leela?.story || '',
+        doubt: leela?.doubt || '',
+        revelation: leela?.revelation || '',
+        scriptural_refs: leela?.scriptural_refs || '',
+        transcript: leela?.transcript || '',
     });
     const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('edit');
 
@@ -144,13 +150,7 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
                                 />
                             </div>
                             <div className="space-y-1.5">
-                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Title (Hindi)</label>
-                                <input
-                                    required
-                                    className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none font-serif text-base transition-all"
-                                    value={formData.title_hindi}
-                                    onChange={(e) => setFormData({ ...formData, title_hindi: e.target.value })}
-                                />
+
                             </div>
                         </div>
                         <div className="space-y-3">
@@ -201,6 +201,43 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
                                     <ReactMarkdown>{formData.description}</ReactMarkdown>
                                 </div>
                             )}
+                            {/* New fields */}
+                            <div className="mt-6 space-y-4">
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Story</label>
+                                <textarea
+                                    rows={6}
+                                    className="w-full px-3 py-2 border border-gray-100 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none"
+                                    value={formData.story}
+                                    onChange={(e) => setFormData({ ...formData, story: e.target.value })}
+                                />
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Doubt</label>
+                                <textarea
+                                    rows={4}
+                                    className="w-full px-3 py-2 border border-gray-100 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none"
+                                    value={formData.doubt}
+                                    onChange={(e) => setFormData({ ...formData, doubt: e.target.value })}
+                                />
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Revelation</label>
+                                <textarea
+                                    rows={4}
+                                    className="w-full px-3 py-2 border border-gray-100 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none"
+                                    value={formData.revelation}
+                                    onChange={(e) => setFormData({ ...formData, revelation: e.target.value })}
+                                />
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Scriptural References</label>
+                                <input
+                                    className="w-full px-3 py-2 border border-gray-100 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none"
+                                    value={formData.scriptural_refs}
+                                    onChange={(e) => setFormData({ ...formData, scriptural_refs: e.target.value })}
+                                />
+                                <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Transcript (optional)</label>
+                                <textarea
+                                    rows={4}
+                                    className="w-full px-3 py-2 border border-gray-100 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none"
+                                    value={formData.transcript}
+                                    onChange={(e) => setFormData({ ...formData, transcript: e.target.value })}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,12 +246,7 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
                     <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-gray-100 space-y-4">
                         <h2 className="text-base md:text-lg font-black text-gray-900 tracking-tight">Metadata</h2>
                         <div className="space-y-1.5">
-                            <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">Chapter</label>
-                            <input
-                                className="w-full px-3 py-2.5 md:p-2 border border-gray-100 bg-gray-50/50 rounded-xl focus:ring-2 focus:ring-ochre/20 focus:border-ochre outline-none text-base transition-all"
-                                value={formData.chapter}
-                                onChange={(e) => setFormData({ ...formData, chapter: e.target.value })}
-                            />
+
                         </div>
                         <div className="space-y-1.5">
                             <label className="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-widest">YouTube ID</label>
