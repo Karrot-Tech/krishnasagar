@@ -76,13 +76,13 @@ export default function AdminDashboard() {
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 md:space-y-12 animate-in fade-in duration-1000">
             {/* Header Content */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:pb-2">
+            <div className="space-y-4">
                 <div className="space-y-1">
                     <h1 className="text-2xl md:text-5xl font-black text-gray-900 tracking-tight leading-none">Admin Console</h1>
                     <p className="text-xs md:text-lg text-gray-500 font-serif italic opacity-70">"Service to humanity is service to God"</p>
                 </div>
                 {/* Ultra-Responsive Stats Grid */}
-                <div className="grid grid-cols-3 gap-2 w-full md:w-auto">
+                <div className="grid grid-cols-3 gap-2 w-full md:w-auto md:inline-grid">
                     {stats.map((stat: any, i: number) => (
                         <Link
                             key={i}
