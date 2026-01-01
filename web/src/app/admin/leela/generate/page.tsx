@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Sparkles, Loader2, Copy, Check, AlertCircle, Youtube } from 'lucide-react';
+import { Sparkles, Loader2, Copy, Check, AlertCircle, Youtube, Send } from 'lucide-react';
+import { saveLeela } from '@/actions/content';
+import { useRouter } from 'next/navigation';
 
 interface GeneratedContent {
     is_suitable?: boolean;
@@ -9,20 +11,32 @@ interface GeneratedContent {
     rejection_reason?: string;
     rejected?: boolean;
     reason?: string;
+    suggested_title?: string;
     story?: string;
     doubt?: string;
     revelation?: string;
     scriptural_refs?: string;
+    keywords?: string[];
+    social_tags?: string[];
 }
 
 export default function GenerateLeelaPage() {
+    const router = useRouter();
     const [youtubeId, setYoutubeId] = useState('');
     const [title, setTitle] = useState('');
     const [transcript, setTranscript] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isPublishing, setIsPublishing] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [content, setContent] = useState<GeneratedContent | null>(null);
     const [copied, setCopied] = useState(false);
+
+    // Editable fields
+    const [editableTitle, setEditableTitle] = useState('');
+    const [editableStory, setEditableStory] = useState('');
+    const [editableDoubt, setEditableDoubt] = useState('');
+    const [editableRevelation, setEditableRevelation] = useState('');
+    const [editableScripturalRefs, setEditableScripturalRefs] = useState('');
 
     const handleGenerate = async () => {
         if (!transcript.trim() || transcript.trim().length < 100) {
@@ -52,10 +66,49 @@ export default function GenerateLeelaPage() {
             }
 
             setContent(data);
+
+            // Set editable fields
+            if (!data.rejected) {
+                setEditableTitle(data.suggested_title || title || '');
+                setEditableStory(data.story || '');
+                setEditableDoubt(data.doubt || '');
+                setEditableRevelation(data.revelation || '');
+                setEditableScripturalRefs(data.scriptural_refs || '');
+            }
         } catch (err: any) {
             setError(err.message || 'An error occurred');
         } finally {
             setIsGenerating(false);
+        }
+    };
+
+    const handlePublish = async () => {
+        if (!content || content.rejected) return;
+
+        setIsPublishing(true);
+        setError(null);
+
+        try {
+            await saveLeela({
+                title_english: editableTitle,
+                youtube_id: youtubeId,
+                transcript: transcript,
+                story: editableStory,
+                doubt: editableDoubt || null,
+                revelation: editableRevelation || null,
+                scriptural_refs: editableScripturalRefs || null,
+                description: editableStory.substring(0, 200) + '...',
+                keywords: content.keywords || [],
+                social_tags: content.social_tags || [],
+                orderId: 0 // Will be set by admin later
+            });
+
+            // Redirect to admin leela list
+            router.push('/admin/leela');
+        } catch (err: any) {
+            setError(err.message || 'Failed to publish');
+        } finally {
+            setIsPublishing(false);
         }
     };
 
@@ -187,66 +240,104 @@ export default function GenerateLeelaPage() {
 
                     {/* Action Bar (Only for successful results) */}
                     {!content.rejected && (
-                        <div className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-xl text-green-700">
-                            <div className="flex items-center gap-2">
-                                <Check className="w-5 h-5" />
+                        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
+                            <div className="flex items-center gap-2 text-green-700 flex-1">
+                                <Check className="w-5 h-5 flex-shrink-0" />
                                 <div className="flex flex-col">
                                     <p className="font-semibold leading-none">Content generated successfully!</p>
-                                    <span className="text-[10px] font-bold uppercase tracking-widest mt-1 opacity-70"> Quality Score: {content.quality_score}/10</span>
+                                    <span className="text-[10px] font-bold uppercase tracking-widest mt-1 opacity-70">Quality Score: {content.quality_score}/10</span>
                                 </div>
                             </div>
-                            <button
-                                onClick={handleCopy}
-                                className="px-4 py-2 bg-green-100 text-green-800 font-medium rounded-lg hover:bg-green-200 transition-all flex items-center gap-2"
-                            >
-                                {copied ? (
-                                    <>
-                                        <Check className="w-4 h-4" />
-                                        Copied!
-                                    </>
-                                ) : (
-                                    <>
-                                        <Copy className="w-4 h-4" />
-                                        Copy JSON
-                                    </>
-                                )}
-                            </button>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleCopy}
+                                    className="px-4 py-2 bg-green-100 text-green-800 font-medium rounded-lg hover:bg-green-200 transition-all flex items-center gap-2"
+                                >
+                                    {copied ? (
+                                        <>
+                                            <Check className="w-4 h-4" />
+                                            Copied!
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy className="w-4 h-4" />
+                                            Copy JSON
+                                        </>
+                                    )}
+                                </button>
+                                <button
+                                    onClick={handlePublish}
+                                    disabled={isPublishing}
+                                    className="px-6 py-2 bg-ochre text-white font-bold rounded-lg hover:bg-ochre/90 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center gap-2"
+                                >
+                                    {isPublishing ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 animate-spin" />
+                                            Publishing...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="w-4 h-4" />
+                                            Publish
+                                        </>
+                                    )}
+                                </button>
+                            </div>
                         </div>
                     )}
 
-                    {/* The Story */}
-                    {!content.rejected && content.story && (
-                        <ContentSection
+                    {/* Editable Title */}
+                    {!content.rejected && (
+                        <EditableSection
+                            title="📝 Title"
+                            value={editableTitle}
+                            onChange={setEditableTitle}
+                            bgColor="bg-blue-50"
+                            rows={2}
+                        />
+                    )}
+
+                    {/* Editable Story */}
+                    {!content.rejected && editableStory && (
+                        <EditableSection
                             title="📖 The Story"
-                            content={content.story}
+                            value={editableStory}
+                            onChange={setEditableStory}
                             bgColor="bg-white"
+                            rows={10}
                         />
                     )}
 
-                    {/* The Doubt */}
-                    {!content.rejected && content.doubt && (
-                        <ContentSection
+                    {/* Editable Doubt */}
+                    {!content.rejected && editableDoubt && (
+                        <EditableSection
                             title="❓ The Conflict / Doubt"
-                            content={content.doubt}
+                            value={editableDoubt}
+                            onChange={setEditableDoubt}
                             bgColor="bg-orange-50"
+                            rows={6}
                         />
                     )}
 
-                    {/* The Revelation */}
-                    {!content.rejected && content.revelation && (
-                        <ContentSection
+                    {/* Editable Revelation */}
+                    {!content.rejected && editableRevelation && (
+                        <EditableSection
                             title="💡 The Revelation"
-                            content={content.revelation}
+                            value={editableRevelation}
+                            onChange={setEditableRevelation}
                             bgColor="bg-amber-50"
+                            rows={8}
                         />
                     )}
 
-                    {/* Scriptural References */}
-                    {!content.rejected && content.scriptural_refs && (
-                        <ContentSection
+                    {/* Editable Scriptural References */}
+                    {!content.rejected && editableScripturalRefs && (
+                        <EditableSection
                             title="📜 Scriptural References"
-                            content={content.scriptural_refs}
+                            value={editableScripturalRefs}
+                            onChange={setEditableScripturalRefs}
                             bgColor="bg-gray-50"
+                            rows={3}
                         />
                     )}
 
@@ -268,13 +359,28 @@ export default function GenerateLeelaPage() {
     );
 }
 
-function ContentSection({ title, content, bgColor }: { title: string; content: string; bgColor: string }) {
+function EditableSection({
+    title,
+    value,
+    onChange,
+    bgColor,
+    rows = 6
+}: {
+    title: string;
+    value: string;
+    onChange: (value: string) => void;
+    bgColor: string;
+    rows?: number;
+}) {
     return (
         <div className={`${bgColor} rounded-2xl border border-gray-100 p-6 space-y-3`}>
             <h2 className="text-xl font-bold text-gray-800">{title}</h2>
-            <div className="prose prose-ochre max-w-none text-gray-700 whitespace-pre-wrap">
-                {content}
-            </div>
+            <textarea
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                rows={rows}
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-ochre focus:border-ochre transition-all resize-y bg-white"
+            />
         </div>
     );
 }
