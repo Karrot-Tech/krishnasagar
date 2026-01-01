@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveLeela, deleteLeela } from '@/actions/content';
+import { useToast } from '@/context/ToastContext';
 import { Save, Trash2, ArrowLeft, Eye, Edit3, Bold, Italic, List, Heading3, Link as LinkIcon } from 'lucide-react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
@@ -14,6 +15,7 @@ interface LeelaFormProps {
 
 export default function LeelaForm({ leela }: LeelaFormProps) {
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         id: leela?.id || 'new',
@@ -76,7 +78,7 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
             router.refresh();
         } catch (error) {
             console.error('Failed to save:', error);
-            alert('Failed to save leela');
+            showToast('Failed to save leela', 'error');
         } finally {
             setLoading(false);
         }
@@ -91,7 +93,7 @@ export default function LeelaForm({ leela }: LeelaFormProps) {
             router.refresh();
         } catch (error) {
             console.error('Failed to delete:', error);
-            alert('Failed to delete leela');
+            showToast('Failed to delete leela', 'error');
         } finally {
             setLoading(false);
         }

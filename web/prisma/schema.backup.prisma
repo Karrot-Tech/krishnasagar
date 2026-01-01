@@ -46,11 +46,8 @@ model Leela {
   id            String   @id @default(cuid())
   orderId       Int      @default(0)
   title_english String
-  transcript    String?
-  story         String?
-  doubt         String?
-  revelation    String?
-  scriptural_refs String?
+  title_hindi   String
+  chapter       String?
   youtube_id    String?
   description   String
   keywords      String[]
@@ -59,7 +56,19 @@ model Leela {
   updatedAt     DateTime @updatedAt
 }
 
-
+model Bodhakatha {
+  id            String   @id @default(cuid())
+  orderId       Int      @default(0)
+  theme         String
+  title_english String
+  title_hindi   String
+  description   String
+  youtube_id    String?
+  keywords      String[]
+  social_tags   String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
 
 model Glossary {
   id            String   @id @default(cuid())

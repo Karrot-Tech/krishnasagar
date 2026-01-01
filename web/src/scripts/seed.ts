@@ -20,6 +20,12 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
     console.log('Starting seed...');
 
+    // Cleanup existing data
+    console.log('Cleaning up existing data...');
+    await prisma.leela.deleteMany({});
+    await prisma.glossary.deleteMany({});
+    console.log('Cleanup completed.');
+
     // Path to data
     const dataDir = path.join(process.cwd(), 'src/data');
 
@@ -31,8 +37,13 @@ async function main() {
             where: { id: item.id.toString() },
             update: {
                 title_english: item.title_english,
-                title_hindi: item.title_hindi,
-                chapter: item.chapter?.toString(),
+                // title_hindi removed
+                // chapter removed
+                transcript: item.transcript,
+                story: item.story,
+                doubt: item.doubt,
+                revelation: item.revelation,
+                scriptural_refs: item.scriptural_refs,
                 youtube_id: item.youtube_id,
                 description: item.description,
                 keywords: item.keywords || [],
@@ -42,8 +53,13 @@ async function main() {
             create: {
                 id: item.id.toString(),
                 title_english: item.title_english,
-                title_hindi: item.title_hindi,
-                chapter: item.chapter?.toString(),
+                // title_hindi removed
+                // chapter removed
+                transcript: item.transcript,
+                story: item.story,
+                doubt: item.doubt,
+                revelation: item.revelation,
+                scriptural_refs: item.scriptural_refs,
                 youtube_id: item.youtube_id,
                 description: item.description,
                 keywords: item.keywords || [],
@@ -53,35 +69,7 @@ async function main() {
         });
     }
 
-    // Seed Bodhakathas
-    const bodhakathas = JSON.parse(fs.readFileSync(path.join(dataDir, 'bodhakatha_articles.json'), 'utf-8'));
-    console.log(`Seeding ${bodhakathas.length} bodhakathas...`);
-    for (const item of bodhakathas) {
-        await prisma.bodhakatha.upsert({
-            where: { id: item.id.toString() },
-            update: {
-                theme: item.theme,
-                title_english: item.title_english,
-                title_hindi: item.title_hindi,
-                description: item.description,
-                youtube_id: item.youtube_id,
-                keywords: item.keywords || [],
-                social_tags: item.social_tags || [],
-                orderId: item.id,
-            },
-            create: {
-                id: item.id.toString(),
-                theme: item.theme,
-                title_english: item.title_english,
-                title_hindi: item.title_hindi,
-                description: item.description,
-                youtube_id: item.youtube_id,
-                keywords: item.keywords || [],
-                social_tags: item.social_tags || [],
-                orderId: item.id,
-            },
-        });
-    }
+
 
     // Seed Glossary
     const glossary = JSON.parse(fs.readFileSync(path.join(dataDir, 'glossary.json'), 'utf-8'));

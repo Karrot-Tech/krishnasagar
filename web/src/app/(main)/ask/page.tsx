@@ -5,7 +5,7 @@ import { MessageCircleQuestion, Send, ChevronDown, ChevronUp, Loader2, CheckCirc
 import { useUser, SignInButton } from '@clerk/nextjs';
 import { getTickets, createTicket, closeTicket, userReplyToTicket } from '@/actions/tickets';
 import { useInquiry } from '@/context/InquiryContext';
-import { Notification, NotificationType } from '@/components/common/Notification';
+import { useToast } from '@/context/ToastContext';
 import { Modal } from '@/components/common/Modal';
 
 type TicketMessage = {
@@ -41,7 +41,7 @@ export default function AskPage() {
     const [newTicketMessage, setNewTicketMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isNewQuestionExpanded, setIsNewQuestionExpanded] = useState(false);
-    const [notification, setNotification] = useState<{ message: string, type: 'success' | 'error' } | null>(null);
+    const { showToast } = useToast();
     const [ticketToClose, setTicketToClose] = useState<string | null>(null);
     const [followUpText, setFollowUpText] = useState<{ [key: string]: string }>({});
     const [isFollowUpSubmitting, setIsFollowUpSubmitting] = useState<{ [key: string]: boolean }>({});
@@ -93,7 +93,7 @@ export default function AskPage() {
             setTimeout(() => setArchiveSuccess(false), 4000);
             setExpandedTicketId(null);
         } else {
-            setNotification({ message: "Error closing inquiry: " + (result.error || "Unknown error"), type: 'error' });
+            showToast("Error closing inquiry: " + (result.error || "Unknown error"), 'error');
         }
         setTicketToClose(null);
     };
@@ -108,14 +108,14 @@ export default function AskPage() {
                 setNewTicketSubject('');
                 setNewTicketMessage('');
                 setIsNewQuestionExpanded(false);
-                setNotification({ message: "Inquiry submitted successfully! The team will review it soon.", type: 'success' });
+                showToast("Inquiry submitted successfully! The team will review it soon.", 'success');
                 refreshTickets();
             } else {
-                setNotification({ message: "Error: " + result.error, type: 'error' });
+                showToast("Error: " + result.error, 'error');
             }
         } catch (err) {
             console.error('Error submitting ticket:', err);
-            setNotification({ message: "An unexpected error occurred.", type: 'error' });
+            showToast("An unexpected error occurred.", 'error');
         }
         setIsSubmitting(false);
     };
@@ -137,11 +137,11 @@ export default function AskPage() {
                 }
                 refreshTickets();
             } else {
-                setNotification({ message: "Error: " + result.error, type: 'error' });
+                showToast("Error: " + result.error, 'error');
             }
         } catch (err) {
             console.error('Error sending follow-up:', err);
-            setNotification({ message: "An unexpected error occurred.", type: 'error' });
+            showToast("An unexpected error occurred.", 'error');
         }
         setIsFollowUpSubmitting(prev => ({ ...prev, [ticketId]: false }));
     };
@@ -201,14 +201,7 @@ export default function AskPage() {
             ) : (
                 /* SIGNED IN VIEW */
                 <>
-                    {notification && (
-                        <Notification
-                            message={notification.message}
-                            type={notification.type}
-                            duration={3000}
-                            onClose={() => setNotification(null)}
-                        />
-                    )}
+
                     {/* Header */}
                     <div className="flex items-center space-x-4 pb-2 border-b border-gray-100">
                         <div className="w-12 h-12 bg-ochre/10 rounded-full flex items-center justify-center text-ochre flex-none">

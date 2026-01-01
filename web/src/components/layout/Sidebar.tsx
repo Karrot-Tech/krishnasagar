@@ -9,7 +9,6 @@ import { APP_VERSION } from '@/config/version';
 
 const NAV_ITEMS = [
     { label: 'Leela', href: '/leela', icon: Footprints },
-    { label: 'Bodhakatha', href: '/bodhakatha', icon: Lightbulb },
     { label: 'Glossary', href: '/glossary', icon: BookA },
     { label: 'Bhajan/Audio', href: '/audio', icon: Music },
     { label: 'Spiritual Inquiry', href: '/ask', icon: MessageCircleQuestion },

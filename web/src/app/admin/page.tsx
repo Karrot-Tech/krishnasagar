@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Footprints, Lightbulb, Book, Ticket, Activity, MessageSquare, Loader2 } from 'lucide-react';
+import { Footprints, Book, Ticket, Activity, MessageSquare, Loader2 } from 'lucide-react';
 import { getAdminDashboardStats } from '@/actions/content';
 
 export default function AdminDashboard() {
@@ -34,14 +34,12 @@ export default function AdminDashboard() {
         );
     }
 
-    const { leelaCount, bodhakathaCount, glossaryCount, ticketCount, openTickets } = statsData;
-
+    const { leelaCount, glossaryCount, ticketCount, openTickets } = statsData;
     const stats = [
-        { label: 'Content', value: leelaCount + bodhakathaCount + glossaryCount, icon: Activity, color: 'text-blue-600', href: '/admin/leela' },
+        { label: 'Content', value: leelaCount + glossaryCount, icon: Activity, color: 'text-blue-600', href: '/admin/leela' },
         { label: 'Inquiries', value: ticketCount, icon: MessageSquare, color: 'text-purple-600', href: '/admin/tickets' },
         { label: 'Pending', value: openTickets, icon: Ticket, color: 'text-orange-600', href: '/admin/tickets' },
     ];
-
     const panels = [
         {
             title: 'Leela',
@@ -52,16 +50,6 @@ export default function AdminDashboard() {
             color: 'bg-blue-50',
             iconColor: 'text-blue-600',
             borderColor: 'hover:border-blue-200'
-        },
-        {
-            title: 'Bodhakatha',
-            count: bodhakathaCount,
-            description: 'Manage instructional stories and wisdom teachings.',
-            href: '/admin/bodhakatha',
-            icon: Lightbulb,
-            color: 'bg-yellow-50',
-            iconColor: 'text-yellow-600',
-            borderColor: 'hover:border-yellow-200'
         },
         {
             title: 'Glossary',
@@ -82,9 +70,18 @@ export default function AdminDashboard() {
             color: 'bg-purple-50',
             iconColor: 'text-purple-600',
             borderColor: 'hover:border-purple-200'
+        },
+        {
+            title: 'AI Generator',
+            count: '✨',
+            description: 'Generate structured Leela content from YouTube transcripts.',
+            href: '/admin/leela/generate',
+            icon: Activity,
+            color: 'bg-ochre/10',
+            iconColor: 'text-ochre',
+            borderColor: 'hover:border-ochre/30'
         }
     ];
-
     return (
         <div className="max-w-7xl mx-auto p-4 md:p-8 space-y-6 md:space-y-12 animate-in fade-in duration-1000">
             {/* Header Content */}
@@ -93,7 +90,6 @@ export default function AdminDashboard() {
                     <h1 className="text-2xl md:text-5xl font-black text-gray-900 tracking-tight leading-none">Admin Console</h1>
                     <p className="text-xs md:text-lg text-gray-500 font-serif italic opacity-70">"Service to humanity is service to God"</p>
                 </div>
-
                 {/* Ultra-Responsive Stats Grid */}
                 <div className="grid grid-cols-3 gap-2 w-full md:w-auto">
                     {stats.map((stat: any, i: number) => (
@@ -118,7 +114,6 @@ export default function AdminDashboard() {
                     ))}
                 </div>
             </div>
-
             {/* Main Action Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
                 {panels.map((panel: any) => (
@@ -131,7 +126,6 @@ export default function AdminDashboard() {
                             <div className={`w-10 h-10 md:w-14 md:h-14 ${panel.color} ${panel.iconColor} rounded-xl md:rounded-2xl flex items-center justify-center md:mb-6 flex-none group-hover:scale-110 transition-transform duration-500`}>
                                 <panel.icon className="w-5 h-5 md:w-7 md:h-7" />
                             </div>
-
                             <div className="flex-1 min-w-0 md:space-y-2 relative z-10">
                                 <div className="flex justify-between items-center">
                                     <h2 className="text-base md:text-xl font-bold text-gray-800 truncate">{panel.title}</h2>
@@ -144,13 +138,11 @@ export default function AdminDashboard() {
                                 </p>
                             </div>
                         </div>
-
                         {/* Decorative background element */}
                         <div className="absolute top-0 right-0 -mr-4 -mt-4 w-16 h-16 md:w-24 md:h-24 bg-gray-50 rounded-full opacity-50 md:group-hover:scale-150 transition-transform duration-700" />
                     </Link>
                 ))}
             </div>
-
         </div>
     );
 }

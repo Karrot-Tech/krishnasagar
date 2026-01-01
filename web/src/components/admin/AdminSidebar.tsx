@@ -22,7 +22,6 @@ import { getOpenTicketsCount } from '@/actions/tickets';
 const ADMIN_NAV = [
     { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { label: 'Leela Stories', href: '/admin/leela', icon: Footprints },
-    { label: 'Bodhakatha', href: '/admin/bodhakatha', icon: Lightbulb },
     { label: 'Glossary', href: '/admin/glossary', icon: Book },
     { label: 'Seeker Inquiries', href: '/admin/tickets', icon: Ticket, isTickets: true },
 ];

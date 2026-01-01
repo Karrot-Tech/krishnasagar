@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { getAllTickets, replyToTicket, closeTicket, getTicketStats } from '@/actions/tickets';
 import { MessageCircle, Send, CheckCircle2, User, Loader2 } from 'lucide-react';
 import { Modal } from '@/components/common/Modal';
-import { Notification, NotificationType } from '@/components/common/Notification';
+import { useToast } from '@/context/ToastContext';
 
 type TicketMessage = {
     sender: 'USER' | 'ADMIN';
@@ -40,7 +40,7 @@ export default function AdminTicketsPage() {
     const [isSubmitting, setIsSubmitting] = useState<{ [key: string]: boolean }>({});
 
     // UI Feedback State
-    const [notification, setNotification] = useState<{ message: string; type: NotificationType } | null>(null);
+    const { showToast } = useToast();
     const [confirmCloseId, setConfirmCloseId] = useState<string | null>(null);
     const [postReplyActionId, setPostReplyActionId] = useState<string | null>(null);
 
@@ -92,7 +92,7 @@ export default function AdminTicketsPage() {
             fetchTickets(1, true);
             fetchStats();
         } else {
-            setNotification({ message: result.error || "Error sending guidance", type: 'error' });
+            showToast(result.error || "Error sending guidance", 'error');
         }
         setIsSubmitting(prev => ({ ...prev, [ticketId]: false }));
     };
@@ -101,11 +101,11 @@ export default function AdminTicketsPage() {
         setConfirmCloseId(null);
         const result = await closeTicket(ticketId);
         if (result.success) {
-            setNotification({ message: "Inquiry closed successfully", type: 'success' });
+            showToast("Inquiry closed successfully", 'success');
             fetchTickets(1, true);
             fetchStats();
         } else {
-            setNotification({ message: "Error closing inquiry", type: 'error' });
+            showToast("Error closing inquiry", 'error');
         }
     };
 
@@ -355,14 +355,7 @@ export default function AdminTicketsPage() {
                 </div>
             </Modal>
 
-            {notification && (
-                <Notification
-                    message={notification.message}
-                    type={notification.type}
-                    onClose={() => setNotification(null)}
-                    duration={3000}
-                />
-            )}
+
         </div>
     );
 }

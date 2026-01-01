@@ -118,15 +118,65 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
                 <article className="prose prose-ochre max-w-none bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
                     <div className="mb-6 border-b border-gray-100 pb-4">
                         <h1 className="text-xl md:text-3xl font-bold text-gray-800 mb-2">{article.title_english}</h1>
-                        <h2 className="text-lg md:text-2xl text-ochre font-serif">{article.title_hindi}</h2>
                     </div>
 
-                    <div className="mt-8">
-                        <ChapterTextViewer text={dummyText} />
+                    <div className="space-y-12">
+                        {/* The Story */}
+                        {article.story && (
+                            <section>
+                                <h2 className="text-2xl font-serif text-ochre mb-4">The Leela</h2>
+                                <ChapterTextViewer text={article.story} />
+                            </section>
+                        )}
+
+                        {/* The Doubt */}
+                        {article.doubt && (
+                            <section className="bg-orange-50/50 p-6 rounded-xl border-l-4 border-orange-200">
+                                <h2 className="text-xl font-serif text-gray-800 mb-3 flex items-center gap-2">
+                                    <span className="text-2xl">?</span> The Conflict / Doubt
+                                </h2>
+                                <ChapterTextViewer text={article.doubt} />
+                            </section>
+                        )}
+
+                        {/* The Revelation */}
+                        {article.revelation && (
+                            <section>
+                                <h2 className="text-2xl font-serif text-ochre mb-4">The Revelation</h2>
+                                <div className="prose-h4:text-lg prose-h4:font-semibold prose-h4:text-gray-800 prose-ul:list-disc prose-li:my-1">
+                                    <ChapterTextViewer text={article.revelation} />
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Scriptural References */}
+                        {article.scriptural_refs && (
+                            <section className="bg-gray-50 p-6 rounded-xl text-sm text-gray-600">
+                                <h3 className="font-semibold text-gray-900 mb-2 uppercase tracking-wide">Scriptural References</h3>
+                                <ChapterTextViewer text={article.scriptural_refs} />
+                            </section>
+                        )}
+
+                        {/* Transcript (Collapsible) */}
+                        {article.transcript && (
+                            <details className="group mt-8">
+                                <summary className="cursor-pointer list-none flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-lg">📜</span>
+                                        <span className="font-semibold text-gray-700">View Original Transcript</span>
+                                    </div>
+                                    <svg className="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </summary>
+                                <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-96 overflow-y-auto text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
+                                    {article.transcript}
+                                </div>
+                            </details>
+                        )}
                     </div>
 
-                    {/* Mobile Only: Reference Videos inside card */}
-                    <div className="lg:hidden mt-8 pt-6 border-t border-gray-100">
+                    <div className="mt-8 pt-6 border-t border-gray-100 lg:hidden">
                         <ReferenceVideos videos={videos} />
                     </div>
                 </article>

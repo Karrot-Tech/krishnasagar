@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         default: "Saileela Rahasya",
         template: "%s | Saileela Rahasya",
     },
-    description: "Unveil the secret meanings behind Shirdi Sai Baba's divine plays. Explore the Saileela Rahasya through authentic Leelas, Bodhakathas, and curated spiritual guidance from the Saileela Rahasya team.",
+    description: "Unveil the secret meanings behind Shirdi Sai Baba's divine plays. Explore the Saileela Rahasya through authentic Leelas and curated spiritual guidance from the Saileela Rahasya team.",
     keywords: ["Sai Baba", "Shirdi Sai Baba", "Saileela Rahasya", "Spiritual Guidance", "Sai Satcharitra", "Bhajans"],
     authors: [{ name: "Saileela Rahasya" }],
     openGraph: {

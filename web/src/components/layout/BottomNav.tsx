@@ -7,7 +7,6 @@ import { useInquiry } from '@/context/InquiryContext';
 
 const NAV_ITEMS = [
     { label: 'Leela', href: '/leela', icon: Footprints },
-    { label: 'Bodhakatha', href: '/bodhakatha', icon: Lightbulb },
     { label: 'Glossary', href: '/glossary', icon: BookA },
     { label: 'Audio', href: '/audio', icon: Music },
     { label: 'Inquiry', href: '/ask', icon: MessageCircleQuestion },

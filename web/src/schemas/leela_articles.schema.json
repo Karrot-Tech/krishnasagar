@@ -12,13 +12,9 @@
                 "type": "string",
                 "description": "Title in English"
             },
-            "title_hindi": {
+            "transcript": {
                 "type": "string",
-                "description": "Title in Hindi"
-            },
-            "chapter": {
-                "type": "string",
-                "description": "Related Chapter Number or Name (e.g., '1' or 'Chapter 1')"
+                "description": "Full raw transcript of the video"
             },
             "youtube_id": {
                 "type": "string",
@@ -26,7 +22,23 @@
             },
             "description": {
                 "type": "string",
-                "description": "A detailed article explanation of the core teaching or story (Markdown supported)"
+                "description": "Legacy short description or summary"
+            },
+            "story": {
+                "type": "string",
+                "description": "The Leela (The Story) - Markdown supported"
+            },
+            "doubt": {
+                "type": "string",
+                "description": "The Conflict/Doubt - Markdown supported"
+            },
+            "revelation": {
+                "type": "string",
+                "description": "The Revelation (KrishnaJi's Reasoning) - Markdown supported"
+            },
+            "scriptural_refs": {
+                "type": "string",
+                "description": "Scriptural References - Markdown supported"
             },
             "keywords": {
                 "type": "array",
@@ -46,8 +58,6 @@
         "required": [
             "id",
             "title_english",
-            "title_hindi",
-            "chapter",
             "youtube_id",
             "description"
         ]

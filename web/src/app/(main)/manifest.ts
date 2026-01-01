@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
         id: '/',
         name: 'Saileela Rahasya',
         short_name: 'Saileela Rahasya',
-        description: "Discover the secret plays and profound teachings of Shirdi Sai Baba through recorded Leelas, Bodhakathas, and spiritual guidance.",
+        description: "Discover the secret plays and profound teachings of Shirdi Sai Baba through recorded Leelas and spiritual guidance.",
         start_url: '/',
         display: 'standalone',
         display_override: ['window-controls-overlay', 'standalone', 'minimal-ui'],

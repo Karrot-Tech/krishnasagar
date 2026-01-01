@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { saveGlossary, deleteGlossary } from '@/actions/content';
+import { useToast } from '@/context/ToastContext';
 import { Save, ArrowLeft } from 'lucide-react';
 import DeleteIconButton from '@/components/admin/DeleteIconButton';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ interface GlossaryFormProps {
 
 export default function GlossaryForm({ glossary }: GlossaryFormProps) {
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         id: glossary?.id || 'new',
@@ -32,7 +34,7 @@ export default function GlossaryForm({ glossary }: GlossaryFormProps) {
             router.refresh();
         } catch (error) {
             console.error('Failed to save:', error);
-            alert('Failed to save glossary term');
+            showToast('Failed to save glossary term', 'error');
         } finally {
             setLoading(false);
         }

@@ -1,18 +1,20 @@
 
 'use client';
 
-import { deleteLeela, deleteBodhakatha, deleteGlossary } from '@/actions/content';
+import { deleteLeela, deleteGlossary } from '@/actions/content';
+import { useToast } from '@/context/ToastContext';
 import { useRouter } from 'next/navigation';
 import { Trash2 } from 'lucide-react';
 import { useState, useTransition } from 'react';
 
 interface DeleteIconButtonProps {
     id: string;
-    type: 'leela' | 'bodhakatha' | 'glossary';
+    type: 'leela' | 'glossary';
 }
 
 export default function DeleteIconButton({ id, type }: DeleteIconButtonProps) {
     const router = useRouter();
+    const { showToast } = useToast();
     const [isPending, startTransition] = useTransition();
 
     const handleDelete = async (e: React.MouseEvent) => {
@@ -24,7 +26,6 @@ export default function DeleteIconButton({ id, type }: DeleteIconButtonProps) {
         startTransition(async () => {
             try {
                 if (type === 'leela') await deleteLeela(id);
-                else if (type === 'bodhakatha') await deleteBodhakatha(id);
                 else if (type === 'glossary') await deleteGlossary(id);
 
                 router.refresh();
@@ -34,7 +35,7 @@ export default function DeleteIconButton({ id, type }: DeleteIconButtonProps) {
                 }
             } catch (error) {
                 console.error('Failed to delete:', error);
-                alert('Failed to delete item. Please check your connection and try again.');
+                showToast('Failed to delete item. Please check your connection and try again.', 'error');
             }
         });
     };

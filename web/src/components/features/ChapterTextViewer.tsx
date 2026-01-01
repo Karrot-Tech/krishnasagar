@@ -37,6 +37,11 @@ export default function ChapterTextViewer({ text }: { text: string }) {
         h1: ({ children }: any) => <h1 className="text-3xl font-bold mb-4">{children}</h1>,
         h2: ({ children }: any) => <h2 className="text-2xl font-bold mb-3">{children}</h2>,
         h3: ({ children }: any) => <h3 className="text-xl font-bold mb-2 text-gray-700">{children}</h3>,
+        blockquote: ({ children }: any) => (
+            <blockquote className="border-l-4 border-ochre pl-4 py-2 my-4 bg-gray-50 italic text-gray-700 rounded-r-lg">
+                {children}
+            </blockquote>
+        ),
     };
 
     return (

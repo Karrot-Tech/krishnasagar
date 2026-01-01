@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import leelaArticles from '@/data/leela_articles.json';
-import bodhakathaArticles from '@/data/bodhakatha_articles.json';
+
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://saileelarahasya.com';
@@ -12,17 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }));
 
-    const bodhakathaUrls = bodhakathaArticles.map((article) => ({
-        url: `${baseUrl}/bodhakatha/${article.id}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.8,
-    }));
+
 
     const staticUrls = [
         '',
         '/leela',
-        '/bodhakatha',
+
         '/audio',
         '/live',
         '/glossary',
@@ -34,5 +29,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: route === '' ? 1.0 : 0.9,
     }));
 
-    return [...staticUrls, ...leelaUrls, ...bodhakathaUrls];
+    return [...staticUrls, ...leelaUrls];
 }
