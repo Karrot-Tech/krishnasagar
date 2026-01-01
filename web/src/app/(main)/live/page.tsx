@@ -10,7 +10,7 @@ import { Modal } from '@/components/common/Modal';
 import { VideoModal } from '@/components/common/VideoModal';
 
 export default function LivePage() {
-    const { isPlaying, closePlayer } = useAudio();
+    const { isPlaying, togglePlay } = useAudio();
     const router = useRouter();
     const [showAudioConfirm, setShowAudioConfirm] = React.useState(false);
     const [selectedVideo, setSelectedVideo] = React.useState<{ id: string; title: string } | null>(null);
@@ -32,7 +32,7 @@ export default function LivePage() {
     }, [isPlaying]);
 
     const handleConfirmAudioStop = () => {
-        closePlayer();
+        togglePlay();
         setShowAudioConfirm(false);
     };
 
@@ -70,7 +70,7 @@ export default function LivePage() {
                                     </div>
                                     <div className="space-y-1">
                                         <p className="text-white font-bold text-sm text-balance">Audio is currently playing</p>
-                                        <p className="text-gray-400 text-xs text-balance">Stop music to experience the Live Darshan</p>
+                                        <p className="text-gray-400 text-xs text-balance">Pause music to experience the Live Darshan</p>
                                     </div>
                                     <button
                                         onClick={() => setShowAudioConfirm(true)}
@@ -152,7 +152,7 @@ export default function LivePage() {
             <Modal
                 isOpen={showAudioConfirm}
                 onClose={handleCancelAudioStop}
-                title="Stop Music?"
+                title="Pause Music?"
                 actions={
                     <>
                         <button
@@ -165,12 +165,12 @@ export default function LivePage() {
                             onClick={handleConfirmAudioStop}
                             className="w-full py-3 rounded-xl bg-ochre text-white font-bold hover:bg-orange-700 transition shadow-lg"
                         >
-                            Yes, Stop Music
+                            Yes, Pause Music
                         </button>
                     </>
                 }
             >
-                Music is currently playing. Would you like to stop it to watch the live stream?
+                Music is currently playing. Would you like to pause it to watch the live stream?
             </Modal>
 
             {/* Video Modal for Past Streams */}

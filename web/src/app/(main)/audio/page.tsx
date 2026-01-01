@@ -4,6 +4,7 @@ import { useState } from 'react';
 import audioTracks from '@/data/audio_tracks.json';
 import { useAudio } from '@/context/AudioContext';
 import { Play, Pause, Music, Loader2 } from 'lucide-react';
+import CategoryFilter from '@/components/audio/CategoryFilter';
 
 export default function AudioPage() {
     const { playTrack, currentTrack, isPlaying, togglePlay, isLoading } = useAudio();
@@ -50,55 +51,14 @@ export default function AudioPage() {
                 </div>
             </div>
 
-            {/* Mobile Category Filters (Wrapped Layout) */}
-            <div className="md:hidden px-6">
-                <div className="flex flex-wrap gap-2">
-                    {mobileCategories.map((category) => {
-                        const count = category === 'All' ? audioTracks.length : categoryCounts[category];
-                        const isActive = selectedCategory === category;
-
-                        return (
-                            <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border flex items-center space-x-2 ${isActive
-                                    ? 'bg-ochre text-white border-ochre shadow-md transform scale-105'
-                                    : 'bg-white text-gray-600 border-gray-200 hover:border-ochre/50 hover:bg-orange-50'
-                                    }`}
-                            >
-                                <span>{category}</span>
-                                <span className={`text-xs ${isActive ? 'text-white/80' : 'text-gray-400'}`}>
-                                    {count}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
-
-            {/* Desktop Category Filters (All) */}
-            <div className="hidden md:block overflow-x-auto pb-2 scrollbar-hide px-4">
-                <div className="flex flex-wrap gap-2">
-                    {desktopCategories.map((category) => {
-                        const count = category === 'All' ? audioTracks.length : categoryCounts[category];
-                        return (
-                            <button
-                                key={category}
-                                onClick={() => setSelectedCategory(category)}
-                                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 border flex items-center space-x-2 ${selectedCategory === category
-                                    ? 'bg-ochre text-white border-ochre shadow-md transform scale-105'
-                                    : 'bg-white text-gray-600 border-gray-200 hover:border-ochre/50 hover:bg-orange-50'
-                                    }`}
-                            >
-                                <span>{category}</span>
-                                <span className={`text-xs ${selectedCategory === category ? 'text-white/80' : 'text-gray-400'}`}>
-                                    {count}
-                                </span>
-                            </button>
-                        );
-                    })}
-                </div>
-            </div>
+            {/* Category Filters */}
+            <CategoryFilter
+                categories={desktopCategories}
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+                counts={categoryCounts}
+                totalCount={audioTracks.length}
+            />
 
             <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden mx-4">
                 {filteredTracks.length > 0 ? (
