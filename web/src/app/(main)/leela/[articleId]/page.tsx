@@ -167,24 +167,6 @@ export default async function LeelaDetailPage({ params }: { params: Promise<{ ar
                                 <ChapterTextViewer text={article.scriptural_refs} />
                             </section>
                         )}
-
-                        {/* Transcript (Collapsible) */}
-                        {article.transcript && (
-                            <details className="group mt-8">
-                                <summary className="cursor-pointer list-none flex items-center justify-between p-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-lg">📜</span>
-                                        <span className="font-semibold text-gray-700">View Original Transcript</span>
-                                    </div>
-                                    <svg className="w-5 h-5 text-gray-500 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </summary>
-                                <div className="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 max-h-96 overflow-y-auto text-sm text-gray-600 leading-relaxed whitespace-pre-wrap">
-                                    {article.transcript}
-                                </div>
-                            </details>
-                        )}
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-gray-100 lg:hidden">
