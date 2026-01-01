@@ -22,7 +22,7 @@ export default function ReferenceVideos({ videos }: ReferenceVideosProps) {
         <div className="w-full">
             <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider flex items-center mb-4">
                 <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                Reference Videos
+                Watch the Discourse
             </h3>
 
             {/* Mobile View: Horizontal Thumbnails */}
